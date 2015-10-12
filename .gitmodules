@@ -1,6 +1,3 @@
 [submodule "automation_library"]
 	path = automation_library
 	url = git@bitbucket.org:fordarnett/automation_library.git
-[submodule "awe_framework_automation"]
-	path = awe_framework_automation
-	url = git@bitbucket.org:fordarnett/awe_framework_automation.git
