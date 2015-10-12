@@ -2,7 +2,6 @@
  * Created by ford.arnett on 10/2/15.
  */
 
-import domod.CreditCard;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
@@ -11,11 +10,6 @@ import java.util.concurrent.TimeUnit;
 
 import config.AppDefaults;
 import operations.AutomationOperations;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.net.URL;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -53,24 +47,23 @@ public class AppiumMain{
     @BeforeClass
     public void setUp() throws Exception {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("appium-version", "1.0");
-        capabilities.setCapability("platformName", "Android");
-        capabilities.setCapability("platformVersion", "4.4");
-        capabilities.setCapability("deviceName", "Galaxy Note Edge ");
-        capabilities.setCapability("name", "Automation tests " + date);
-        //String userDir = System.getProperty("user.dir");
+        capabilities.setCapability("app", AppDefaults.apkLocation);
+        capabilities.setCapability("appium-version", AppDefaults.appiumVersion);
+        capabilities.setCapability("platformName", AppDefaults.platformName);
+        capabilities.setCapability("platformVersion", AppDefaults.platformVersion);
+        capabilities.setCapability("deviceName", AppDefaults.deviceName);
+        capabilities.setCapability("name", AppDefaults.name + date);
 
         URL serverAddress;
-        //String apkPath = System.getProperty("apkPath");
 
-        capabilities.setCapability("app", AppDefaults.APK_LOCATION);
+
         serverAddress = new URL("http://127.0.0.1:4723/wd/hub");
         driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities);
 
 
         sessionId = driverWrapper.getSessionId().toString();
 
-        driverWrapper.setImplicitWait(AppDefaults.GLOBAL_WAIT, TimeUnit.SECONDS);
+        driverWrapper.setImplicitWait(AppDefaults.globalWait, TimeUnit.SECONDS);
 
         initAutomationOperations();
 
@@ -81,7 +74,9 @@ public class AppiumMain{
         AutomationOperations automationOperations = AutomationOperations.instance();
         automationOperations.userOp.init(driverWrapper);
         automationOperations.navOp.init(driverWrapper);
+        automationOperations.config.initConfigVariables();
     }
+
 
     /** Run after each test **/
     @AfterClass

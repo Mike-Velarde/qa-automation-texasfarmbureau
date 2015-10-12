@@ -1,6 +1,7 @@
 package operations;
 
 
+import config.AutomationConfigurations;
 import operations.UserOperations;
 import operations.navops.NavigationOperations;
 
@@ -28,5 +29,6 @@ public class AutomationOperations {
 
     public UserOperations userOp = new UserOperations();
     public NavigationOperations navOp = new NavigationOperations();
+    public AutomationConfigurations config = new AutomationConfigurations();
 
 }

@@ -17,17 +17,12 @@ import webDriver.WebDriverWrapper;
  */
 public class NavigationOperations implements AutomationOperationsListener {
     WebDriverWrapper driverWrapper;
-
+    ErrorHandler
     @Override
     public void init(WebDriverWrapper driverWrapper) {
         this.driverWrapper = driverWrapper;
 
         //init nav classes here
-    }
-
-    protected void navigateByIDMulti(String id, int which){
-        driverWrapper.driverWait.until(ExpectedConditions.visibilityOf(driverWrapper.element(By.id(id))));
-        driverWrapper.elements(By.id(id)).get(which).click();
     }
 
 }
