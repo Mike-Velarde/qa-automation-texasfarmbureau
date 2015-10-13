@@ -1,23 +1,22 @@
-/**
+package main; /**
  * Created by ford.arnett on 10/2/15.
  */
 
+import com.bottlerocket.webdriver.WebDriverWrapperAndroid;
+import config.AppDefaults;
+import operations.AutomationOperations;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 
 import java.net.URL;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import config.AppDefaults;
-import operations.AutomationOperations;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import webDriver.WebDriverWrapperAndroid;
 
 public class AppiumMain{
     protected WebDriverWrapperAndroid driverWrapper;
-
 
 /*    @Rule
     public TestRule printTests = new TestWatcher() {
@@ -41,8 +40,6 @@ public class AppiumMain{
     /** Keep the same date prefix to identify job sets. **/
     private static Date date = new Date();
 
-
-
     /** Run before each test **/
     @BeforeClass
     public void setUp() throws Exception {
@@ -56,9 +53,8 @@ public class AppiumMain{
 
         URL serverAddress;
 
-
         serverAddress = new URL("http://127.0.0.1:4723/wd/hub");
-        driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities);
+        driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities, AppDefaults.globalWait);
 
 
         sessionId = driverWrapper.getSessionId().toString();
