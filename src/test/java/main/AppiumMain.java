@@ -50,6 +50,7 @@ public class AppiumMain{
         capabilities.setCapability("platformVersion", AppDefaults.platformVersion);
         capabilities.setCapability("deviceName", AppDefaults.deviceName);
         capabilities.setCapability("name", AppDefaults.name + date);
+        capabilities.setCapability("noReset", AppDefaults.resetApp);
 
         URL serverAddress;
 

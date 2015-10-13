@@ -15,6 +15,7 @@ public class AppDefaults {
     public static String platformVersion = "4.4";
     public static String deviceName = "Galaxy Note Edge";
     public static String name = "Automation Tests";
+    public static boolean resetApp = false;
 
     //used to initiate driver
     public static String appiumURL = "http://127.0.0.1:4723/wd/hub";

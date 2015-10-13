@@ -1,0 +1,10 @@
+*.xml
+build/classes/main/config/AppDefaults.class
+build/classes/main/config/AutomationConfigurations.class
+build/classes/main/config/ResourceLocator.class
+build/classes/main/domod/UserBank$User.class
+build/classes/main/domod/UserBank.class
+build/classes/main/operations/AutomationOperations.class
+build/classes/main/operations/AutomationOperationsListener.class
+build/classes/main/operations/UserOperations.class
+build/classes/main/operations/navops/NavigationOperations.class

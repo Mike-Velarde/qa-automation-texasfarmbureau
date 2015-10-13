@@ -1,6 +1,7 @@
 package operations;
 
-import webDriver.WebDriverWrapper;
+
+import com.bottlerocket.webdriver.WebDriverWrapper;
 
 /**
  * Created by ford.arnett on 9/10/15.
