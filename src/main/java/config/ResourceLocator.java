@@ -1,5 +1,8 @@
 package config;
 
+import operations.AutomationOperations;
+import org.openqa.selenium.By;
+
 /**
  * Probably needs a more accurate name
  *
@@ -8,150 +11,272 @@ package config;
  * Created by ford.arnett on 8/31/15.
  */
 public class ResourceLocator {
+    public static ResourceLocator device = AutomationOperations.instance().deviceAutomationComponents.getResourceLocator();
+
+    //This doesn't really have a home right now, so it lives here for now
+    //Seconds = Time * 1000
+    public static final int AWE_INITIAL_ADS_WAIT_TIME = 15000;
 
     /**
-    * Drawer IDs
+    * AWE brands
     */
-    public static final String DRAWER_HOME_TEXT = "Home";
-    public static final String DRAWER_FIND_TEXT = "Find";
-    public static final String DRAWER_MENU_TEXT = "Menu";
-    public static final String DRAWER_ORDERING_TEXT = "Ordering";
-    public static final String DRAWER_CATERING = "Catering";
-    public static final String DRAWER_PAY_TEXT = "Pay";
-    public static final String DRAWER_SIGN_IN_TEXT = "Sign In";
-    public static final String DRAWER_SETTINGS = "Settings";
-    public static final String DRAWER_SIGN_OUT = "Sign Out";
-    public static final String DRAWER_ABOUT = "About Chick-f​il-A";
+    public String AWE_BRAND_NAMES_AWE_AUTOMATION = "awe_automation";
+    public String AWE_BRAND_NAMES_AWE_BET = "bet";
+    public String AWE_BRAND_NAMES_AWE_BRAVO = "bravo";
+    public String AWE_BRAND_NAMES_COOKINGCHANNEL = "cookingchannel";
+    public String AWE_BRAND_NAMES_DIYNETWORK = "diynetwork";
+    public String AWE_BRAND_NAMES_EONLINE = "eonline";
+    public String AWE_BRAND_NAMES_ESQUIRE = "esquire";
+    public String AWE_BRAND_NAMES_FOODNETWORK = "foodnetwork";
+    public String AWE_BRAND_NAMES_HALLMARKCHANNEL = "hallmarkchannel";
+    public String AWE_BRAND_NAMES_HGTV = "hgtv";
+    public String AWE_BRAND_NAMES_MSNBC = "msnbc";
+    public String AWE_BRAND_NAMES_MUN2 = "mun2";
+    public String AWE_BRAND_NAMES_NBCE = "nbce";
+    public String AWE_BRAND_NAMES_OWN = "own";
+    public String AWE_BRAND_NAMES_OXYGEN = "oxygen";
+    public String AWE_BRAND_NAMES_SPROUT = "sprout";
+    public String AWE_BRAND_NAMES_SYFY = "syfy";
+    public String AWE_BRAND_NAMES_TASTEMADE = "tastemade";
+    public String AWE_BRAND_NAMES_TELEMUNDO = "telemundo";
+    public String AWE_BRAND_NAMES_TRAVELCHANNEL = "travelchannel";
+    public String AWE_BRAND_NAMES_USA = "usa";
 
     /**
-     * Top bar icons, mostly duplicates of the drawer except for more options
+     * AWE feeds
      */
-    public static final String TOP_BAR_MORE_OPTIONS_ID = "More options";
-    public static final String TOP_BAR_ENABLE_STAGING_W2GI_TEXT = "Enable Staging W2GI";
-    public static final String TOP_BAR_DISABLE_STAGING_W2GI_TEXT = "Disable Staging W2GI";
-
-    /**
-     * Begin pay, the area of the app to
-     */
-    /**
-     * IDs on the Add Card page
-     */
-    public static final String PAY_ADD_CARD_NAME_ON_CARD = "Name on Card";
-    public static final String PAY_ADD_CARD_CARD_NUMBER = "Card Number";
-    public static final String PAY_ADD_CARD_TYPE_CHOICE_AMEX  = "American Express";
-    public static final String PAY_ADD_CARD_TYPE_CHOICE_DISCOVER = "Discover";
-    public static final String PAY_ADD_CARD_TYPE_CHOICE_MASTER_CARD = "Master Card";
-    public static final String PAY_ADD_CARD_TYPE_CHOICE_VISA = "Visa";
-    public static final String PAY_ADD_CARD_EXPIRATION_DATE = "Expiration Date";
-    public static final String PAY_ADD_CARD_SECUITY_CODE = "Security Code";
-    public static final String PAY_ADD_CARD_ZIP = "Zip";
-    public static final String PAY_ADD_CARD_SAVE_CARD = "Save Card";
-    public static final String PAY_ADD_CARD_ADD_CARD_AND_PAY_NOW = "Add Card and Pay Now";
-    public static final String PAY_ADD_CARD_AND_PAY_NOW = "Pay Now";
-
-
-    /**
-     * Add funds/payment Ids
-     */
-    //This is used on the add funds page and the choose amount of funds page
-    public static final String PAY_ADD_FUNDS_BUTTON = "add_funds_button";
-    public static final String PAYMENT_MANAGE_CARDS_ID = "manage_cards";
-    public static final String PAY_VIEW_HISTORY_ID = "view_transactions_btn";
-    public static final String PAY_GIFT_CARD_NUMBER_INPUT = "giftcard_number_input";
-    public static final String PAY_GIFT_CARD_PIN_INPUT = "giftcard_pin_input";
-    public static final String PAY_GIFT_CARD_TRANSFER_BUTTON = "giftcard_transfer_button";
-
-    /**
-    * The area of the app to find CFA restaurants, found under the find heading
-    */
-    public static final String FIND_STORE_DETAILS = "store_container";
-    public static final String FIND_MAP_TOGGLE = "menu_sel_location_map_list_toggle";
-    public static final String FIND_FILTER = "menu_sel_location_filter";
-    public static final String FIND_FILTER_OPTIONS = "ext_list_item_name";
-    public static final String FIND_FILTER_OPTIONS_DRIVE_THRU = "Drive-Thru";
-    public static final String FIND_FILTER_OPTIONS_WIFI = "WiFi";
-    public static final String FIND_FILTER_OPTIONS_PLAYGROUND = "Playground";
-    public static final String FIND_FILTER_OPTIONS_MOBILE_ORDERING = "Mobile Ordering";
-    public static final String FIND_FILTER_CLOSE = "ext_filter_button";
-    public static final String FIND_STORE_DETAILS_PLAYER = "loc_detail_frag_player_video_preview";
-
-    /**
-     * The area of the app which is a menu of all food items, found under the menu heading
-     */
-    public static final String MENU_FOOD_TOP_LEVEL_TILES = "cat_img";
-    public static final String MENU_FOOD_SECOND_LEVEL_TILES = "cat_container";
-    public static final String MENU_FOOD_NUTRITION_IMG = "item_img";
-    public static final String MENU_FOOD_ALLERGENS = "menu_sel_allergens";
-    public static final String MENU_FOOD_ALLERGENS_FILTER_OPTIONS = "ext_list_item_name";
-    public static final String MENU_FOOD_ALLERGENS_OPTIONS_DAIRY = "Dairy";
-    public static final String MENU_FOOD_ALLERGENS_OPTIONS_WHEAT = "Wheat";
-    public static final String MENU_FOOD_ALLERGENS_OPTIONS_SOY = "Soy";
-    public static final String MENU_FOOD_ALLERGENS_OPTIONS_EGG = "Egg";
-    public static final String MENU_FOOD_ALLERGENS_OPTIONS_FISH = "Fish";
-    public static final String MENU_FOOD_ALLERGENS_OPTIONS_TREENUT = "Treenut";
-    public static final String MENU_FOOD_ALLERGENS_FILTER_CLOSE = "ext_filter_button";
-    public static final String MENU_FOOD_ALLERGENS_FILTER_HEADER = "filter_header";
-
-    /**
-     * The area of the app to order food, found under the order heading
-     */
-    public static final String ORDERING_RESTAURANT_CHOOSER_ID = "location_container";
-    public static final String ORDERING_RESTAURANT_MENU_SEARCH_ID = "menu_search";
-    public static final String ORDERING_CHOOSE_PICKUP_DINE_IN_ID = "dinein_container";
-    public static final String ORDERING_CHOOSE_PICKUP_CURBSIDE_ID = "curbside_container";
-    public static final String ORDERING_CHOOSE_PICKUP_CARRYOUT_ID = "carryout_container";
-    public static final String ORDERING_START_ORDER_BUTTON_ID = "start_order_button";
-    public static final String ORDERING_MENU_CATEGORY_LEVEL_ID = "submenu_img";
-    public static final String ORDERING_MENU_SECOND_LEVEL_ID = "menu_item_img";
-    public static final String ORDERING_MENU_DRINK_CHOICE_ID = "modifier_item_img";
-    public static final String ORDERING_STORE_DETAILS_ID = "store_container";
-    public static final String ORDERING_ADD_TO_MEAL_ID = "combo_selection_done";
-    public static final String ORDERING_ADD_MEAL_TO_ORDER_ID = "combo_sales_item_add_button";
-    public static final String ORDERING_ANYTHING_ELSE_DONE_BUTTON_ID = "combo_selection_done";
-    public static final String ORDERING_ORDER_SUBMIT_BUTTON_ID = "button_submit";
-    public static final String ORDERING_ADD_PAYMENT_INFO_ID = "cart_payment_layout";
-    public static final String ORDERING_USE_MY_PAY_ACCOUNT_ID = "choose_payment_item";
-    public static final String ORDERING_IM_HERE_ID = "arrived";
-    public static final String ORDERING_ORDER_DONE_ID = "combo_selection_done";
-
-    //CFA lab 236 is used to test ordering
-    public static final String CFA_LAB_ZIP = "30349";
-    public static final String CFA_LAB_236_NUMBER = "CFA Lab 236";
-    public static final String CFA_LAB_170_NUMBER = "CFA Lab 170";
-    public static final String CFA_LAB_248_NUMBER = "CFA Lab 248";
-
-    /**
-     * The area of the app where catering is done, found under the catering heading
-     */
-    public static final String CATERING_COVER_PHOTO_ID = "cover-photo";
-    public static final String ENTER_ADDRESS_FIELD_DESC = "Enter City, State or Zip Code";
+    public String AMP_MERA_DEV_LIVE = "AMP MERA Dev-Live";
+    public String AMP_MERA_DEV_PREVIEW = "AMP MERA Dev-Preview";
+    public String ANDROID_FW_DEV_LIVE = "Android FW Dev-Live";
+    public String ANDROID_FW_DEV_PREVIEW = "Android FW Dev-Preview";
+    public String ANDROID_FW_QA_LIVE = "Android FW QA-Live";
+    public String ANDROID_FW_QA_PREVIEW = "Android FW QA-Preview";
+    public String ANDROID_IMP_STAGE_LIVE = "Android Imp Stage-Live";
+    public String ANDROID_IMP_STAGE_PREVIEW = "Android Imp Stage-Preview";
+    public String ANDROID_IMP_DEV_LIVE = "Android Imp Dev-Live";
+    public String ANDROID_IMP_DEV_PREVIEW = "Android Imp Dev-Preview";
+    public String ANDROID_IMP_QA_LIVE = "Android Imp QA-Live";
+    public String ANDROID_IMP_QA_PREVIEW = "Android Imp QA-Preview";
+    public String JCP_DEV_LIVE = "JCP Dev-Live";
+    public String JCP_DEV_PREVIEW = "JCP Dev-Preview";
+    public String NBC_AWE3_PROD_EP1_LIVE = "NBC AWE3 Prod-EP1-Live";
+    public String NBC_AWE3_PROD_EP2_LIVE = "NBC AWE3 Prod-EP2-Live";
+    public String NBC_AWE3_PROD_PREVIEW = "NBC AWE3 Prod-Preview";
+    public String NBC_AWE3_STAGE_EP1_LIVE = "NBC AWE3 Stage-EP1-Live";
+    public String NBC_AWE3_STAGE_EP2_LIVE = "NBC AWE3 Stage-EP2-Live";
+    public String NBC_AWE3_STAGE_PREVIEW = "NBC AWE3 Stage-Preview";
+    public String WFG_DEV_LIVE = "WFG Dev-Live";
+    public String WFG_DEV_PREVIEW = "WFG Dev-Preview";
+    public String IOS_FW_DEV_LIVE = "iOS FW Dev-Live";
+    public String IOS_FW_DEV_PREVIEW = "iOS-FW Dev-Preview";
+    public String IOS_FW_QA_LIVE = "iOS-FW QA-Live";
+    public String IOS_FW_QA_PREVIEW = "iOS-FW QA-Preview";
+    public String IOS_FW_STAGE_LIVE = "iOS-FW Stage-Live";
+    public String IOS_FW_STAGE_PREVIEW = "iOS-FW Stage-Preview";
+    public String IOS_IMP_DEV_LIVE = "iOS Imp Dev-Live";
+    public String IOS_IMP_DEV_PREVIEW = "iOS Imp Dev-Preview";
+    public String IOS_IMP_QA_LIVE = "iOS Imp QA-Live";
+    public String IOS_IMP_QA_PREVIEW = "iOS Imp QA-Preview";
+    public String IOS_IMP_STAGE_LIVE = "iOS Imp Stage-Live";
+    public String IOS_IMP_STAGE_PREVIEW = "iOS Imp Stage-Preview";
 
 
-    /**
-     * The area of the app where the about section is located, found under the about heading
-     */
-    public static final String ABOUT_WEB_CONTENT_LANDING_ID = "web_view_content_img";
+    public String AWE_PICKFEED_SERVERURL_ID = "com.bottlerocketapps.awe.watcher:id/awe_pickfeed_serverurl";
 
-    /**
-     * The area of the app for settings, found under settings heading
-     */
-    public static final String SETTINGS_GET_HELP = "Get Help";
-    public static final String SETTINGS_GIVE_FEEDBACK = "Give Feedback";
-    public static final String SETTINGS_LEGAL_INFO = "more_card_legal_info";
-    public static final String SETTINGS_PRIVACY_POLICY = "more_card_privacy_policy";
-    public static final String SETTINGS_LEGAL_TITLE = "Legal";
-    public static final String SETTINGS_PRIVACY_TITLE = "Privacy";
-    public static final String SETTINGS_USER_ACCOUNT_BUTTON = "image_view_background";
-    public static final String SETTINGS_EDIT_USER_PROFILE = "profile_rof_edit_profile_button";
-    public static final String SETTINGS_EDIT_USER_PROFILE_DONE = "menu_profile_save";
-
+    public String ANDROID_FRAMEWORK_DEV_LIVE_FEED = "http://andfw.dev.bottlerocketservices.com/live/5/usa/config";
 
     /**
      * ADB key events. http://stackoverflow.com/questions/7789826/adb-shell-input-events
      */
-    public static final int KEYCODE_0 = 7;
-    public static final int KEYCODE_DPAD_RIGHT = 22;
-    public static final int KEYCODE_ENTER = 66;
-    public static final int KEYCODE_DEL = 67;
+    public int KEYCODE_0 = 7;
+    public int KEYCODE_DPAD_RIGHT = 22;
+    public int KEYCODE_ENTER = 66;
+    public int KEYCODE_DEL = 67;
+
+
+    /**
+     * Awe main toolbar
+     */
+    public String AWE_MAIN_TOOLBAR = "awe_toolbar_container";
+    public String AWE_MAIN_TOOLBAR_TITLE_ID = "awe_actionbar_title";
+    public String AWE_MAIN_DRAWER_ANCHOR = "AweWatcher";
+    public String AWE_MAIN_DRAWER = "awe_navigation_drawerviewcontainer";
+    public String AWE_MAIN_TOOLBAR_PROVIDER_LOGO = "awe_authflow_providerlogo";
+    public String AWE_MAIN_TOOLBAR_LIVE = "menu_live";
+    public String AWE_MAIN_TOOLBAR_SEARCH = "awe_menu_search";
+    public String AWE_MAIN_TOOLBAR_SHARE = "menu_share";
+    public String AWE_MAIN_TOOLBAR_WATCHLIST = "menu_watchlist";
+    public String AWE_MAIN_TOOLBAR_BACK = "Navigate up";
+    public String AWE_MAIN_TOOLBAR_MORE_OPTIONS = "More options";
+    public String AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW = "Search";
+    public String AWE_MAIN_TOOLBAR_SHARE_OVERFLOW = "Share";
+
+    public String AWE_SEARCH_BAR_ENTER_TEXT = "awe_search_actionprovidertext";
+    public String AWE_SEARCH_RESULTS = "awe_search_listitem";
+    public String AWE_SEARCH_RESULTS_CONTAINER = "awe_search_list";
+
+    public String AWE_DRAWER_WATCHLIST_COUNT = "awe_navigation_itemcount";
+
+    /**
+     * Share
+     */
+    public String AWE_SHARE_OPTIONS_GOOGLE_PLUS = "Google+";
+    public String AWE_SHARE_OPTIONS_FACEBOOK = "Facebook";
+    public String AWE_SHARE_OPTIONS_GMAIL = "Gmail";
+
+    public String FACEBOOK_POST_OPTION = "post_button";
+
+    /**
+     * Awe featured
+     */
+    public String AWE_FEATURED_CTA_CONTAINER = "awe_featured_cellactacontainer";
+    public String AWE_FEATURED_CAROUSEL_SHOW_TITLE = "awe_featured_cellatitle";
+    public String AWE_SHOW_DETAILS_SHOW_TITLE = "awe_showdetail_featuredtitle";
+
+    /**
+     * Awe settings
+     */
+    public String AWE_SETTINGS_LOGIN_LOGOUT = "awe_settings_btnloginout";
+    public String AWE_SETTINGS_LOGIN_LOGOUT_TEXT = "awe_settings_btnloginouttext";
+    public String AWE_LOGIN_CONTINUE = "awe_auth_welcomecontinue";
+    public String AWE_LOGIN_PROVIDER_NOT_LISTED = "awe_auth_picknotlisted";
+    public String AWE_AUTH_PROVIDER_CONTAINER = "awe_auth_pickcontentcontainer";
+
+    public String GMAIL_COMPOSE_TITLE = "action_bar_title";
+    public String GMAIL_COMPOSE_TEXT = "Compose";
+
+    /**
+     * Authentication buttons and fields
+     */
+    public String CABLE_PROVIDER_IMAGE_ID = "awe_auth_itemwithimageimage";
+    public String PROVIDER_LOGIN_USERNAME_ID = "IDToken1";
+    public String PROVIDER_LOGIN_PASSWORD_ID = "IDToken2";
+    public String PROVIDER_SIGN_IN_BUTTON = "signin_button";
+
+    /**
+     * Video
+     */
+    public String AWE_VIDEO_PLAYER_CONTAINER = "awe_videodetail_thumbnailcontainer";
+    public String AWE_VIDEO_PLAYER_TIMER = "awe_player_controlstimer";
+    public String AWE_VIDEO_PLAYER_PLAY_PAUSE = "awe_player_controlsplaypause";
+    public String AWE_VIDEO_PLAYER_ROOT = "awe_player_videocomponentroot";
+    public String AWE_VIDEO_LOADING_SPINNER = "awe_global_progressbar";
+    public String AWE_VIDEO_PLAYER_AD_COUNTDOWN_BANNER = "awe_player_adcountdowntimer";
+    public String AWE_VIDEO_PLAYER_CLOSED_CAPTION_DESC = "Toggle Closed Captions";
+    public String AWE_VIDEO_PLAYER_SEEK_BAR = "awe_player_controlsseekbar";
+
+    /**
+     * Shows
+     */
+    public String AWE_SHOWS_CONTAINER_GRID = "awe_containers_grid";
+    public String AWE_SHOWS_EPISODES_CLIPS_MAIN_CONTAINER = "awe_showdetail_viewpager";
+    public String AWE_SHOWS_VIDEO_THUMBNAILS = "awe_shows_itemimage";
+
+    /**
+     * Show details
+     */
+    public String AWE_SHOW_DETAILS_EPISODE_TAB = "Episodes";
+    public String AWE_SHOW_DETAILS_CLIPS_TAB = "Clips";
+    public String AWE_SHOW_DETAILS_EPISODE_LIST_CONTAINER = "awe_showdetail_episodelist";
+    public String AWE_SHOW_DETAILS_VIDEO_THUMBNAILS = "awe_showdetail_videoitemimage";
+    public String AWE_SHOW_DETAILS_EPISODE_EMPTY_MESSAGE_ID = "awe_showdetail_episodeempty";
+    public String AWE_SHOW_DETAILS_CLIP_EMPTY_MESSAGE_ID = "awe_showdetail_clipempty";
+    public String AWE_SHOW_DETAILS_SEASON_SELECT_HEAD = "awe_showdetail_filterspinner";
+    public String AWE_SHOW_DETAILS_SEASON_SELECT_SEASON = "awe_showdetail_seasonspinnertext";
+    public String AWE_SHOW_DETAILS_SEASON_TITLE = "awe_seasondropdownlistspinner_title";
+    public String AWE_SHOW_DETAILS_ADD_TO_WATCHLIST = "Add To Watchlist"; //legacy menu_add_to_watchlist
+    public String AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST = "Remove from Watchlist"; //legacy menu_remove_from_watchlist
+
+    /**
+     * Schedule
+     */
+    public String AWE_SCHEDULE_DATE_PAGE_INDICATOR = "awe_schedule_pageindicator";
+    public String AWE_SCHEDULE_DATE_HEADINGS = "awe_schedule_datetext";
+    public String AWE_SCHEDULE_SHOW_LISTING = "awe_schedule_itemtitlecontainer";
+
+    /**
+     * Settings
+     */
+    public String AWE_SETTINGS_ABOUT_BRAND_TITLE_ID = "awe_settings_btnaboutbrand";
+    public String AWE_SETTINGS_FAQ_TITLE_ID = "awe_settings_btnfaq";
+    public String AWE_SETTINGS_PRIVACY_POLICY_TITLE_ID = "awe_settings_btn_privacypolicy";
+    public String AWE_SETTINGS_TERMS_AND_CONDITIONS_TITLE_ID = "awe_settings_btnterms";
+    public String AWE_SETTINGS_FEEDBACK_TITLE_ID = "awe_settings_btnfeedback";
+    public String AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE_ID = "awe_settings_btnaboutbr";
+    public String AWE_SETTINGS_DEV_OPTIONS_TITLE_ID = "awe_settings_btndevoptions";
+    public String AWE_SETTINGS_DEV_OPTIONS_MAIN_LIST = "awe_devoptions_list";
+
+    /**
+     * Watchlist
+     */
+    public String AWE_WATCHLIST_CONTINUE_WATCHING_ROW = "awe_watchlist_tablethistoryrowgallery";
+    public String AWE_WATCHLIST_QUEUE_AND_CONTINUE_CONTAINER = "awe_watchlist_tabletlist";
+    public String AWE_WATCHLIST_QUEUE_SHOW_ROWS = "awe_watchlist_showitemgallery";
+    public String AWE_WATCHLIST_SHOW_IMAGE = "awe_watchlist_itemimage";
+
+
+    /**
+     * Video details page, this page has the details of the video on the side and is shown before the video is played
+     */
+    public String AWE_VIDEO_DETAILS_PLAY_BUTTON = "awe_videodetail_thumbnailimage";
+
+    /**
+     * Cable providers
+     */
+    public String OPTIMUM_CONTENT_DESC = "Cablevision";
+
+
+    /**
+     * USA Endpoints
+     */
+    public String USA_ENDPOINT_ABOUT_USA_NOW = "http://www.usanetwork.com/about-usa-anywhere-plus";
+    public String USA_ENDPOINT_FAQ = "http://tve-usa.nbcuni.com/nativeapp/help/js/data/faq-nonrwd/tvefaq.html";
+    public String USA_ENDPOINT_PRIVACY_POLICY = "http://www.nbcuniversal.com/privacy/mobile-apps";
+    public String USA_ENDPOINT_TERMS_AND_CONDITIONS = "http://www.usanetwork.com/terms";
+
+    public String BR_ENDPOINT_ABOUT_BR = "http://www.bottlerocketapps.com/brAbout";
+
+
+    //Use this to allow subclasses to overwrite the enum's string
+    //public abstract void initCallsToAction();
+
+    public enum DrawerNavigationItem {
+        featured("Featured"),
+        shows("Shows"),
+        movies("Movies"),
+        watchlist("Watchlist"),
+        schedule("Schedule"),
+        settings("Settings"),
+        feeds("Feeds");
+
+        String navigationItemDesc;
+        DrawerNavigationItem(String s){
+            navigationItemDesc = s;
+        }
+
+        public String toString(){
+            return navigationItemDesc;
+        }
+    }
+
+    public enum CallsToAction {
+        details("DETAILS"),
+        watchlist("WATCHLIST"),
+        play("PLAY"),
+        website("WEBSITE");
+
+        String callToAction;
+        CallsToAction(String s) { callToAction = s; }
+
+        public String toString() { return callToAction; }
+    }
+
+    /**
+     * View classes
+     */
+    public String LINEAR_LAYOUT = "android.widget.LinearLayout";
+    public String FRAME_LAYOUT = "android.widget.FrameLayout";
+    public String EDIT_TEXT = "android.widget.EditText";
+    public String WEBKIT_WEBVIEW = "android.webkit.WebView";
 
 }

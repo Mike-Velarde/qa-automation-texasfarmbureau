@@ -2,7 +2,7 @@ package operations;
 
 
 import config.AutomationConfigurations;
-import operations.UserOperations;
+import config.DeviceAutomationComponents;
 import operations.navops.NavigationOperations;
 
 /**
@@ -11,24 +11,26 @@ import operations.navops.NavigationOperations;
  * Created by ford.arnett on 9/3/15.
  */
 public class AutomationOperations {
-    private static volatile AutomationOperations instance;
-    protected AutomationOperations(){}
+    public DeviceAutomationComponents deviceAutomationComponents;
 
-    //Double check so we only synchronize when first created
-    public static AutomationOperations instance(){
-        if(instance == null){
-            synchronized (AutomationOperations.class){
-                if(instance == null){
-                    instance = new AutomationOperations();
-                }
-            }
-        }
+    private AutomationOperations(){}
 
-        return instance;
+    private static class SingletonHelper{
+        private static final AutomationOperations INSTANCE = new AutomationOperations();
     }
 
-    public UserOperations userOp = new UserOperations();
-    public NavigationOperations navOp = new NavigationOperations();
-    public AutomationConfigurations config = new AutomationConfigurations();
+    public static AutomationOperations instance(){
+        return SingletonHelper.INSTANCE;
+    }
 
+    public UserOperations userOp;
+    public NavigationOperations navOp;
+    public AutomationConfigurations config;
+
+    public void initOperations(DeviceAutomationComponents deviceAutomationComponents){
+        this.deviceAutomationComponents = deviceAutomationComponents;
+        config = deviceAutomationComponents.getAutomationConfigurations();
+        navOp = deviceAutomationComponents.getNavigationOperations();
+        userOp = deviceAutomationComponents.getUserOperations();
+    }
 }

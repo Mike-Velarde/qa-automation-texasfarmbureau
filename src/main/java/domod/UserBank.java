@@ -9,8 +9,10 @@ import java.util.ArrayList;
  */
 public class UserBank {
 
-    private static final String DEFAULT_USER_NAME = "testymctester44@gmail.com";
-    private static final String DEFAULT_USER_PASSWORD = "testing44";
+    private static final String DEFAULT_CABLE_PROVIDER = "optimum";
+    //Authorized is 40 unauthorized is 50
+    private static final String DEFAULT_USER_NAME = "research40";
+    private static final String DEFAULT_USER_PASSWORD = "support40";
 
     public final User defaultUser = new User(DEFAULT_USER_NAME, DEFAULT_USER_PASSWORD);
     public ArrayList<User> users = new ArrayList<User>();
