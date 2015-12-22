@@ -49,10 +49,12 @@ public class Featured extends AppiumMain{
             ErrorHandler.printErr("error taking screenshot",e);
         }
 
+        //Give video extra time to load
+        driverWrapper.waitLogErr(10000);
         //check that video has played
         Calendar runTime = AutomationOperations.instance().userOp.getVideoCurrentRunTime(true);
         //AutomationOperations.instance().userOp.playPauseVideo();
-        driverWrapper.waitLogErr(5000);
+        driverWrapper.waitLogErr(10000);
         assertionLogger.setTestType("Verify that the video time has progressed, meaning the video has played.");
         assertionLogger.assertFalse(runTime.equals(AutomationOperations.instance().userOp.getVideoCurrentRunTime(true)));
 

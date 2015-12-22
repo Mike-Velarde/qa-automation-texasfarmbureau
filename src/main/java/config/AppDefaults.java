@@ -23,7 +23,7 @@ public class AppDefaults {
     //used to initiate driver wait
     public static int globalWait = 20;
 
-    public static String screenshots = "/Users/ford.arnett/intellij/mobile_screenshots/";
-
-
+    public static String screenshots = "/Users/ford.arnett/automation/awe_tests/mobile_screenshots";
+    public static String testNGOutputDirectory = "../../automation/awe_tests/";
+    public static String buildNumber = "284";
 }

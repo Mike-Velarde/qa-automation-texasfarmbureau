@@ -11,6 +11,13 @@ import java.net.URL;
  */
 public class WebsiteConnection {
 
+    /**
+     * Adapted from http://stackoverflow.com/questions/3584210/preferred-java-way-to-ping-a-http-url-for-availability
+     *
+     * @param url
+     * @param timeout
+     * @return
+     */
     public static int ping(String url, int timeout) {
         // Otherwise an exception may be thrown on invalid SSL certificates:
         url = url.replaceFirst("^https", "http");

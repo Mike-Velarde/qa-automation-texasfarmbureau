@@ -2,6 +2,7 @@ package config;
 
 
 
+import com.bottlerocket.utils.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.FileNotFoundException;
@@ -32,7 +33,7 @@ public abstract class AutomationConfigurations {
         return properties;
     }
 
-    public int getIntSafe(String s, int defaultValue){
+    protected int getIntSafe(String s, int defaultValue){
         try{
             return Integer.parseInt(s);
         }
@@ -41,7 +42,7 @@ public abstract class AutomationConfigurations {
         }
     }
 
-    public boolean getAsBoolean(Properties prop, String property){
+    protected boolean getAsBoolean(Properties prop, String property){
         String booleanProp = prop.getProperty(property);
         if(booleanProp == null)
             return AppDefaults.noReset;

@@ -37,10 +37,10 @@ public abstract class UserOperations implements AutomationOperationsListener {
 
     public void signIn(UserBank.User user){
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
-        WebElement loginLogoutButton = driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
+        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
         if(!inLoginMode())
           signOut();
-        loginLogoutButton.click();
+        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT).click();
         driverWrapper.getElementById(ResourceLocator.device.AWE_LOGIN_CONTINUE).click();
         driverWrapper.swipeToElement(ResourceLocator.device.CABLE_PROVIDER_IMAGE_ID, ResourceLocator.device.OPTIMUM_CONTENT_DESC, WebDriverWrapper.AttributeCompareType.contentDesc, 20000).click();
 

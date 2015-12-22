@@ -30,6 +30,8 @@ public class VideoPlayerFunctions extends AppiumMain {
 
         //driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
         //AutomationOperations.instance().userOp.playPauseVideo();
+        //Give the video extra time to load
+        driverWrapper.waitLogErr(10000);
         Calendar startTime = AutomationOperations.instance().userOp.getVideoCurrentRunTime(true);
         //AutomationOperations.instance().userOp.playPauseVideo();
         driverWrapper.waitLogErr(10000);
