@@ -46,5 +46,4 @@ public class Schedule extends AppiumMain {
     public void tearDown(){
         assertionLogger.logMessages();
     }
-
 }

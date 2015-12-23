@@ -61,5 +61,4 @@ public class VideoPlayerFunctions extends AppiumMain {
     public void tearDown(){
         assertionLogger.logMessages();
     }
-
 }

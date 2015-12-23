@@ -6,6 +6,7 @@ import config.AppDefaults;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -43,7 +44,7 @@ public class Featured extends AppiumMain{
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshots, "video_playing_before_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot",e);
@@ -60,7 +61,7 @@ public class Featured extends AppiumMain{
 
         //Get screenshot to compare against before so we know video is playing
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshots, "video_playing_after_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "video_playing_after_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot",e);
@@ -85,6 +86,7 @@ public class Featured extends AppiumMain{
 
     }
 
+    @AfterClass
     public void tearDown(){
         assertionLogger.logMessages();
     }

@@ -7,15 +7,18 @@ import com.bottlerocket.webdriver.WebDriverWrapperAndroid;
 import com.bottlerocket.webdriver.WebDriverWrapperIos;
 import config.*;
 import operations.AutomationOperations;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.ITestContext;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Properties;
 
 
@@ -24,15 +27,22 @@ import java.util.Properties;
  */
 public class AppiumMain{
     protected WebDriverWrapper driverWrapper;
+    private String suiteName;
+    //This is the offset to store files for this run of the suite
+    private String uniqueFolderOffset;
 
-    private String sessionId;
-
-    /** Keep the same date prefix to identify job sets. **/
-    private static Date date = new Date();
+    /**
+     * This seems to run after the other setup
+     * @param ctx
+     */
+    @BeforeClass
+    public void setUpEveryMain(ITestContext ctx){
+        suiteName = ctx.getCurrentXmlTest().getSuite().getName();
+    }
 
     /** Run before each test **/
     @BeforeClass
-    public void setUp() throws Exception {
+    public void setUpMain() throws Exception {
         DeviceAutomationComponents device;
         //Set iOS or Android here
         if(isAndroid()){
@@ -58,6 +68,10 @@ public class AppiumMain{
 
         //this must be after driver wrapper is initialized
         initAutomationOperations();
+
+        //This is really ugly way to do this here but I can't think of a one
+        AppDefaults.testNGOutputDirectory += getUniqueFolderOffset();
+        AppDefaults.screenshotsDirectory += getUniqueFolderOffset() + "/mobile_screenshots/";
 
         Logger.log("Running test method: " );
 
@@ -86,22 +100,37 @@ public class AppiumMain{
         automationOperations.navOp.init(driverWrapper);
     }
 
-
-    /** Run after each test **/
-    @AfterClass
-    public void tearDown() throws Exception {
-        if (driverWrapper.notNull())
-            driverWrapper.quit();
-    }
-
     @AfterMethod
     public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
         if (testResult.getStatus() == ITestResult.FAILURE) {
             Logger.log(testResult.getMethod().getMethodName());
             String fileName = "failure_" + testResult.getMethod().getMethodName() + "_" + System.currentTimeMillis();
-            driverWrapper.takeScreenshot(AppDefaults.screenshots, fileName);
+            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, fileName);
         }
 
+    }
+
+    /** Run after each suite **/
+    @AfterClass
+    public void tearDownMain() throws Exception{
+        FileUtils.copyDirectory(new File("test-output"), new File(AppDefaults.testNGOutputDirectory + getUniqueFolderOffset()));
+
+        if (driverWrapper.notNull())
+            driverWrapper.quit();
+    }
+
+    /**
+     *  Create a directory offset to store reports and screenshots in the same folder structure.
+     *
+     *  The offset is suite name + current date
+     */
+    public String getUniqueFolderOffset(){
+        if(uniqueFolderOffset == null || uniqueFolderOffset.equals("")) {
+            DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy hh_mm_ss a");
+            Calendar cal = Calendar.getInstance();
+            uniqueFolderOffset = suiteName + " " + dateFormat.format(cal.getTime());
+        }
+        return uniqueFolderOffset;
     }
 
 }

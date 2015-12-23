@@ -52,7 +52,7 @@ public class Settings extends AppiumMain {
         //wait for page to load
         driverWrapper.waitLogErr(9000);
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshots, "webpage_load_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "webpage_load_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("Error taking screenshot ", e);
