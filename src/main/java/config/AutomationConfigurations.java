@@ -5,14 +5,19 @@ package config;
 import com.bottlerocket.utils.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Properties;
 
 /**
+ * It may not be necessary for loadConfigVariables and setCapabilities to be abstract, this needs to be reevaluated.
+ * It seems like the subclasses may not have enough difference to need different methods, especially when the configurations themselves are passed in.
+ *
  * Created by ford.arnett on 10/9/15.
  */
 public abstract class AutomationConfigurations {
+    protected String platformSpecificConfigFile;
 
     /**
      * Load properties from the properties file
@@ -22,13 +27,9 @@ public abstract class AutomationConfigurations {
     public static Properties loadConfig() throws Exception{
         Properties properties = new Properties();
 
-        InputStream inputStream = AutomationConfigurations.class.getClassLoader().getResourceAsStream(AppDefaults.CONFIG_FILE_NAME);
-        if(inputStream != null){
-            properties.load(inputStream);
-        }
-        else{
-            throw new FileNotFoundException("Properties file " + properties);
-        }
+        //This will break if the folder structure changes. May want to improve this to make it more flexible
+        InputStream inputStream = new FileInputStream("src/main/resources/appconfig.properties");
+        properties.load(inputStream);
 
         return properties;
     }
@@ -42,10 +43,10 @@ public abstract class AutomationConfigurations {
         }
     }
 
-    protected boolean getAsBoolean(Properties prop, String property){
+    protected boolean getAsBoolean(Properties prop, String property, boolean defaultValue){
         String booleanProp = prop.getProperty(property);
         if(booleanProp == null)
-            return AppDefaults.noReset;
+            return defaultValue;
         return Boolean.parseBoolean(booleanProp);
     }
 

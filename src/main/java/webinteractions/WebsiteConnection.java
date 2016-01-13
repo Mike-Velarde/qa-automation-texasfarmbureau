@@ -26,7 +26,7 @@ public class WebsiteConnection {
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setConnectTimeout(timeout);
             connection.setReadTimeout(timeout);
-            connection.setRequestMethod("HEAD");
+            connection.setRequestMethod("GET");
 
             return connection.getResponseCode();
         }

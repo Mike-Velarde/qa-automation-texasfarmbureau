@@ -9,10 +9,12 @@ import java.util.Properties;
  * Created by ford.arnett on 11/3/15.
  */
 public class AutomationConfigurationsAndroid extends AutomationConfigurations {
+
     /**
      * Set the variables which are needed to run the application. These are read in from a properties file.
      *
      */
+    @Override
     public void loadConfigVariables(){
         Properties autoConfig = null;
         try {
@@ -34,20 +36,21 @@ public class AutomationConfigurationsAndroid extends AutomationConfigurations {
         AppDefaults.platformName = autoConfig.getProperty("PLATFORM_NAME", AppDefaults.platformName);
         AppDefaults.platformVersion = autoConfig.getProperty("PLATFORM_VERSION", AppDefaults.platformVersion);
         AppDefaults.deviceName = autoConfig.getProperty("DEVICE_NAME", AppDefaults.deviceName);
-        AppDefaults.appiumURL = autoConfig.getProperty("APPIUM_URL", AppDefaults.deviceName);
-        AppDefaults.noReset = getAsBoolean(autoConfig, "NO_RESET");
+        AppDefaults.appiumURL = autoConfig.getProperty("APPIUM_URL", AppDefaults.appiumURL);
+        AppDefaults.noReset = getAsBoolean(autoConfig, "NO_RESET", AppDefaults.noReset);
 
         /**
          * App configurations
          */
-        AppDefaults.screenshots = autoConfig.getProperty("SCREEN_SHOTS", AppDefaults.screenshots);
+        AppDefaults.screenshotsDirectory = autoConfig.getProperty("SCREEN_SHOTS", AppDefaults.screenshotsDirectory);
         AppDefaults.name = autoConfig.getProperty("TESTS_NAME", AppDefaults.name);
         AppDefaults.globalWait = getIntSafe(autoConfig.getProperty("GLOBAL_WAIT"), AppDefaults.globalWait);
         AppDefaults.testNGOutputDirectory = autoConfig.getProperty("TEST_OUTPUT_DIRECTORY", AppDefaults.testNGOutputDirectory);
-        AppDefaults.buildNumber = autoConfig.getProperty("BUILD_NUMBER");
+        AppDefaults.buildNumber = autoConfig.getProperty("BUILD_NUMBER", AppDefaults.buildNumber);
 
     }
 
+    @Override
     public DesiredCapabilities setCapabilities(){
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("app", AppDefaults.apkLocation);
