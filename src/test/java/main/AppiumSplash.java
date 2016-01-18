@@ -42,7 +42,7 @@ public class AppiumSplash {
         long time = System.currentTimeMillis();
         while(System.currentTimeMillis() < time + 10000){
             File srcFiler = driver.getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(srcFiler, new File(AppDefaults.screenshots + "/testing/splash_screen_abc" + System.currentTimeMillis()));
+            FileUtils.copyFile(srcFiler, new File(AppDefaults.screenshotsDirectory + "/testing/splash_screen_abc" + System.currentTimeMillis()));
         }
 
     }
