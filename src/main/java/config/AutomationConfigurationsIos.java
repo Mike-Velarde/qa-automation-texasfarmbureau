@@ -16,37 +16,30 @@ public class AutomationConfigurationsIos extends AutomationConfigurations {
      */
     @Override
     public void loadConfigVariables(){
-        Properties autoConfig = null;
-        try {
-            autoConfig = loadConfig();
-        }
-        catch (Exception ex){
-            //ErrorHandler.printErr("Error occured while loading automation configurations. ", ex);
-        }
-
-        if(autoConfig == null) {
-            Logger.log(AppDefaults.CONFIG_FILE_NAME + " not found, using default values");
+        if(automationProperties == null) {
+            Logger.log(AppDefaults.PROPERTIES_DIRECTORY + "files not found, using default values");
             return;
         }
+
         /**
          * Capabilites
          */
-        AppDefaults.apkLocation = autoConfig.getProperty("APK_LOCATION", AppDefaults.apkLocation);
-        AppDefaults.appiumVersion = autoConfig.getProperty("APPIUM_VERSION", AppDefaults.appiumVersion);
-        AppDefaults.platformName = autoConfig.getProperty("PLATFORM_NAME", AppDefaults.platformName);
-        AppDefaults.platformVersion = autoConfig.getProperty("PLATFORM_VERSION", AppDefaults.platformVersion);
-        AppDefaults.deviceName = autoConfig.getProperty("DEVICE_NAME", AppDefaults.deviceName);
-        AppDefaults.appiumURL = autoConfig.getProperty("APPIUM_URL", AppDefaults.appiumURL);
-        AppDefaults.noReset = getAsBoolean(autoConfig, "NO_RESET", AppDefaults.noReset);
+        AppDefaults.apkLocation = automationProperties.getProperty("APK_LOCATION", AppDefaults.apkLocation);
+        AppDefaults.appiumVersion = automationProperties.getProperty("APPIUM_VERSION", AppDefaults.appiumVersion);
+        AppDefaults.platformName = automationProperties.getProperty("PLATFORM_NAME", AppDefaults.platformName);
+        AppDefaults.platformVersion = automationProperties.getProperty("PLATFORM_VERSION", AppDefaults.platformVersion);
+        AppDefaults.deviceName = automationProperties.getProperty("DEVICE_NAME", AppDefaults.deviceName);
+        AppDefaults.appiumURL = automationProperties.getProperty("APPIUM_URL", AppDefaults.appiumURL);
+        AppDefaults.noReset = getAsBoolean(automationProperties, "NO_RESET", AppDefaults.noReset);
 
         /**
          * App configurations
          */
-        AppDefaults.screenshotsDirectory = autoConfig.getProperty("SCREEN_SHOTS", AppDefaults.screenshotsDirectory);
-        AppDefaults.name = autoConfig.getProperty("TESTS_NAME", AppDefaults.name);
-        AppDefaults.globalWait = getIntSafe(autoConfig.getProperty("GLOBAL_WAIT"), AppDefaults.globalWait);
-        AppDefaults.testNGOutputDirectory = autoConfig.getProperty("TEST_OUTPUT_DIRECTORY", AppDefaults.testNGOutputDirectory);
-        AppDefaults.buildNumber = autoConfig.getProperty("BUILD_NUMBER", AppDefaults.buildNumber);
+        AppDefaults.screenshotsDirectory = automationProperties.getProperty("SCREEN_SHOTS", AppDefaults.screenshotsDirectory);
+        AppDefaults.name = automationProperties.getProperty("TESTS_NAME", AppDefaults.name);
+        AppDefaults.globalWait = getIntSafe(automationProperties.getProperty("GLOBAL_WAIT"), AppDefaults.globalWait);
+        AppDefaults.testNGOutputDirectory = automationProperties.getProperty("TEST_OUTPUT_DIRECTORY", AppDefaults.testNGOutputDirectory);
+        AppDefaults.buildNumber = automationProperties.getProperty("BUILD_NUMBER", AppDefaults.buildNumber);
 
     }
 

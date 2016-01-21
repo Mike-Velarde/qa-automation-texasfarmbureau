@@ -44,8 +44,10 @@ public class AppiumMain{
     @BeforeClass
     public void setUpMain() throws Exception {
         DeviceAutomationComponents device;
+
+        AutomationConfigurations.loadConfig();
         //Set iOS or Android here
-        if(isAndroid()){
+        if(AutomationConfigurations.isAndroid()){
             device = new AndroidAutomationComponents();
         }
         else{
@@ -60,10 +62,13 @@ public class AppiumMain{
         URL serverAddress;
 
         serverAddress = new URL("http://127.0.0.1:4723/wd/hub");
-        if (isAndroid()) {
+        if (AutomationConfigurations.isAndroid()) {
             driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities, AppDefaults.globalWait);
-        } else {
+        } else if (AutomationConfigurations.isIos()){
             driverWrapper = new WebDriverWrapperIos(serverAddress, capabilities, AppDefaults.globalWait);
+        }
+        else {
+            throw new Error("Operating system not recognized, check config files");
         }
 
         //this must be after driver wrapper is initialized
@@ -79,18 +84,6 @@ public class AppiumMain{
         //this must be run at each launch.
         //TODO fix to use for iOS too
         // AutomationOperations.instance().userOp.chooseFeedIfNeeded(ResourceLocator.device.AWE_BRAND_NAMES_USA, ResourceLocator.device.ANDROID_FW_DEV_LIVE, ResourceLocator.device.AWE_PICKFEED_SERVERURL_ID);
-
-    }
-
-    private boolean isAndroid() {
-        Properties prop = null;
-        try {
-            prop = AutomationConfigurations.loadConfig();
-        } catch (Exception ex) {
-            ErrorHandler.printErr("Properties file not found", ex);
-        }
-
-        return prop == null || prop.getProperty("PLATFORM_NAME").equalsIgnoreCase("Android");
 
     }
 

@@ -2,11 +2,10 @@ package config;
 
 
 
-import com.bottlerocket.utils.Logger;
+import com.bottlerocket.utils.ErrorHandler;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -17,7 +16,8 @@ import java.util.Properties;
  * Created by ford.arnett on 10/9/15.
  */
 public abstract class AutomationConfigurations {
-    protected String platformSpecificConfigFile;
+    private static String platform;
+    protected static Properties automationProperties = new Properties();
 
     /**
      * Load properties from the properties file
@@ -25,13 +25,36 @@ public abstract class AutomationConfigurations {
      * @throws Exception
      */
     public static Properties loadConfig() throws Exception{
-        Properties properties = new Properties();
+        Properties platformProperty = new Properties();
 
-        //This will break if the folder structure changes. May want to improve this to make it more flexible
-        InputStream inputStream = new FileInputStream("src/main/resources/appconfig.properties");
-        properties.load(inputStream);
+        //load the operating system type
+        InputStream operatingSystemStream = new FileInputStream(AppDefaults.OPERATING_SYSTEM_PROPERTY_FILE);
+        platformProperty.load(operatingSystemStream);
 
-        return properties;
+        platform = platformProperty.getProperty("PLATFORM_NAME");
+
+        InputStream propertiesStream;
+        if(isAndroid()){
+            propertiesStream = new FileInputStream(AppDefaults.AUTOMATION_CONFIG_ANDROID_PROPERTIES_FILE);
+        }
+        else if(isIos()){
+            propertiesStream = new FileInputStream(AppDefaults.AUTOMATION_CONFIG_IOS_PROPERTIES_FILE);
+        }
+        else {
+            throw new Exception("No recognized operating system specified in " + AppDefaults.OPERATING_SYSTEM_PROPERTY_FILE);
+        }
+
+        automationProperties.load(propertiesStream);
+
+        return automationProperties;
+    }
+
+    public static boolean isIos() {
+        return platform.equalsIgnoreCase("IOS");
+    }
+
+    public static boolean isAndroid(){
+        return platform.equalsIgnoreCase("Android");
     }
 
     protected int getIntSafe(String s, int defaultValue){
