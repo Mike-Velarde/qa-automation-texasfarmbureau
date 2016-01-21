@@ -1,7 +1,5 @@
 package domod;
 
-import config.AppDefaults;
-
 import java.util.ArrayList;
 
 /**

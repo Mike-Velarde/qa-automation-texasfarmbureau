@@ -2,7 +2,7 @@ package config;
 
 
 
-import com.bottlerocket.utils.ErrorHandler;
+import com.bottlerocket.utils.Logger;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.FileInputStream;
@@ -28,20 +28,20 @@ public abstract class AutomationConfigurations {
         Properties platformProperty = new Properties();
 
         //load the operating system type
-        InputStream operatingSystemStream = new FileInputStream(AppDefaults.OPERATING_SYSTEM_PROPERTY_FILE);
+        InputStream operatingSystemStream = new FileInputStream(AutomationConfigProperties.OPERATING_SYSTEM_PROPERTY_FILE);
         platformProperty.load(operatingSystemStream);
 
         platform = platformProperty.getProperty("PLATFORM_NAME");
 
         InputStream propertiesStream;
         if(isAndroid()){
-            propertiesStream = new FileInputStream(AppDefaults.AUTOMATION_CONFIG_ANDROID_PROPERTIES_FILE);
+            propertiesStream = new FileInputStream(AutomationConfigProperties.AUTOMATION_CONFIG_ANDROID_PROPERTIES_FILE);
         }
         else if(isIos()){
-            propertiesStream = new FileInputStream(AppDefaults.AUTOMATION_CONFIG_IOS_PROPERTIES_FILE);
+            propertiesStream = new FileInputStream(AutomationConfigProperties.AUTOMATION_CONFIG_IOS_PROPERTIES_FILE);
         }
         else {
-            throw new Exception("No recognized operating system specified in " + AppDefaults.OPERATING_SYSTEM_PROPERTY_FILE);
+            throw new Exception("No recognized operating system specified in " + AutomationConfigProperties.OPERATING_SYSTEM_PROPERTY_FILE);
         }
 
         automationProperties.load(propertiesStream);
@@ -75,10 +75,45 @@ public abstract class AutomationConfigurations {
 
     /**
      * Set the variables which are needed to run the application. These are read in from a properties file.
+     * Common properties are set here, and subclasses may set additional properties if needed
      *
      */
-    public abstract void loadConfigVariables();
+    public void loadConfigVariables(){
+        if(automationProperties == null) {
+            Logger.log(AutomationConfigProperties.PROPERTIES_DIRECTORY + "files not found, using default values");
+            return;
+        }
 
-    public abstract DesiredCapabilities setCapabilities();
+        /**
+         * App configurations
+         */
+        AutomationConfigProperties.name = automationProperties.getProperty("TESTS_NAME");
+        AutomationConfigProperties.buildNumber = automationProperties.getProperty("BUILD_NUMBER");
+        AutomationConfigProperties.screenshotsDirectory = automationProperties.getProperty("SCREEN_SHOTS", AutomationConfigProperties.screenshotsDirectory);
+        AutomationConfigProperties.testNGOutputDirectory = automationProperties.getProperty("TEST_OUTPUT_DIRECTORY", AutomationConfigProperties.testNGOutputDirectory);
+        AutomationConfigProperties.globalWait = getIntSafe(automationProperties.getProperty("GLOBAL_WAIT"), AutomationConfigProperties.globalWait);
+
+        /**
+         * Capabilities
+         */
+        AutomationConfigProperties.appiumVersion = automationProperties.getProperty("APPIUM_VERSION");
+        AutomationConfigProperties.platformName = automationProperties.getProperty("PLATFORM_NAME");
+        AutomationConfigProperties.platformVersion = automationProperties.getProperty("PLATFORM_VERSION");
+        AutomationConfigProperties.deviceName = automationProperties.getProperty("DEVICE_NAME");
+        AutomationConfigProperties.appiumURL = automationProperties.getProperty("APPIUM_URL", AutomationConfigProperties.appiumURL);
+        AutomationConfigProperties.noReset = getAsBoolean(automationProperties, "NO_RESET", AutomationConfigProperties.noReset);
+    }
+
+    public DesiredCapabilities setCapabilities(){
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("app", AutomationConfigProperties.appPath);
+        capabilities.setCapability("appium-version", AutomationConfigProperties.appiumVersion);
+        capabilities.setCapability("platformName", AutomationConfigProperties.platformName);
+        capabilities.setCapability("platformVersion", AutomationConfigProperties.platformVersion);
+        capabilities.setCapability("deviceName", AutomationConfigProperties.deviceName);
+        capabilities.setCapability("name", AutomationConfigProperties.name);
+        capabilities.setCapability("noReset", AutomationConfigProperties.noReset);
+        return capabilities;
+    }
 
 }

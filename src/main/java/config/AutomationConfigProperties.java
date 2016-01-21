@@ -3,28 +3,32 @@ package config;
 /**
  * Created by ford.arnett on 9/2/15.
  */
-public class AppDefaults {
+public class AutomationConfigProperties {
 
     /**
      * Capabilities
      */
-    public static String apkLocation = "/Users/ford.arnett/apks/AWE/watcher-usaGoogle-debug-b224.apk";
-    //public static String apkLocation = "/Users/ford.arnett/apks/AWE/watcher-usaGoogle-debug-b28.apk";
-    public static String appiumVersion = "1.0";
-    public static String platformName = "Android";
-    public static String platformVersion = "4.4";
-    public static String deviceName = "Galaxy Note Edge";
-    public static String name = "Automation Tests";
-    public static boolean noReset = false;
+    public static String appPath;
+    public static String appiumVersion;
+    public static String platformName;
+    public static String platformVersion;
+    public static String deviceName;
+    public static String name;
+    public static String uuid;
 
+    /**
+     * Properties
+     */
     //used to initiate driver
     public static String appiumURL = "http://127.0.0.1:4723/wd/hub";
+    public static boolean noReset = false;
     //used to initiate driver wait
     public static int globalWait = 20;
 
-    public static String screenshotsDirectory = "/Users/ford.arnett/automation/awe_tests/";
+    public static String screenshotsDirectory = "../../automation/awe_tests/";
     public static String testNGOutputDirectory = "../../automation/awe_tests/";
     public static String buildNumber = "284";
+
 
     public static final String PROPERTIES_DIRECTORY = "src/main/resources/";
     public static final String OPERATING_SYSTEM_PROPERTY_FILE = PROPERTIES_DIRECTORY + "appconfig.properties";

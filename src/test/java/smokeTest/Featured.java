@@ -2,7 +2,7 @@ package smokeTest;
 
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
-import config.AppDefaults;
+import config.AutomationConfigProperties;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
@@ -44,7 +44,7 @@ public class Featured extends AppiumMain{
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot",e);
@@ -61,7 +61,7 @@ public class Featured extends AppiumMain{
 
         //Get screenshot to compare against before so we know video is playing
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "video_playing_after_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_after_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot",e);

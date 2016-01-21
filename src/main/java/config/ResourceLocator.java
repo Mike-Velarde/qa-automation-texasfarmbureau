@@ -152,6 +152,8 @@ public class ResourceLocator {
     public String PROVIDER_LOGIN_USERNAME_ID = "IDToken1";
     public String PROVIDER_LOGIN_PASSWORD_ID = "IDToken2";
     public String PROVIDER_SIGN_IN_BUTTON = "signin_button";
+    //The id seems to have been removed from this button and getting all the image views has proven to be unreliable
+    public String OPTIMUM_SIGN_IN_XPATH = "//android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.webkit.WebView[1]/android.view.View[1]/android.widget.Image[3]";
 
     /**
      * Video
@@ -277,6 +279,7 @@ public class ResourceLocator {
     public String LINEAR_LAYOUT = "android.widget.LinearLayout";
     public String FRAME_LAYOUT = "android.widget.FrameLayout";
     public String EDIT_TEXT = "android.widget.EditText";
+    public String IMAGE_VIEW = "android.widget.Image";
     public String WEBKIT_WEBVIEW = "android.webkit.WebView";
 
 }

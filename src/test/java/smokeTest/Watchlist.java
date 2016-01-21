@@ -6,7 +6,7 @@ package smokeTest;
 
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
-import config.AppDefaults;
+import config.AutomationConfigProperties;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
@@ -34,7 +34,7 @@ public class Watchlist extends AppiumMain {
     private void playContinue(){
         AutomationOperations.instance().navOp.watchlist.playContinueWatchingShow(2);
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot", e);
@@ -43,7 +43,7 @@ public class Watchlist extends AppiumMain {
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
 
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "video_playing_after_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_after_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot",e);
@@ -53,7 +53,7 @@ public class Watchlist extends AppiumMain {
 
     private void playQueue(){
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot",e);
@@ -62,7 +62,7 @@ public class Watchlist extends AppiumMain {
 
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "video_playing_after_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_after_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot",e);

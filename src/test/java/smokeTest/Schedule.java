@@ -38,8 +38,6 @@ public class Schedule extends AppiumMain {
         assertionLogger.setTestType("Check to see if heading has changed as a result of body swipe");
         assertionLogger.assertNotEquals(currentDateHeading, newDateHeading, "These should not be the same since we swiped");
 
-        assertionLogger.logMessages();
-
     }
 
     @AfterClass

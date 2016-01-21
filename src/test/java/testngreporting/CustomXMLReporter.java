@@ -1,6 +1,6 @@
 package testngreporting;
 
-import config.AppDefaults;
+import config.AutomationConfigProperties;
 import org.testng.reporters.XMLReporter;
 
 /**
@@ -10,6 +10,6 @@ public class CustomXMLReporter extends XMLReporter {
 
     @Override
     public String getOutputDirectory() {
-        return AppDefaults.testNGOutputDirectory;
+        return AutomationConfigProperties.testNGOutputDirectory;
     }
 }

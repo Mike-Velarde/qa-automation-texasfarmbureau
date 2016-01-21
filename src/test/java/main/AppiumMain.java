@@ -1,6 +1,5 @@
 package main;
 
-import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.utils.Logger;
 import com.bottlerocket.webdriver.WebDriverWrapper;
 import com.bottlerocket.webdriver.WebDriverWrapperAndroid;
@@ -19,7 +18,6 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Properties;
 
 
 /**
@@ -63,9 +61,9 @@ public class AppiumMain{
 
         serverAddress = new URL("http://127.0.0.1:4723/wd/hub");
         if (AutomationConfigurations.isAndroid()) {
-            driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities, AppDefaults.globalWait);
+            driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities, AutomationConfigProperties.globalWait);
         } else if (AutomationConfigurations.isIos()){
-            driverWrapper = new WebDriverWrapperIos(serverAddress, capabilities, AppDefaults.globalWait);
+            driverWrapper = new WebDriverWrapperIos(serverAddress, capabilities, AutomationConfigProperties.globalWait);
         }
         else {
             throw new Error("Operating system not recognized, check config files");
@@ -75,7 +73,7 @@ public class AppiumMain{
         initAutomationOperations();
 
         //This is really ugly way to do this here but I can't think of a one
-        AppDefaults.screenshotsDirectory += getUniqueFolderOffset() + "/mobile_screenshots/";
+        AutomationConfigProperties.screenshotsDirectory += getUniqueFolderOffset() + "/mobile_screenshots/";
 
         Logger.log("Running test method: " );
 
@@ -98,7 +96,7 @@ public class AppiumMain{
         if (testResult.getStatus() == ITestResult.FAILURE) {
             Logger.log(testResult.getMethod().getMethodName());
             String fileName = "failure_" + testResult.getMethod().getMethodName() + "_" + System.currentTimeMillis();
-            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, fileName);
+            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, fileName);
         }
 
     }
@@ -108,7 +106,7 @@ public class AppiumMain{
     public void tearDownMain() throws Exception{
         // I tried adding this functionality through changing the output directory in custom reporters
         // but I could never get all of the reports to go to the new folder. This may not be the best solution but it works for now
-        FileUtils.copyDirectory(new File("test-output"), new File(AppDefaults.testNGOutputDirectory + getUniqueFolderOffset()));
+        FileUtils.copyDirectory(new File("test-output"), new File(AutomationConfigProperties.testNGOutputDirectory + getUniqueFolderOffset()));
 
         if (driverWrapper.notNull())
             driverWrapper.quit();
@@ -123,7 +121,7 @@ public class AppiumMain{
         if(uniqueFolderOffset == null || uniqueFolderOffset.equals("")) {
             DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy hh_mm_ss a");
             Calendar cal = Calendar.getInstance();
-            uniqueFolderOffset =  dateFormat.format(cal.getTime()) + " " + suiteName + " build_" + AppDefaults.buildNumber;
+            uniqueFolderOffset =  dateFormat.format(cal.getTime()) + " " + suiteName + " build_" + AutomationConfigProperties.buildNumber;
         }
         return uniqueFolderOffset;
     }

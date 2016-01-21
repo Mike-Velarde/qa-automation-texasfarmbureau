@@ -1,6 +1,6 @@
 package testngreporting;
 
-import config.AppDefaults;
+import config.AutomationConfigProperties;
 import org.testng.reporters.SuiteHTMLReporter;
 
 /**
@@ -9,6 +9,6 @@ import org.testng.reporters.SuiteHTMLReporter;
 public class CustomSuiteHTMLReporter extends SuiteHTMLReporter {
     @Override
     protected String generateOutputDirectoryName(String outputDirectory){
-        return AppDefaults.testNGOutputDirectory;
+        return AutomationConfigProperties.testNGOutputDirectory;
     }
 }

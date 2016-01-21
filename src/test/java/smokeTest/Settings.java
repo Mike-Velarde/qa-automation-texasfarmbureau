@@ -6,7 +6,7 @@ package smokeTest;
 
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
-import config.AppDefaults;
+import config.AutomationConfigProperties;
 import config.ResourceLocator;
 import dataproviders.Endpoints;
 import dataproviders.Titles;
@@ -52,7 +52,7 @@ public class Settings extends AppiumMain {
         //wait for page to load
         driverWrapper.waitLogErr(9000);
         try {
-            driverWrapper.takeScreenshot(AppDefaults.screenshotsDirectory, "webpage_load_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "webpage_load_" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("Error taking screenshot ", e);
