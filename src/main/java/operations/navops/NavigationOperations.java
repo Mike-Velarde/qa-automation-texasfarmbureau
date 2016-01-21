@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  *
  * Created by ford.arnett on 9/3/15.
  */
-public class NavigationOperations implements AutomationOperationsListener {
+public abstract class NavigationOperations implements AutomationOperationsListener {
     WebDriverWrapper driverWrapper;
 
     public NavOpsChooseFeeds chooseFeeds = new NavOpsChooseFeeds();
@@ -41,16 +41,7 @@ public class NavigationOperations implements AutomationOperationsListener {
 
     }
 
-    public void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem){
-        if(mainToolbarVisible()){
-            openMainDrawerSafe();
-            driverWrapper.getElementByName(navigationItem.toString()).click();
-
-/*            WebDriverWait wait = driverWrapper.newWait(5);
-            wait.pollingEvery(500, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
-            wait.until(ExpectedConditions.elementToBeClickable(driverWrapper.getElementByFind(navigationItem.toString())));*/
-        }
-    }
+    public abstract void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem);
 
     public void mainToolbarBack(){
         driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_BACK).click();
@@ -97,18 +88,12 @@ public class NavigationOperations implements AutomationOperationsListener {
      *
      * @return true iff found
      */
-    private boolean mainToolbarVisible() {
-        return (driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR)).size() != 0);
-    }
+    protected abstract boolean mainToolbarVisible();
 
     /**
      * Open main drawer and make sure it is clickable
      */
-    public void openMainDrawerSafe(){
-        driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR).click();
-        //See if the drawer opens properly
-        driverWrapper.driverWait.until(ExpectedConditions.elementToBeClickable(By.id(ResourceLocator.device.AWE_MAIN_DRAWER)));
-    }
+    public abstract void openMainDrawerSafe();
 
     /**
      * Close the main drawer

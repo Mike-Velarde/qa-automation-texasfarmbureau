@@ -3,11 +3,10 @@ package operations;
 import com.bottlerocket.domod.InputUtils;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.webdriver.WebDriverWrapper;
-import config.AppDefaults;
+import config.AutomationConfigProperties;
 import config.ResourceLocator;
 import domod.UserBank;
 import io.appium.java_client.*;
-import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TimeoutException;
@@ -37,6 +36,8 @@ public abstract class UserOperations implements AutomationOperationsListener {
 
     public void signIn(UserBank.User user){
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
+        //Some devices have the bottom options off screen, this will scroll down for those devices
+        driverWrapper.scroll_to(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE);
         driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
         if(!inLoginMode())
           signOut();
@@ -55,7 +56,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         long startTime = System.currentTimeMillis();
 
         //Keep trying to get web elements until timeout is reached. Sometimes even though the webview is visible it takes a little while to be able to grab the elements
-        while(authElements.size() == 0 && (System.currentTimeMillis() - startTime)/(1000) < AppDefaults.globalWait){
+        while(authElements.size() == 0 && (System.currentTimeMillis() - startTime)/(1000) < AutomationConfigProperties.globalWait){
             ((MobileElement) webView).tap(1,2000);
             authElements = webView.findElements(By.className(ResourceLocator.device.EDIT_TEXT));
         }
@@ -70,11 +71,14 @@ public abstract class UserOperations implements AutomationOperationsListener {
         WebElement usernameElement = authElements.get(0); //driverWrapper.find(ResourceLocator.device.PROVIDER_LOGIN_USERNAME_ID);
         utils.sendKeysHideKeyboard(usernameElement, user.username);
         WebElement passwordElement = authElements.get(1); //driverWrapper.find(ResourceLocator.device.PROVIDER_LOGIN_PASSWORD_ID);
-        utils.sendKeysHideKeyboard(passwordElement, user.password);
+        utils.sendKeysSafe(passwordElement, user.password);
 
+        utils.submitForm();
+
+        //The two different approaches below have seemed unreliable across devices
         //Scroll down so we can see the sign in button, this may not work in all scenarios, needs more testing. The first number is how far away from bottom, and I believe the second is as well
-        ((AndroidElement) webView).swipe(SwipeElementDirection.UP,350, 150, 2000);
-        webView.findElements(By.className("android.widget.Image")).get(2).click();
+        //((AndroidElement) webView).swipe(SwipeElementDirection.UP,350, 150, 2000);
+        //webView.findElements(By.className(ResourceLocator.device.IMAGE_VIEW)).get(2).click();
         //This doesn't work on all devices
         //driverWrapper.find(ResourceLocator.device.PROVIDER_SIGN_IN_BUTTON).click();
 
@@ -91,8 +95,8 @@ public abstract class UserOperations implements AutomationOperationsListener {
      */
     private boolean inLoginMode() {
         WebElement loginLogoutButton = driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
-        //Older versions have Log In as two words, this is to account for that variance
-        return loginLogoutButton.getText().equalsIgnoreCase("Log in to provider") || loginLogoutButton.getText().equalsIgnoreCase("Login to provider");
+        //Older versions have has different variations of the login text
+        return loginLogoutButton.getText().equalsIgnoreCase("Log in to provider") || loginLogoutButton.getText().equalsIgnoreCase("Login to provider") || loginLogoutButton.getText().equalsIgnoreCase("Sign in to provider");
     }
 
     public void signOut() {
@@ -100,7 +104,10 @@ public abstract class UserOperations implements AutomationOperationsListener {
         if(!title.equalsIgnoreCase(ResourceLocator.DrawerNavigationItem.settings.toString())) {
             AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         }
+        //Some devices have the bottom options off screen, this will scroll down for those devices
+        driverWrapper.scroll_to(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE);
         WebElement loginLogoutButton = driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
+        //I'm not sure this check is necessary
         if(!inLoginMode()) {
             loginLogoutButton.click();
             AutomationOperations.instance().navOp.genericYesNoPopup(true);

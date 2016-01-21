@@ -208,6 +208,8 @@ public class ResourceLocator {
     public String AWE_SETTINGS_DEV_OPTIONS_TITLE_ID = "awe_settings_btndevoptions";
     public String AWE_SETTINGS_DEV_OPTIONS_MAIN_LIST = "awe_devoptions_list";
 
+    public String AWE_SETTINGS_DEV_OPTIONS_TITLE = "Developer Options";
+
     /**
      * Watchlist
      */
