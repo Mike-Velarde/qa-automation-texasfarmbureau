@@ -29,8 +29,11 @@ public class AutomationOperations {
 
     public void initOperations(DeviceAutomationComponents deviceAutomationComponents){
         this.deviceAutomationComponents = deviceAutomationComponents;
+
+        deviceAutomationComponents.initResourceLocator();
         config = deviceAutomationComponents.getAutomationConfigurations();
         navOp = deviceAutomationComponents.getNavigationOperations();
         userOp = deviceAutomationComponents.getUserOperations();
+
     }
 }

@@ -26,13 +26,20 @@ public class Watchlist extends AppiumMain {
      * This script makes the assumption that there is a show in the continue watching part of the watchlist. More work must be done to fix this dependency.
      */
     @Test
-    public void testWatchlist(){
+    public void testWatchlistContinue(){
         playContinue();
+    }
+
+    /**
+     * This script makes the assumption that there is a show in the queue watching part of the watchlist. More work must be done to fix this dependency.
+     */
+    @Test
+    public void testWatchlistQueue(){
         playQueue();
     }
 
     private void playContinue(){
-        AutomationOperations.instance().navOp.watchlist.playContinueWatchingShow(2);
+        AutomationOperations.instance().navOp.watchlist.playContinueWatchingShow(1);
         try {
             driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
         }
@@ -58,7 +65,7 @@ public class Watchlist extends AppiumMain {
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot",e);
         }
-        AutomationOperations.instance().navOp.watchlist.playQueueShow(1, 1);
+        AutomationOperations.instance().navOp.watchlist.playQueueShow(1, 0);
 
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
         try {

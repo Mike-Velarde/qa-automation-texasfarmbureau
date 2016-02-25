@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
+ * @deprecated been moved to framework
+ *
  * Created by ford.arnett on 11/17/15.
  */
 public class WebsiteConnection {

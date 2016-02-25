@@ -1,5 +1,8 @@
 package config;
 
+import com.bottlerocket.utils.InputUtils;
+import com.bottlerocket.utils.InputUtilsIos;
+import com.bottlerocket.webdriver.WebDriverWrapper;
 import operations.UserOperations;
 import operations.navops.NavigationOperations;
 import operations.navops.NavigationOperationsIos;
@@ -27,7 +30,12 @@ public class IosAutomationComponents implements DeviceAutomationComponents {
     }
 
     @Override
-    public ResourceLocator getResourceLocator() {
-        return new ResourceLocatorIos();
+    public InputUtils createInputUtils(WebDriverWrapper driverWrapper) {
+        return new InputUtilsIos(driverWrapper);
+    }
+
+    @Override
+    public ResourceLocator initResourceLocator() {
+        return ResourceLocator.device = new ResourceLocatorIos();
     }
 }

@@ -22,6 +22,7 @@ public class SplashScreen extends AppiumMain {
      * This currently doesn't work, it seems to run after first page is loaded
      */
     public void testSponsorLogos(){
+        System.out.print("");
         //Assert.assertTrue(AutomationOperations.instance().navOp.brandAndSponsorVisible());
     }
 

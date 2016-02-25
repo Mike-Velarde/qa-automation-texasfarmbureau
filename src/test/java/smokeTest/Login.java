@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Works for iOS and Android
+ *
  * Created by ford.arnett on 10/23/15.
  */
 public class Login extends AppiumMain {

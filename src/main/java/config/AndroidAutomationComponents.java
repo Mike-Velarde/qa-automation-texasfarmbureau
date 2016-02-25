@@ -1,5 +1,8 @@
 package config;
 
+import com.bottlerocket.utils.InputUtils;
+import com.bottlerocket.utils.InputUtilsAndroid;
+import com.bottlerocket.webdriver.WebDriverWrapper;
 import operations.UserOperations;
 import operations.UserOperationsAndroid;
 import operations.navops.NavigationOperations;
@@ -27,7 +30,12 @@ public class AndroidAutomationComponents implements DeviceAutomationComponents {
     }
 
     @Override
-    public ResourceLocator getResourceLocator() {
-        return new ResourceLocatorAndroid();
+    public InputUtils createInputUtils(WebDriverWrapper driverWrapper) {
+        return new InputUtilsAndroid(driverWrapper);
+    }
+
+    @Override
+    public ResourceLocator initResourceLocator() {
+        return ResourceLocator.device = new ResourceLocatorAndroid();
     }
 }

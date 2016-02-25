@@ -1,6 +1,7 @@
 package operations.navops;
 
 import config.ResourceLocator;
+import operations.AutomationOperations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -18,6 +19,19 @@ public class NavigationOperationsAndroid extends NavigationOperations {
     }
 
     @Override
+    public NavOpsSettings createNavOpsSettings() {
+        return new NavOpsSettingsAndroid();
+    }
+    @Override
+    public NavOpsFeatured createNavOpsFeatured() {
+        return new NavOpsFeaturedAndroid();
+    }
+    @Override
+    public NavOpsShows createNavOpsShows() {
+        return new NavOpsShowsAndroid();
+    }
+
+    @Override
     public void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem){
         if(mainToolbarVisible()){
             openMainDrawerSafe();
@@ -32,4 +46,29 @@ public class NavigationOperationsAndroid extends NavigationOperations {
     protected boolean mainToolbarVisible() {
         return (driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR)).size() != 0);
     }
+
+    public String getScreenTitle() {
+        return driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_TITLE_ID).getText();
+    }
+
+    public void mainToolbarBack(){
+        driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_BACK).click();
+    }
+
+    public void mainToolbarSearch() {
+        if(driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH)).size() !=0) {
+            driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH).click();
+        }
+        else {
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS).click();
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW).click();
+        }
+    }
+
+    @Override
+    public void returnFromShowDetails() {
+        mainToolbarBack();
+
+    }
+
 }

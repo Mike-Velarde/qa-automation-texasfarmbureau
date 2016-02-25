@@ -23,8 +23,6 @@ public class Schedule extends AppiumMain {
 
     @Test
     public void testSchedule(){
-
-
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.schedule);
         String currentDateHeading = AutomationOperations.instance().navOp.schedule.getCurrentDateHeading();
         assertionLogger.setTestType("Check to see if heading is shown");

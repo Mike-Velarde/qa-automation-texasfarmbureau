@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
+ * Works for iOS and Android
+ *
  * Created by ford.arnett on 10/12/15.
  */
 public class Navigate extends AppiumMain {
@@ -20,8 +22,9 @@ public class Navigate extends AppiumMain {
     }
 
     @Test
-    public void navigateTabs(){
-        for(ResourceLocator.DrawerNavigationItem item : ResourceLocator.DrawerNavigationItem.values()) {
+    public void navigateTabs() {
+        for (ResourceLocator.DrawerNavigationItem item : ResourceLocator.DrawerNavigationItem.values()) {
+            String navItemName = item.toString();
             AutomationOperations.instance().navOp.navigateUsingDrawer(item);
         }
     }

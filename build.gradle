@@ -3,8 +3,8 @@ apply plugin: 'java'
 group = 'bottlerocketstuidos.automation'
 version = '0.0.1-SNAPSHOT'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -18,10 +18,24 @@ repositories {
     }
 }
 
+/*sourceSets {
+    integTest {
+        compileClasspath += test.java.smokeTest
+        runtimeClasspath += main.output + test.output
+    }
+}*/
+
+test{
+    useTestNG()
+}
+
 dependencies {
     compile project(':automation_library')
     compile group: 'io.appium', name: 'java-client', version:'3.2.0'
-    testCompile group: 'org.testng', name: 'testng', version:'6.8.8'
     compile(group: 'com.bottlerocketstudios.automation', name: 'Automation_Library', version: '1.0-SNAPSHOT')
-
 }
+
+/*task login(type: Test){
+    testClassesDir = sourceSets.integTest.output.classesDir
+    classpath = sourceSets.integTest.runtimeClasspath
+}*/

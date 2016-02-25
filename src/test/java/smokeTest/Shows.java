@@ -42,12 +42,15 @@ public class Shows extends AppiumMain {
         AutomationOperations.instance().navOp.shows.playFromActiveSeason(2);
 
         //Wait for ads
-        driverWrapper.waitLogErr(12000);
+        driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
+        AutomationOperations.instance().userOp.assertVideoRuntimeChanged(assertionLogger, 10000);
+
         AutomationOperations.instance().navOp.mainToolbarBack();
         AutomationOperations.instance().navOp.mainToolbarBack();
 
         //This needs more work
         AutomationOperations.instance().navOp.shows.showDetailSelectSeason(1);
+        //This isn't working right now
         AutomationOperations.instance().navOp.shows.scrollToBottom();
 
         AutomationOperations.instance().navOp.mainToolbarBack();

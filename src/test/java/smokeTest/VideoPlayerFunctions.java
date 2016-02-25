@@ -10,6 +10,7 @@ import operations.AutomationOperations;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.VideoUtils;
 
 import java.util.Calendar;
 
@@ -31,13 +32,8 @@ public class VideoPlayerFunctions extends AppiumMain {
         //driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
         //AutomationOperations.instance().userOp.playPauseVideo();
         //Give the video extra time to load
-        driverWrapper.waitLogErr(10000);
-        Calendar startTime = AutomationOperations.instance().userOp.getVideoCurrentRunTime(true);
-        //AutomationOperations.instance().userOp.playPauseVideo();
-        driverWrapper.waitLogErr(10000);
-        Calendar timeAfterPlay = AutomationOperations.instance().userOp.getVideoCurrentRunTime(true);
-        assertionLogger.setTestType("Test if the video has played");
-        assertionLogger.assertNotEquals(getVideoTimeFromCalendar(startTime), getVideoTimeFromCalendar(timeAfterPlay));
+        driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
+        AutomationOperations.instance().userOp.assertVideoRuntimeChanged(assertionLogger, 10000);
 
         AutomationOperations.instance().userOp.scrubVideo(0.6);
         AutomationOperations.instance().userOp.closedCaptionsToggle();
@@ -48,14 +44,6 @@ public class VideoPlayerFunctions extends AppiumMain {
         assertionLogger.logMessages();
     }
 
-    private String getVideoTimeFromCalendar(Calendar cal){
-        String result;
-        result = cal.get(Calendar.HOUR) == 0 ? "00:" : cal.get(Calendar.HOUR) + ":";
-        result += cal.get(Calendar.MINUTE) == 0 ? "00:" : cal.get(Calendar.MINUTE) + ":";
-        result += cal.get(Calendar.SECOND) == 0 ? "00" : cal.get(Calendar.SECOND) + "";
-
-        return result;
-    }
 
     @AfterClass
     public void tearDown(){

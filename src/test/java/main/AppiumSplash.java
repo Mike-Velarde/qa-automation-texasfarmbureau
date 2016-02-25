@@ -1,6 +1,6 @@
 package main;
 
-import config.AppDefaults;
+import config.AutomationConfigProperties;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -42,7 +42,7 @@ public class AppiumSplash {
         long time = System.currentTimeMillis();
         while(System.currentTimeMillis() < time + 10000){
             File srcFiler = driver.getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(srcFiler, new File(AppDefaults.screenshotsDirectory + "/testing/splash_screen_abc" + System.currentTimeMillis()));
+            FileUtils.copyFile(srcFiler, new File(AutomationConfigProperties.screenshotsDirectory + "/testing/splash_screen_abc" + System.currentTimeMillis()));
         }
 
     }

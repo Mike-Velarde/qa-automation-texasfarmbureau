@@ -44,13 +44,15 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
         List<WebElement> queueAndContinueRows = driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_ROWS));
 
         List<WebElement> queueRow = null;
-        if(rowIndex < queueAndContinueRows.size()){
+        //TODO this logic goes with the rest of the todo
+        //if(rowIndex < queueAndContinueRows.size()){
             queueRow = queueAndContinueRows.get(rowIndex).findElements(By.id("awe_watchlist_itemimage"));
-        }
+        //}
 
 /*        else{
             //TODO again need to scroll down to get the rows that we can't see
             //continueWatchingRow.swipe(SwipeElementDirection.UP, 1000);
+            //queueRow = something otherwise NPE
         }*/
         //Check to see if we can see the given thumbnail index
         if(columnIndex < queueRow.size()){

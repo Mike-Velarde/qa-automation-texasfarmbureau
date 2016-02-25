@@ -8,7 +8,7 @@ import webinteractions.WebsiteConnection;
 /**
  * Created by ford.arnett on 11/17/15.
  */
-public class NavOpsSettings implements AutomationOperationsListener {
+public abstract class NavOpsSettings implements AutomationOperationsListener {
     WebDriverWrapper driverWrapper;
 
     @Override
@@ -34,4 +34,9 @@ public class NavOpsSettings implements AutomationOperationsListener {
         //this is somewhat gimmicky since we are looking for the name and returning the name, but there aren't many better options. At least we know it's there if this works
         return driverWrapper.getElementByName(ResourceLocator.device.GMAIL_COMPOSE_TEXT).getText();
     }
+
+    /**
+     * After selecting a settings option, return back to the settings page. This currently makes sense for Android and not iOS
+     */
+    public abstract void backFromSettingsOption();
 }

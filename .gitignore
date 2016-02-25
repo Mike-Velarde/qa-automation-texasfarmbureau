@@ -1,4 +1,3 @@
-*.xml
 build/classes/main/config/AppDefaults.class
 build/classes/main/config/AutomationConfigurations.class
 build/classes/main/config/ResourceLocator.class

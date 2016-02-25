@@ -83,7 +83,7 @@ public class ResourceLocatorAndroid extends ResourceLocator{
 
 
     /**
-     * Awe main toolabr
+     * Awe main toolbar
      */
     public static final String AWE_MAIN_TOOLBAR = "awe_toolbar_container";
     public static final String AWE_MAIN_TOOLBAR_TITLE_ID = "awe_actionbar_title";

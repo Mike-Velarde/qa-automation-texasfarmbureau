@@ -1,5 +1,7 @@
 package config;
 
+import com.bottlerocket.utils.InputUtils;
+import com.bottlerocket.webdriver.WebDriverWrapper;
 import operations.UserOperations;
 import operations.navops.NavigationOperations;
 
@@ -13,5 +15,7 @@ public interface DeviceAutomationComponents {
 
     UserOperations getUserOperations();
 
-    ResourceLocator getResourceLocator();
+    ResourceLocator initResourceLocator();
+
+    InputUtils createInputUtils(WebDriverWrapper driverWrapper);
 }

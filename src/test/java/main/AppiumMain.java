@@ -28,6 +28,7 @@ public class AppiumMain{
     private String suiteName;
     //This is the offset to store files for this run of the suite
     private String uniqueFolderOffset;
+    private Calendar startTime = Calendar.getInstance();
 
     /**
      * This seems to run after the other setup
@@ -72,7 +73,7 @@ public class AppiumMain{
         //this must be after driver wrapper is initialized
         initAutomationOperations();
 
-        //This is really ugly way to do this here but I can't think of a one
+        //This is really ugly way to do this here but I can't think of a better one
         AutomationConfigProperties.screenshotsDirectory += getUniqueFolderOffset() + "/mobile_screenshots/";
 
         Logger.log("Running test method: " );
@@ -80,8 +81,8 @@ public class AppiumMain{
         //Normally no operations should be done in this class, however, if the app ever launches with the picker
         //then this needs to be run to get to the home page. Since it is possible at anytime to launch with picker,
         //this must be run at each launch.
-        //TODO fix to use for iOS too
-        // AutomationOperations.instance().userOp.chooseFeedIfNeeded(ResourceLocator.device.AWE_BRAND_NAMES_USA, ResourceLocator.device.ANDROID_FW_DEV_LIVE, ResourceLocator.device.AWE_PICKFEED_SERVERURL_ID);
+
+        AutomationOperations.instance().userOp.chooseFeedIfNeeded(ResourceLocator.device.AWE_BRAND_NAMES_USA, ResourceLocator.device.ANDROID_FW_DEV_LIVE, ResourceLocator.device.AWE_PICKFEED_SERVERURL_ID);
 
     }
 
@@ -119,9 +120,8 @@ public class AppiumMain{
      */
     public String getUniqueFolderOffset(){
         if(uniqueFolderOffset == null || uniqueFolderOffset.equals("")) {
-            DateFormat dateFormat = new SimpleDateFormat("dd_MM_yyyy hh_mm_ss a");
-            Calendar cal = Calendar.getInstance();
-            uniqueFolderOffset =  dateFormat.format(cal.getTime()) + " " + suiteName + " build_" + AutomationConfigProperties.buildNumber;
+            DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy_hhmmss_a");
+            uniqueFolderOffset =  dateFormat.format(startTime.getTime()) + "_" + suiteName + "_build_" + AutomationConfigProperties.buildNumber;
         }
         return uniqueFolderOffset;
     }

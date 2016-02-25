@@ -11,11 +11,11 @@ import org.openqa.selenium.By;
  * Created by ford.arnett on 8/31/15.
  */
 public class ResourceLocator {
-    public static ResourceLocator device = AutomationOperations.instance().deviceAutomationComponents.getResourceLocator();
+    public static ResourceLocator device;
 
     //This doesn't really have a home right now, so it lives here for now
-    //Seconds = Time * 1000
-    public static final int AWE_INITIAL_ADS_WAIT_TIME = 25000;
+    //Seconds = Time / 1000
+    public static final int AWE_INITIAL_ADS_WAIT_TIME = 60000;
 
     /**
     * AWE brands
@@ -228,6 +228,8 @@ public class ResourceLocator {
      * Cable providers
      */
     public String OPTIMUM_CONTENT_DESC = "Cablevision";
+    public String OPTIMUM = "Optimum";
+
 
 
     /**
@@ -239,7 +241,6 @@ public class ResourceLocator {
     public String USA_ENDPOINT_TERMS_AND_CONDITIONS = "http://www.usanetwork.com/terms";
 
     public String BR_ENDPOINT_ABOUT_BR = "http://www.bottlerocketapps.com/brAbout";
-
 
     //Use this to allow subclasses to overwrite the enum's string
     //public abstract void initCallsToAction();

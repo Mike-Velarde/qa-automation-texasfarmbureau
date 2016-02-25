@@ -8,8 +8,6 @@ import com.bottlerocket.webdriver.WebDriverWrapper;
 import config.ResourceLocator;
 import operations.AutomationOperationsListener;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 /**
@@ -21,11 +19,15 @@ public abstract class NavigationOperations implements AutomationOperationsListen
     WebDriverWrapper driverWrapper;
 
     public NavOpsChooseFeeds chooseFeeds = new NavOpsChooseFeeds();
-    public NavOpsFeatured featured = new NavOpsFeatured();
-    public NavOpsShows shows = new NavOpsShows();
+    public NavOpsFeatured featured = createNavOpsFeatured();
+    public NavOpsShows shows = createNavOpsShows();
     public NavOpsSchedule schedule = new NavOpsSchedule();
-    public NavOpsSettings settings = new NavOpsSettings();
+    public NavOpsSettings settings = createNavOpsSettings();
     public NavOpsWatchlist watchlist = new NavOpsWatchlist();
+
+    public abstract NavOpsSettings createNavOpsSettings();
+    public abstract NavOpsFeatured createNavOpsFeatured();
+    public abstract NavOpsShows createNavOpsShows();
 
     @Override
     public void init(WebDriverWrapper driverWrapper) {
@@ -43,22 +45,12 @@ public abstract class NavigationOperations implements AutomationOperationsListen
 
     public abstract void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem);
 
-    public void mainToolbarBack(){
-        driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_BACK).click();
-    }
+    public abstract void mainToolbarBack();
+
+    public abstract void mainToolbarSearch();
 
     public void mainToolbarLive() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_LIVE).click();
-    }
-
-    public void mainToolbarSearch() {
-        if(driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH)).size() !=0) {
-            driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH).click();
-        }
-        else {
-            driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS).click();
-            driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW).click();
-        }
     }
 
     public void mainToolbarShare() {
@@ -79,7 +71,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
 
     public void shareFacebook() {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK).click();
-        driverWrapper.find("Post").click();
+        driverWrapper.find("POST").click();
     }
 
 
@@ -102,9 +94,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
         driverWrapper.getElementByFind(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR).click();
     }
 
-    public String getScreenTitle() {
-        return driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_TITLE_ID).getText();
-    }
+    public abstract String getScreenTitle();
 
     public void genericYesNoPopup(boolean yes) {
         if(yes){
@@ -133,5 +123,11 @@ public abstract class NavigationOperations implements AutomationOperationsListen
 
 
     }
+
+    /**
+     * The flow to go back from the show details page is different for iOS/Android, so I made a specific method for it
+     *
+     */
+    public abstract void returnFromShowDetails();
 }
 
