@@ -34,7 +34,7 @@ public class AssertionLogger extends Assertion {
     }
 
     @Override
-    public void onAssertFailure(IAssert assertion){
+    public void onAssertFailure(IAssert assertion, AssertionError ex){
         int mostRecentIndex = assertionMessages.size() - 1;
         String message = assertionMessages.get(mostRecentIndex);
         message = "Failed " + message + errorMessage(assertion);
