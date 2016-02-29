@@ -1,4 +1,4 @@
-package smokeTest;
+package smokeTest.generic;
 
 import assertions.AssertionLogger;
 import domod.UserBank;

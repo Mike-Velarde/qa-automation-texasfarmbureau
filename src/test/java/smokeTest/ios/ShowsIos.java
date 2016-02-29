@@ -1,18 +1,19 @@
-package smokeTest;
+package smokeTest.ios;
 
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
-import config.AutomationConfigProperties;
+import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
 import operations.AutomationOperations;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import smokeTest.generic.Shows;
 
 /**
  * Created by ford.arnett on 2/17/16.
  */
-public class ShowsIos extends Shows{
+public class ShowsIos extends Shows {
 
     AssertionLogger assertionLogger = new AssertionLogger();
 

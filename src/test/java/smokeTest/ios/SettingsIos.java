@@ -1,4 +1,4 @@
-package smokeTest;
+package smokeTest.ios;
 
 /**
  * Created by ford.arnett on 11/17/15.
@@ -6,10 +6,9 @@ package smokeTest;
 
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
-import config.AutomationConfigProperties;
+import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
 import dataproviders.Endpoints;
-import dataproviders.Titles;
 import main.AppiumMain;
 import operations.AutomationOperations;
 import org.testng.annotations.AfterClass;
@@ -17,25 +16,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import webinteractions.WebsiteConnection;
 
-public class Settings extends AppiumMain {
+@Test(groups = {"ios"})
+/**
+ * @deprecated I think we can delete this class
+ */
+public class SettingsIos extends AppiumMain {
     AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
     public void setup() {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
-    }
-
-    @Test(dataProvider = "settings-verify-titles", dataProviderClass = Titles.class, groups = {"android"})
-    public void testSettingsTitles(String testType, String buttonID, String title){
-        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(buttonID);
-        assertionLogger.setTestType("Verify the screen title is the title we expected");
-        try {
-            assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), title);
-        }
-        //Go back no matter what
-        finally {
-            AutomationOperations.instance().navOp.mainToolbarBack();
-        }
     }
 
     /**
@@ -59,7 +49,6 @@ public class Settings extends AppiumMain {
         }
         assertionLogger.setTestType("Check the response code from the end points");
         assertionLogger.assertTrue(WebsiteConnection.responseAcceptable(responseCode));
-        AutomationOperations.instance().navOp.settings.backFromSettingsOption();
     }
 
     @Test

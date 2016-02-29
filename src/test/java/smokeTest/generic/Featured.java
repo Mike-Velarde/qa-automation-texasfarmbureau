@@ -1,8 +1,8 @@
-package smokeTest;
+package smokeTest.generic;
 
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
-import config.AutomationConfigProperties;
+import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
@@ -11,9 +11,12 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
- * Created by ford.arnett on 2/10/16.
+ * Common methods are used for both, while iOS has some separate code
+ *
+ * Created by ford.arnett on 11/2/15.
  */
-public class FeaturedIos extends Featured {
+public class Featured extends AppiumMain{
+    protected AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
     public void setup(){
@@ -21,9 +24,9 @@ public class FeaturedIos extends Featured {
     }
 
     /**
-     * Test the items of the featured screen.
+     * Test all items of the featured screen.
      */
-    @Test
+    @Test (enabled =  false)
     public void testFeatured(){
         testSearch();
 
@@ -35,13 +38,23 @@ public class FeaturedIos extends Featured {
 
         testPlay();
 
+
         //TODO this broke somehow, need to figure out how to fix. Tried scrolling with lots of ids none seemed to work
         //AutomationOperations.instance().navOp.featured.scrollToBottom();
 
 
     }
 
-    @Override
+    @Test
+    protected void testWebsite() {
+        AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.website);
+        boolean visible = AutomationOperations.instance().navOp.featured.isWebsiteVisible();
+        assertionLogger.setTestType("Verify that the website is visible.");
+        assertionLogger.assertTrue(visible);
+        AutomationOperations.instance().navOp.mainToolbarBack();
+    }
+
+    @Test
     protected void testPlay() {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
@@ -78,12 +91,29 @@ public class FeaturedIos extends Featured {
         AutomationOperations.instance().navOp.mainToolbarBack();
     }
 
-    @Override
+    @Test
     protected void testWatchlist() {
+        int watchCount = AutomationOperations.instance().userOp.getDrawerWatchlistCount();
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.watchlist);
-        //TODO reevaluate how to verify on iOS
-        //assertionLogger.setTestType("Verify that the watchlist count is the expected count");
-        //assertionLogger.assertNotEquals(watchCount, AutomationOperations.instance().userOp.getDrawerWatchlistCount());
+        //  Assert.assertTrue(watchCount + 1 == AutomationOperations.instance().userOp.getDrawerWatchlistCount());
+        assertionLogger.setTestType("Verify that the watchlist count is the expected count");
+        assertionLogger.assertNotEquals(watchCount, AutomationOperations.instance().userOp.getDrawerWatchlistCount());
+    }
+
+    @Test
+    protected void testSearch() {
+        int resultOnPage = AutomationOperations.instance().userOp.search("episode");
+        assertionLogger.setTestType("Test that there are more than 0 results");
+        assertionLogger.assertNotEquals(resultOnPage, 0);
+        AutomationOperations.instance().navOp.mainToolbarBack();
+    }
+
+    @Test
+    protected void testShowDetails() {
+        String showTitle = AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.details);
+        assertionLogger.setTestType("Verify that the show title is what we expect");
+        assertionLogger.assertTrue(showTitle.equalsIgnoreCase(AutomationOperations.instance().userOp.getShowDetailsShowTitle()));
+        AutomationOperations.instance().navOp.returnFromShowDetails();
     }
 
     @AfterClass

@@ -1,4 +1,4 @@
-package smokeTest;
+package smokeTest.generic;
 
 /**
  * Created by ford.arnett on 11/17/15.

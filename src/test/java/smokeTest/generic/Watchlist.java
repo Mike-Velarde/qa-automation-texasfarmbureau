@@ -1,4 +1,4 @@
-package smokeTest;
+package smokeTest.generic;
 
 /**
  * Created by ford.arnett on 11/23/15.
@@ -6,7 +6,7 @@ package smokeTest;
 
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
-import config.AutomationConfigProperties;
+import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
