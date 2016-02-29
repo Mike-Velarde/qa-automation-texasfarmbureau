@@ -1,6 +1,6 @@
 package testngreporting;
 
-import config.AutomationConfigProperties;
+import com.bottlerocket.config.AutomationConfigProperties;
 import org.testng.reporters.SuiteHTMLReporter;
 
 /**
