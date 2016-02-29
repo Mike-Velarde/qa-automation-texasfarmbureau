@@ -1,5 +1,7 @@
 package config;
 
+import com.bottlerocket.config.AutomationConfigurations;
+import com.bottlerocket.config.AutomationConfigurationsAndroid;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.utils.InputUtilsAndroid;
 import com.bottlerocket.webdriver.WebDriverWrapper;

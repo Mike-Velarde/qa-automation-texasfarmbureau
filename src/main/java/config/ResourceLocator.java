@@ -276,13 +276,6 @@ public class ResourceLocator {
         public String toString() { return callToAction; }
     }
 
-    /**
-     * View classes
-     */
-    public String LINEAR_LAYOUT = "android.widget.LinearLayout";
-    public String FRAME_LAYOUT = "android.widget.FrameLayout";
-    public String EDIT_TEXT = "android.widget.EditText";
-    public String IMAGE_VIEW = "android.widget.Image";
-    public String WEBKIT_WEBVIEW = "android.webkit.WebView";
 
+    public String WEBKIT_WEBVIEW = "android.webkit.WebView";
 }

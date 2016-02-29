@@ -18,7 +18,8 @@ public class ResourceLocatorIos extends ResourceLocator{
     public static final String UIA_KEYBOARD = "UIA_KEYBOARD";
     public static final String UIA_BUTTON = "UIAButton";
     public static final String UIA_TABLE_CELL = "UIATableCell";
-
+    public static final String UIA_TEXT_FIELD = "UIATextField";
+    public static final String UIA_SECURE_TEXT_FIELD = "UIASecureTextField";
 
 
     {

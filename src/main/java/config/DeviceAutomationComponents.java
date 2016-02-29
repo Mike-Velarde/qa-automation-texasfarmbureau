@@ -1,5 +1,6 @@
 package config;
 
+import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.webdriver.WebDriverWrapper;
 import operations.UserOperations;

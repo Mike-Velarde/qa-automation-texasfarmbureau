@@ -6,6 +6,14 @@ package config;
 public class ResourceLocatorAndroid extends ResourceLocator{
 
     /**
+     * View classes
+     */
+    public static final String LINEAR_LAYOUT = "android.widget.LinearLayout";
+    public static final String FRAME_LAYOUT = "android.widget.FrameLayout";
+    public static final String EDIT_TEXT = "android.widget.EditText";
+    public static final String IMAGE_VIEW = "android.widget.Image";
+
+    /**
      * AWE brands
      */
     public static final String AWE_BRAND_NAMES_AWE_AUTOMATION = "awe_automation";
