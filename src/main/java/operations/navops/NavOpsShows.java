@@ -2,6 +2,7 @@ package operations.navops;
 
 import com.bottlerocket.webdriver.WebDriverWrapper;
 import config.ResourceLocator;
+import config.ResourceLocatorAndroid;
 import config.ResourceLocatorIos;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.SwipeElementDirection;
@@ -30,7 +31,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      */
     public void selectShow(int row, int column) {
         WebElement webElement = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID);
-        List<WebElement> showsRows = webElement.findElements(By.className(ResourceLocator.device.LINEAR_LAYOUT));
+        List<WebElement> showsRows = webElement.findElements(By.className(ResourceLocatorAndroid.LINEAR_LAYOUT));
         List<WebElement> showsColumns = showsRows.get(row).findElements(By.id(ResourceLocator.device.AWE_SHOWS_VIDEO_THUMBNAILS));
         WebElement show = showsColumns.get(column);
 

@@ -8,7 +8,7 @@
 			</run>
 		</groups>
         <packages>
-            <package name="smokeTest.*" />
+            <package name="smokeTest.generic.*" />
         </packages>
 
 	</test>

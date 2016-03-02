@@ -1,9 +1,8 @@
 package dataproviders;
 
-import config.AutomationConfigurations;
+import com.bottlerocket.config.AutomationConfigurations;
 import config.ResourceLocator;
 import org.testng.annotations.DataProvider;
-import org.xml.sax.ErrorHandler;
 
 /**
  * Created by ford.arnett on 11/17/15.

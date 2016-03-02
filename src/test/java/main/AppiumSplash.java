@@ -1,6 +1,6 @@
 package main;
 
-import config.AutomationConfigProperties;
+import com.bottlerocket.config.AutomationConfigProperties;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;

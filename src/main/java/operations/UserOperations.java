@@ -1,7 +1,6 @@
 package operations;
 
 import assertions.AssertionLogger;
-import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.webdriver.WebDriverWrapper;
 import config.ResourceLocator;

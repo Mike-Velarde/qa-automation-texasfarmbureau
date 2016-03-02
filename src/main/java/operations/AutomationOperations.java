@@ -1,7 +1,7 @@
 package operations;
 
 
-import config.AutomationConfigurations;
+import com.bottlerocket.config.AutomationConfigurations;
 import config.DeviceAutomationComponents;
 import operations.navops.NavigationOperations;
 

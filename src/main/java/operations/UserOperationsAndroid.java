@@ -2,8 +2,9 @@ package operations;
 
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.webdriver.WebDriverWrapper;
-import config.AutomationConfigProperties;
+import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
+import config.ResourceLocatorAndroid;
 import domod.UserBank;
 import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
@@ -35,20 +36,20 @@ public class UserOperationsAndroid extends UserOperations {
         WebElement webView = driverWrapper.driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.className(ResourceLocator.device.WEBKIT_WEBVIEW)));
         //The webView seems to need to be activated in order to get the elements from it
 
-        List<WebElement> authElements = webView.findElements(By.className(ResourceLocator.device.EDIT_TEXT));
+        List<WebElement> authElements = webView.findElements(By.className(ResourceLocatorAndroid.EDIT_TEXT));
         long startTime = System.currentTimeMillis();
 
         //Keep trying to get web elements until timeout is reached. Sometimes even though the webview is visible it takes a little while to be able to grab the elements
         while(authElements.size() == 0 && (System.currentTimeMillis() - startTime)/(1000) < AutomationConfigProperties.globalWait){
             ((MobileElement) webView).tap(1,2000);
-            authElements = webView.findElements(By.className(ResourceLocator.device.EDIT_TEXT));
+            authElements = webView.findElements(By.className(ResourceLocatorAndroid.EDIT_TEXT));
         }
 
         //Sometimes we need to wait a little before the web view can be activated. This waits a few seconds and tries to activate the webview again. This probably isn't the best solution, but it should work
         if(authElements.size() == 0){
             driverWrapper.waitLogErr(3000);
             ((MobileElement) webView).tap(1, 2000);
-            authElements = webView.findElements(By.className(ResourceLocator.device.EDIT_TEXT));
+            authElements = webView.findElements(By.className(ResourceLocatorAndroid.EDIT_TEXT));
         }
         //Set username and password
         WebElement usernameElement = authElements.get(0); //driverWrapper.find(ResourceLocator.device.PROVIDER_LOGIN_USERNAME_ID);

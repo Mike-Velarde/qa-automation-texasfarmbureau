@@ -1,6 +1,6 @@
 package dataproviders;
 
-import config.AutomationConfigurations;
+import com.bottlerocket.config.AutomationConfigurations;
 import config.ResourceLocator;
 import org.testng.annotations.DataProvider;
 

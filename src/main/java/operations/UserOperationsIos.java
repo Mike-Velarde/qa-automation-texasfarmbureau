@@ -3,6 +3,7 @@ package operations;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.webdriver.WebDriverWrapperIos;
 import config.ResourceLocator;
+import config.ResourceLocatorIos;
 import domod.UserBank;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -26,8 +27,8 @@ public class UserOperationsIos extends UserOperations {
 
         InputUtils utils = AutomationOperations.instance().deviceAutomationComponents.createInputUtils(driverWrapper);
 
-        WebElement userName = driverWrapper.getElementByClassName("UIATextField");
-        WebElement password = driverWrapper.getElementByClassName("UIASecureTextField");
+        WebElement userName = driverWrapper.getElementByClassName(ResourceLocatorIos.UIA_TEXT_FIELD);
+        WebElement password = driverWrapper.getElementByClassName(ResourceLocatorIos.UIA_SECURE_TEXT_FIELD);
 
         //Set username and password
         utils.sendKeysHideKeyboard(userName, user.username);
