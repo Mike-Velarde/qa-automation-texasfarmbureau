@@ -2,7 +2,7 @@ package operations;
 
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
-import com.bottlerocket.webdriver.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
 import domod.UserBank;
 import io.appium.java_client.*;
