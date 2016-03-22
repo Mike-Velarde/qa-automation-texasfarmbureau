@@ -5,7 +5,6 @@ import com.bottlerocket.webdriverwrapper.WebDriverWrapperIos;
 import config.ResourceLocator;
 import config.ResourceLocatorIos;
 import domod.UserBank;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**

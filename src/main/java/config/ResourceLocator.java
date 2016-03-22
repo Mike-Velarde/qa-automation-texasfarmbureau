@@ -15,7 +15,7 @@ public class ResourceLocator {
 
     //This doesn't really have a home right now, so it lives here for now
     //Seconds = Time / 1000
-    public static final int AWE_INITIAL_ADS_WAIT_TIME = 60000;
+    public static final int AWE_INITIAL_ADS_WAIT_TIME = 1200000;
 
     /**
     * AWE brands
@@ -45,6 +45,7 @@ public class ResourceLocator {
     /**
      * AWE feeds
      */
+    public String AWE_RC_LIVE = "AWE RC-Live";
     public String AMP_MERA_DEV_LIVE = "AMP MERA Dev-Live";
     public String AMP_MERA_DEV_PREVIEW = "AMP MERA Dev-Preview";
     public String ANDROID_FW_DEV_LIVE = "Android FW Dev-Live";
