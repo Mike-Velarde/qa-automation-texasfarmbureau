@@ -4,7 +4,7 @@ package operations.navops;
  * Created by ford.arnett on 10/2/15.
  */
 
-import com.bottlerocket.webdriver.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
 import operations.AutomationOperationsListener;
 import org.openqa.selenium.By;

@@ -3,9 +3,9 @@ package main;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.utils.Logger;
-import com.bottlerocket.webdriver.WebDriverWrapper;
-import com.bottlerocket.webdriver.WebDriverWrapperAndroid;
-import com.bottlerocket.webdriver.WebDriverWrapperIos;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperAndroid;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperIos;
 import config.*;
 import operations.AutomationOperations;
 import org.apache.commons.io.FileUtils;
@@ -60,9 +60,7 @@ public class AppiumMain{
         //Set configurations
         DesiredCapabilities capabilities = AutomationOperations.instance().config.setCapabilities();
 
-        URL serverAddress;
-
-        serverAddress = new URL("http://127.0.0.1:4723/wd/hub");
+        URL serverAddress = new URL(AutomationConfigProperties.appiumURL);
         if (AutomationConfigurations.isAndroid()) {
             driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities, AutomationConfigProperties.globalWait);
         } else if (AutomationConfigurations.isIos()){
@@ -84,7 +82,8 @@ public class AppiumMain{
         //then this needs to be run to get to the home page. Since it is possible at anytime to launch with picker,
         //this must be run at each launch.
 
-        AutomationOperations.instance().userOp.chooseFeedIfNeeded(ResourceLocator.device.AWE_BRAND_NAMES_USA, ResourceLocator.device.ANDROID_FW_DEV_LIVE, ResourceLocator.device.AWE_PICKFEED_SERVERURL_ID);
+        //Need to update pickServerFeedURLID
+        AutomationOperations.instance().userOp.chooseFeedIfNeeded(ResourceLocator.device.AWE_BRAND_NAMES_USA, ResourceLocator.device.AWE_RC_LIVE, ResourceLocator.device.AWE_PICKFEED_SERVERURL_ID);
 
     }
 

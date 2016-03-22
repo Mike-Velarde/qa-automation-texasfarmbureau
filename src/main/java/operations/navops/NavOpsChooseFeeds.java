@@ -1,6 +1,6 @@
 package operations.navops;
 
-import com.bottlerocket.webdriver.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import operations.AutomationOperationsListener;
 
 /**
