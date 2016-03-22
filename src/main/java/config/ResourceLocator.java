@@ -15,7 +15,7 @@ public class ResourceLocator {
 
     //This doesn't really have a home right now, so it lives here for now
     //Seconds = Time / 1000
-    public static final int AWE_INITIAL_ADS_WAIT_TIME = 1200000;
+    public static final int AWE_INITIAL_ADS_WAIT_TIME = 60000;
 
     /**
     * AWE brands
@@ -45,7 +45,6 @@ public class ResourceLocator {
     /**
      * AWE feeds
      */
-    public String AWE_RC_LIVE = "AWE RC-Live";
     public String AMP_MERA_DEV_LIVE = "AMP MERA Dev-Live";
     public String AMP_MERA_DEV_PREVIEW = "AMP MERA Dev-Preview";
     public String ANDROID_FW_DEV_LIVE = "Android FW Dev-Live";
@@ -186,9 +185,17 @@ public class ResourceLocator {
     public String AWE_SHOW_DETAILS_CLIP_EMPTY_MESSAGE_ID = "awe_showdetail_clipempty";
     public String AWE_SHOW_DETAILS_SEASON_SELECT_HEAD = "awe_showdetail_filterspinner";
     public String AWE_SHOW_DETAILS_SEASON_SELECT_SEASON = "awe_showdetail_seasonspinnertext";
-    public String AWE_SHOW_DETAILS_SEASON_TITLE = "awe_seasondropdownlistspinner_title";
+    public String AWE_SHOW_DETAILS_SEASON_TITLE = "awe_seasondropdownlistspinner_title|awe_showdetail_filterspinner";
     public String AWE_SHOW_DETAILS_ADD_TO_WATCHLIST = "Add To Watchlist"; //legacy menu_add_to_watchlist
     public String AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST = "Remove from Watchlist"; //legacy menu_remove_from_watchlist
+    //TODO: Mahendranath
+    public String AWE_SHOW_DETAILS_CLIP_LIST="awe_showdetail_cliplist";
+    public String AWE_SHOW_DETAILS_EPISODE_DURATION="awe_videodetail_seasonepisodeduration";
+    public String AWE_SHOW_DETAILS_MORE_LINK="awe_showdetail_infotoggle";
+    public String AWE_SHOW_DETAILS_MORE_CONTENT_DESCRIPTION = "awe_showdetail_contentdescription";
+    public String AWE_SHOW_DETAILS_SEASON_STATIC_TEXT = "awe_showdetail_filterstatictext";
+    public String AWE_SHOW_DETAILS_VIDEO_PARENT_TITLE = "awe_videodetail_parenttitle";
+    public String AWE_SHOW_DETAILS_VIDEO_AIRDATE = "awe_videodetail_airdateratingcaption";
 
     /**
      * Schedule

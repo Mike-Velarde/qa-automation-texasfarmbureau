@@ -1,13 +1,16 @@
 package operations.navops;
 
+import org.openqa.selenium.By;
+
 /**
  * Created by ford.arnett on 10/2/15.
  */
 
 import com.bottlerocket.webdriver.WebDriverWrapper;
+
 import config.ResourceLocator;
+import io.appium.java_client.MobileElement;
 import operations.AutomationOperationsListener;
-import org.openqa.selenium.By;
 
 
 /**
@@ -120,14 +123,63 @@ public abstract class NavigationOperations implements AutomationOperationsListen
         }
 
         driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
+    }
+    
+    
+    public void removeFromWatchList(){
+        if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST)).size() == 0){
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
+        }
+    }
+    
+    public void tapAddShowToWatchlist() {
+        if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST)).size() == 0){
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
+        }
 
+        MobileElement element=(MobileElement)driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST);
+        element.tap(1, 10);
+    }
+    
 
+    public void tapRemoveShowToWatchlist() {
+        if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST)).size() == 0){
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
+        }
+        MobileElement element=(MobileElement)driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST);
+        element.tap(1, 10);
     }
 
+    public boolean isRemoveShowWatchListExists(){
+  	  return driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST)).size() != 0;
+    }
+    
+    public boolean isAddShowWatchListExists(){
+  	  return driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST)).size() != 0;
+    }
+    
+  
+
+
+    /**
+     * Remove from watchlist.
+     */
+    public void removeShowToWatchlist() {
+        if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST)).size() == 0){
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
+        }
+    }
+
+    
     /**
      * The flow to go back from the show details page is different for iOS/Android, so I made a specific method for it
      *
      */
     public abstract void returnFromShowDetails();
+    
+    
+    public String getWatchListStatus(){
+    	return driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).getText();
+    }
 }
 

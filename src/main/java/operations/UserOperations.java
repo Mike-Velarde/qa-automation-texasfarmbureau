@@ -195,10 +195,6 @@ public abstract class UserOperations implements AutomationOperationsListener {
         driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_PLAYER_PLAY_PAUSE).click();
     }
 
-    public boolean isVideoPaused(){
-        return driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_PLAYER_PLAY_PAUSE).getText().equals("OFF");
-    }
-
     /**
      * Bring up UI on the video player so we can access those elements. Be aware the UI will only be up for a short time
      */
@@ -227,12 +223,6 @@ public abstract class UserOperations implements AutomationOperationsListener {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_VIDEO_PLAYER_CLOSED_CAPTION_DESC).click();
     }
 
-    /**
-     * Scrub a percentage of the video from the left of the seek bar. This method has no concept of where the video is currently
-     *
-     * @param percentFromLeft a percentage, number from 0 to 1, indicating where to scrub to. Currently seeking to the very end is not reliable. Instead this method will
-     * adjust any value higher than .9 to .9. This insures we are not seeking out of bounds.
-     */
     public void scrubVideo(double percentFromLeft) {
         //Not sure what the highest index to the right we can go is yet, 90% seems like a good amount
         if(percentFromLeft > 0.9){
