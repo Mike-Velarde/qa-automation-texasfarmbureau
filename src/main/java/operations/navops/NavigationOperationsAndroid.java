@@ -77,10 +77,7 @@ public class NavigationOperationsAndroid extends NavigationOperations {
         if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST)).size() == 0){
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
         }
-
         driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
-
-
     }
 
 }

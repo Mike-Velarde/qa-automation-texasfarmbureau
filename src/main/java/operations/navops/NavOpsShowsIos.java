@@ -58,5 +58,23 @@ public class NavOpsShowsIos extends NavOpsShows {
         }
         clipOrEpisodes.get(index).click();
     }
+    
+    
+    //TODO: Need to verify this logic works in ios or not
+    /**
+     * It will check the show has multiple seasons or single season based on that it will return the no. of seasons available for that show.
+     */
+    @Override
+    public int getSeasonsCount(){
+    	int seasonCount=0; 
+    	if(driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD)).size() != 0){
+             driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD).click();
+             List<WebElement> seasonList = driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_SEASON));
+             seasonCount=seasonList.size();
+    	}else{
+    		seasonCount=driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_STATIC_TEXT)).size();
+    	}
+    	return seasonCount;
+    }
 
 }

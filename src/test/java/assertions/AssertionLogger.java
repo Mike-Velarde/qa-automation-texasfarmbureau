@@ -68,7 +68,7 @@ public class AssertionLogger extends Assertion {
 
     private String param2(IAssert assertion) {
         //don't want to show null, empty, or true/false because these are almost always single param cases. May need to review if this causes unwanted behavior
-        if(assertion.getExpected() == null || assertion.getExpected().toString().equals("") || assertion.getExpected().toString().equals("true") || assertion.getExpected().toString().equals("true") )
+        if(assertion.getExpected() == null || assertion.getExpected().toString().equals("") || assertion.getExpected().toString().equals("true") || assertion.getExpected().toString().equals("false") )
             return "";
         else{
             return ", " + assertion.getExpected();
@@ -83,6 +83,10 @@ public class AssertionLogger extends Assertion {
             return ", Error message: " + assertion.getMessage();
         }
 
+    }
+
+    public void addMessage(String message) {
+        assertionMessages.add(message);
     }
 
     public void logMessages() {

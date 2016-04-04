@@ -2,7 +2,7 @@ package config;
 
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.utils.InputUtils;
-import com.bottlerocket.webdriver.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import operations.UserOperations;
 import operations.navops.NavigationOperations;
 

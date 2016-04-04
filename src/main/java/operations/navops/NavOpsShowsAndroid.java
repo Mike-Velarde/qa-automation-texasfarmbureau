@@ -59,8 +59,10 @@ public class NavOpsShowsAndroid extends NavOpsShows {
         //TODO doesn't seem to play when parts of the screen load before others
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
     }
-    
-    
+
+    /**
+     * It will check the show has multiple seasons or single season based on that it will return the no. of seasons available for that show.
+     */
     @Override
     public int getSeasonsCount(){
     	int seasonCount=0; 

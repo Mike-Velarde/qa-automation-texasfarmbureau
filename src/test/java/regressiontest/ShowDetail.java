@@ -1,4 +1,4 @@
-package smokeTest.generic;
+package regressiontest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,12 @@ import com.bottlerocket.utils.ErrorHandler;
 
 import assertions.AssertionLogger;
 import config.ResourceLocator;
+import io.appium.java_client.MobileElement;
 import main.AppiumMain;
 import operations.AutomationOperations;
 
 /**
- * Created by ford.arnett on 11/11/15.
+ * Created by Mahendranath.Nampally on 18/03/2016.
  */
 public class ShowDetail extends AppiumMain {
     AssertionLogger assertionLogger = new AssertionLogger();
@@ -31,6 +32,18 @@ public class ShowDetail extends AppiumMain {
     public void testShowDetails(){
 
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
+        
+        //Verify the the portrait mode screen appears as mentioned in the confluence
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_portrait_mode_matches_confluence_" + System.currentTimeMillis());
+
+        
+        //Navigate to the back
+        driverWrapper.rotate();
+        
+        //Verify the the landscape mode screen appears as mentioned in the confluence
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_landscape_mode_matches_confluence_" + System.currentTimeMillis());
+      
+        driverWrapper.rotate();
        
         //Verify the scroll functionality and ensure the behavior of the screen
         verifyScrollFunctionality();
@@ -61,12 +74,11 @@ public class ShowDetail extends AppiumMain {
         //Test whether all the episodes in sorting order or not
         verifyEpisodesSort();
         
+        //Verify the screen orientation change functionalities
+        verifyRotateFunctionalities();
         
         //Share in the facebook
-        AutomationOperations.instance().navOp.mainToolbarShare();
-        AutomationOperations.instance().navOp.shareFacebook();
-
-        assertionLogger.logMessages();
+        verifyShareFunctionality();
     }
     
   
@@ -90,11 +102,11 @@ public class ShowDetail extends AppiumMain {
         
         //Verify watch list status
         assertionLogger.setTestType("Test if remove watch list is appearing");
-        assertionLogger.assertTrue(AutomationOperations.instance().navOp.isRemoveShowWatchListExists());
+        assertionLogger.assertTrue(AutomationOperations.instance().navOp.hasRemoveShowWatchList());
 
         
         //Verify watch list status
-        getScreenshot("Verify_'-'_symbol_to_ensure_removeShowWatchList_");
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_'-'_symbol_to_ensure_removeShowWatchList_" + System.currentTimeMillis());
         
         driverWrapper.back();
 
@@ -111,10 +123,10 @@ public class ShowDetail extends AppiumMain {
         
         //Verify watch list status
         assertionLogger.setTestType("Test if add watch list is appearing");
-        assertionLogger.assertTrue(AutomationOperations.instance().navOp.isAddShowWatchListExists());
+        assertionLogger.assertTrue(AutomationOperations.instance().navOp.hasAddShowWatchList());
 
         //Removing the show from watch list
-        getScreenshot("Verify_'+'_symbol_to_ensure_addShowWatchList_");
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_'+'_symbol_to_ensure_addShowWatchList_" + System.currentTimeMillis());
         
         driverWrapper.back();
         
@@ -122,6 +134,14 @@ public class ShowDetail extends AppiumMain {
         //Verify whether the show added to the watch list or not
         assertionLogger.setTestType("Test the show added to the watch list or not");
         assertionLogger.assertEquals(watchCount,removedCount+1);
+        
+        //Rotate the device
+        driverWrapper.rotate();
+        int rotateCount=AutomationOperations.instance().userOp.getDrawerWatchlistCount();
+        
+        assertionLogger.setTestType("Test the watch list count will remain same when rotate the device");
+        assertionLogger.assertEquals(removedCount,rotateCount);
+        
     }
 
     /**
@@ -152,9 +172,6 @@ public class ShowDetail extends AppiumMain {
         else{
             assertionLogger.assertFalse(episodesEmpty && !clipsEmpty);
             AutomationOperations.instance().navOp.shows.selectEpisodesTab();
-            
-            
-
         }
     }
     
@@ -163,7 +180,7 @@ public class ShowDetail extends AppiumMain {
      */
     public void verifyScrollFunctionality(){
     	 //Verify the AWE place holder image
-        getScreenshot("Verify_AWE_Place_Holder_Image");
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_AWE_Place_Holder_Image_" + System.currentTimeMillis());
         
         AutomationOperations.instance().navOp.shows.selectShow(0,0);
         
@@ -171,7 +188,9 @@ public class ShowDetail extends AppiumMain {
         AutomationOperations.instance().navOp.shows.scrollToHalf();
         
         //Verify the background color fade in or not also verify the Snipe, Show title, Subtitle, MORE link, Sponser Image fade to black 
-        getScreenshot("ShowDetails_HalfScrolling_FadeIn_Image_");
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_activity_circle_while_loading_Videos_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "ShowDetails_HalfScrolling_FadeIn_Image_" + System.currentTimeMillis());
+        
         
         //Verify the scroll bottom functionalities in episode and clips tab
         verifyVerticalScroll();
@@ -181,8 +200,8 @@ public class ShowDetail extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.shows.navigateToShows(),"Shows");
         
         
-        //Verify for the sponser logo
-        getScreenshot("Verify_Sponser_Logo_");
+        //Verify for the sponsor logo
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_Sponser_Logo_" + System.currentTimeMillis());
     }
     
     /*
@@ -194,14 +213,14 @@ public class ShowDetail extends AppiumMain {
         assertionLogger.assertTrue(AutomationOperations.instance().navOp.shows.verifyEpisodeAssets());
         
         //Verify the episode tab contains all the episodes or not
-        getScreenshot("ShowDetails_Episode_Assets_Image_");
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "ShowDetails_Episode_Assets_Image_" + System.currentTimeMillis());
         
         //Verify Clips tab contains all the clips only
         assertionLogger.setTestType("Test Clips tab contains all clips or not");
         assertionLogger.assertTrue(AutomationOperations.instance().navOp.shows.verifyClipAssets());
 
         //Verify the clip tab contains all the clips or not
-        getScreenshot("ShowDetails_Clip_Assets_Image_");
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "ShowDetails_Clip_Assets_Image_" + System.currentTimeMillis());
 
     }
     
@@ -234,11 +253,11 @@ public class ShowDetail extends AppiumMain {
     	//Launch the video
     	AutomationOperations.instance().navOp.shows.launchVideo(0);
     	String clipTitle=AutomationOperations.instance().navOp.shows.getClipParentTitle();
-    	getScreenshot("Verify_Title_Subtitle_Season_Episode_Info_");
-     	 assertionLogger.setTestType("Test the whether show feed matches or not ");
-         assertionLogger.assertEquals(showTitle,clipTitle);
-         driverWrapper.back();
-         driverWrapper.back();
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_Title_Subtitle_Season_Episode_Info_" + System.currentTimeMillis());
+     	assertionLogger.setTestType("Test the whether show feed matches or not ");
+        assertionLogger.assertEquals(showTitle,clipTitle);
+        driverWrapper.back();
+        driverWrapper.back();
     }
     
     //Episode is the default tab. Verify whether episode is appearing as default or clips. If no videos available in episode then clips is default.
@@ -263,14 +282,14 @@ public class ShowDetail extends AppiumMain {
         AutomationOperations.instance().navOp.shows.scrollHalfToTop();
         
         //Verify the Season/Episode/Clips are available at the correct locations or not
-        getScreenshot("ShowDetails_CompleteScrolling_FadeIn_Image_");
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "ShowDetails_CompleteScrolling_FadeIn_Image_" + System.currentTimeMillis());
         
         if(!AutomationOperations.instance().navOp.shows.isEpisodeTab()){
         	AutomationOperations.instance().navOp.shows.selectEpisodesTab();
         }
         if(!AutomationOperations.instance().navOp.shows.episodesEmpty()){
         	AutomationOperations.instance().navOp.shows.scrollHalfToTop();
-        	getScreenshot("VerifyScreenScrolling_Episode_Tab_");
+            driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "VerifyScreenScrolling_Episode_Tab_" + System.currentTimeMillis());
         }
         	
         if(!AutomationOperations.instance().navOp.shows.isClipsTab()){
@@ -279,7 +298,7 @@ public class ShowDetail extends AppiumMain {
             
         if(!AutomationOperations.instance().navOp.shows.clipsEmpty()){
         	AutomationOperations.instance().navOp.shows.scrollHalfToTop();
-        	getScreenshot("VerifyScreenScrolling_Clips_Tab_");
+            driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "VerifyScreenScrolling_Clips_Tab_" + System.currentTimeMillis());
         }
     }
     
@@ -320,7 +339,7 @@ public class ShowDetail extends AppiumMain {
         
         
         //Verify context is displaying or it is in fade in state
-        getScreenshot("Verify_More_Details_displaying_");
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_More_Details_displaying_" + System.currentTimeMillis());
     }
     
 
@@ -344,6 +363,7 @@ public class ShowDetail extends AppiumMain {
     		if(AutomationOperations.instance().navOp.shows.isAirDateExists()){
     			videoDates.add(AutomationOperations.instance().navOp.shows.getAirDate());
     		}
+    		driverWrapper.back();
     	}
     	
     	//Verify the sort order of the dates
@@ -357,18 +377,86 @@ public class ShowDetail extends AppiumMain {
     }
     
     
-    /*
-     * Gets the screenshot
-     */
-    public void getScreenshot(String discription){
-        try {
-            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, discription + System.currentTimeMillis());
-        }
-        catch(Exception e){
-            ErrorHandler.printErr("error taking screenshot",e);
-        }
+    public void verifyRotateFunctionalities(){
+    	boolean clipsTabStatus=false;
+    	AutomationOperations.instance().navOp.shows.selectShow(0,0);
+    	int seasonCount=AutomationOperations.instance().navOp.shows.getSeasonsCount();
     	
+    	if(seasonCount>1){
+    		AutomationOperations.instance().navOp.shows.showDetailSelectSeason(1);
+    	}
+    	
+    	//Get the season title
+    	String seasonText=AutomationOperations.instance().navOp.shows.getSeasonTitle();
+    	driverWrapper.rotate();
+    	String updatedSeasonText=AutomationOperations.instance().navOp.shows.getSeasonTitle();
+		driverWrapper.rotate();
+    	assertionLogger.setTestType("Test the whether the season text is changing when rotate the device");
+		assertionLogger.assertEquals(updatedSeasonText,seasonText);
+
+		//Select the clips tab
+		AutomationOperations.instance().navOp.shows.selectClipsTab();
+    	assertionLogger.setTestType("Test the clips tab is selected or not");
+		assertionLogger.assertTrue(AutomationOperations.instance().navOp.shows.isClipsTab());
+		if(AutomationOperations.instance().navOp.shows.clipsEmpty()){
+			clipsTabStatus=true;
+		}
+		
+		//rotate the device
+		driverWrapper.rotate();
+    	assertionLogger.setTestType("Test the clips tab is selected or not");
+    	if(!clipsTabStatus){
+    		assertionLogger.assertTrue(AutomationOperations.instance().navOp.shows.isClipsTab());
+    	}else{
+    		assertionLogger.assertTrue(AutomationOperations.instance().navOp.shows.isEpisodeTab());
+    	}
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_tabs_displays_in_paging_format_" + System.currentTimeMillis());
+		driverWrapper.rotate();
+		driverWrapper.back();
     }
+    
+    public void verifyShareFunctionality(){
+    	AutomationOperations.instance().navOp.shows.selectShow(0,0);
+
+        AutomationOperations.instance().navOp.mainToolbarShare();
+        //Verify the installed apps in the device
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_shared_apps_visibility_" + System.currentTimeMillis());
+        
+    	//Verify the facebook app installed in the device
+        assertionLogger.setTestType("Verify for the facebook availablity in the device");
+		assertionLogger.assertTrue(AutomationOperations.instance().navOp.isFaceBookExists());
+
+        //Select the facebook
+		driverWrapper.getElementByName(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK).click();
+		
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_shared_items_and_shared_content_" + System.currentTimeMillis());
+		//Verify user can cancel with out sharing
+		driverWrapper.back();
+		driverWrapper.back();
+		driverWrapper.getElementByName(ResourceLocator.device.FACEBOOK_DISCARD_OPTION).click();
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "User_Navigates_back_from_Facebook_to_awe_" + System.currentTimeMillis());
+        
+        //Verify Share pop-up stays when it is tapped
+        ((MobileElement)driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS)).tap(1, 10);
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_Share_pop-up_Visibility_" + System.currentTimeMillis());
+        
+        //Tap the out side and verify share pop-up dismissed
+        driverWrapper.back();
+       // ((MobileElement)driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_LINK)).tap(1, 10);
+        assertionLogger.setTestType("Verify for share pop up is dismissed");
+		assertionLogger.assertFalse(driverWrapper.elements(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE_OVERFLOW)).size()!=0);
+        driverWrapper.takeScreenshotSupressError(AutomationConfigProperties.screenshotsDirectory, "Verify_Share_pop-up_dismisses_" + System.currentTimeMillis());
+        
+        //click on the more link
+        driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS).click();
+        assertionLogger.setTestType("Verify for share pop up is visible");
+        assertionLogger.assertTrue(driverWrapper.elements(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE_OVERFLOW)).size()!=0);
+        //Navigate to the back
+        driverWrapper.back();
+        assertionLogger.setTestType("Verify for share pop up is dismissed");
+        assertionLogger.assertFalse(driverWrapper.elements(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE_OVERFLOW)).size()!=0);
+    }
+    
 
     @AfterClass
     public void tearDown(){

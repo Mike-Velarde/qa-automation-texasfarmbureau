@@ -15,7 +15,7 @@ public class ResourceLocator {
 
     //This doesn't really have a home right now, so it lives here for now
     //Seconds = Time / 1000
-    public static final int AWE_INITIAL_ADS_WAIT_TIME = 60000;
+    public static final int AWE_INITIAL_ADS_WAIT_TIME = 1200000;
 
     /**
     * AWE brands
@@ -45,6 +45,7 @@ public class ResourceLocator {
     /**
      * AWE feeds
      */
+    public String AWE_RC_LIVE = "AWE RC-Live";
     public String AMP_MERA_DEV_LIVE = "AMP MERA Dev-Live";
     public String AMP_MERA_DEV_PREVIEW = "AMP MERA Dev-Preview";
     public String ANDROID_FW_DEV_LIVE = "Android FW Dev-Live";
@@ -125,7 +126,7 @@ public class ResourceLocator {
     public String AWE_SHARE_OPTIONS_GMAIL = "Gmail";
 
     public String FACEBOOK_POST_OPTION = "post_button";
-
+    public String FACEBOOK_DISCARD_OPTION = "Discard";
     /**
      * Awe featured
      */
@@ -185,10 +186,9 @@ public class ResourceLocator {
     public String AWE_SHOW_DETAILS_CLIP_EMPTY_MESSAGE_ID = "awe_showdetail_clipempty";
     public String AWE_SHOW_DETAILS_SEASON_SELECT_HEAD = "awe_showdetail_filterspinner";
     public String AWE_SHOW_DETAILS_SEASON_SELECT_SEASON = "awe_showdetail_seasonspinnertext";
-    public String AWE_SHOW_DETAILS_SEASON_TITLE = "awe_seasondropdownlistspinner_title|awe_showdetail_filterspinner";
+    public String AWE_SHOW_DETAILS_SEASON_TITLE = "awe_seasondropdownlistspinner_title";
     public String AWE_SHOW_DETAILS_ADD_TO_WATCHLIST = "Add To Watchlist"; //legacy menu_add_to_watchlist
     public String AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST = "Remove from Watchlist"; //legacy menu_remove_from_watchlist
-    //TODO: Mahendranath
     public String AWE_SHOW_DETAILS_CLIP_LIST="awe_showdetail_cliplist";
     public String AWE_SHOW_DETAILS_EPISODE_DURATION="awe_videodetail_seasonepisodeduration";
     public String AWE_SHOW_DETAILS_MORE_LINK="awe_showdetail_infotoggle";
@@ -196,6 +196,9 @@ public class ResourceLocator {
     public String AWE_SHOW_DETAILS_SEASON_STATIC_TEXT = "awe_showdetail_filterstatictext";
     public String AWE_SHOW_DETAILS_VIDEO_PARENT_TITLE = "awe_videodetail_parenttitle";
     public String AWE_SHOW_DETAILS_VIDEO_AIRDATE = "awe_videodetail_airdateratingcaption";
+    public String AWE_SHOW_DETAILS_CONTAINER = "awe_showdetail_topcontainer";
+    public String AWE_SHOW_DETAILS_FEATURED_INFO = "awe_showdetail_featuredinfo";
+    public String AWE_SHOW_DETAILS_FOREGROUND_CONTAINER = "awe_foregroundoverlay_container";
 
     /**
      * Schedule
@@ -225,6 +228,21 @@ public class ResourceLocator {
     public String AWE_WATCHLIST_QUEUE_AND_CONTINUE_CONTAINER = "awe_watchlist_tabletlist";
     public String AWE_WATCHLIST_QUEUE_SHOW_ROWS = "awe_watchlist_showitemgallery";
     public String AWE_WATCHLIST_SHOW_IMAGE = "awe_watchlist_itemimage";
+    public String AWE_WATCHLIST_CONTINUE_TAB = "CONTINUE";
+    public String AWE_WATCHLIST_QUEUE_TAB = "QUEUE";
+    public String AWE_WATCHLIST_QUEUE_SHOW_LIST = "awe_watchlist_phonequeuedshowslist";
+    public String AWE_WATCHLIST_QUEUE_SHOWS = "awe_watchlist_phonequeuedshowitemoverlay";
+    public String AWE_WATCHLIST_EDIT = "awe_menu_edit";
+    public String AWE_WATCHLIST_SELECTALL_OPTIONS = "Select All";
+    public String AWE_WATCHLIST_REMOVE_TITLEBAR = "menu_remove";
+    public String AWE_WATCHLIST_POPUP_REMOVE = "awe_simpledialog_positivebutton";
+    public String AWE_WATCHLIST_QUEUE_SHOW_DETAILS = "awe_watchlist_phonequeueditemroot";
+    public String AWE_WATCHLIST_QUEUE_SHOW_DETAILS_TITLE = "awe_watchlist_phonequeueditemtitle";
+    public String AWE_WATCHLIST_QUEUE_EDIT_SELECTALL = "awe_watchlist_textualbutton";
+    public String AWE_WATCHLIST_EMPTY_MESSAGE = "awe_inlineerror_message";
+    public String AWE_WATCHLIST_SELECTION_COUNT = "awe_watchlist_selectioncount";
+
+
 
 
     /**

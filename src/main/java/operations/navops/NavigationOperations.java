@@ -1,16 +1,14 @@
 package operations.navops;
 
-import org.openqa.selenium.By;
-
 /**
  * Created by ford.arnett on 10/2/15.
  */
 
-import com.bottlerocket.webdriver.WebDriverWrapper;
-
+import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
 import io.appium.java_client.MobileElement;
 import operations.AutomationOperationsListener;
+import org.openqa.selenium.By;
 
 
 /**
@@ -67,16 +65,45 @@ public abstract class NavigationOperations implements AutomationOperationsListen
             driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE_OVERFLOW).click();
         }
     }
+    
+    
+    /**
+     * Tap on the share pop-up
+     */
+    public void tapMainToolbarShare() {
+        //If there is a share icon handle it this way
+        if(driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE)).size() !=0){
+            ((MobileElement)driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE)).tap(1, 10);
+        }
+        //If share is in overflow use this
+        else {
+        	
+        	((MobileElement)driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE_OVERFLOW)).tap(1, 10);
+        }
+    }
 
     public void mainToolbarWatchlist() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_WATCHLIST).click();
     }
 
+    
+    /**
+     * To know the toolbar watchlist exist or not
+     * @return true, if watchlist exists
+     */
+    public boolean hasToolbarWatchlist() {
+        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_WATCHLIST)).size()!=0;
+    }
+    
     public void shareFacebook() {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK).click();
         driverWrapper.find("POST").click();
     }
 
+    
+    public boolean isFaceBookExists(){
+    	return driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK)).size()!=0;
+    }
 
     /**
      * Returns true iff the main toolbar is found on the current page
@@ -123,15 +150,28 @@ public abstract class NavigationOperations implements AutomationOperationsListen
         }
 
         driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
+
+
     }
+
+    /**
+     * The flow to go back from the show details page is different for iOS/Android, so I made a specific method for it
+     *
+     */
+    public abstract void returnFromShowDetails();
     
-    
+    /**
+     * Remove the show from the watch list
+     */
     public void removeFromWatchList(){
         if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST)).size() == 0){
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
         }
     }
     
+    /**
+     * Tap to add the show to the watch list
+     */
     public void tapAddShowToWatchlist() {
         if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST)).size() == 0){
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
@@ -141,7 +181,9 @@ public abstract class NavigationOperations implements AutomationOperationsListen
         element.tap(1, 10);
     }
     
-
+    /**
+     * Tap to remove from the watch list
+     */
     public void tapRemoveShowToWatchlist() {
         if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST)).size() == 0){
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
@@ -150,36 +192,30 @@ public abstract class NavigationOperations implements AutomationOperationsListen
         element.tap(1, 10);
     }
 
-    public boolean isRemoveShowWatchListExists(){
+    /**
+     * 
+     * @return true, if remove show list exists 
+     */
+    public boolean hasRemoveShowWatchList(){
   	  return driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST)).size() != 0;
     }
     
-    public boolean isAddShowWatchListExists(){
+    /**
+     * 
+     * @return true, if add show list exists
+     */
+    public boolean hasAddShowWatchList(){
   	  return driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST)).size() != 0;
     }
-    
-  
-
 
     /**
-     * Remove from watchlist.
+     * To verify the navigation item is available in the main drawer
+     * @param navigationItem
+     * @return true, if navigation item exists
      */
-    public void removeShowToWatchlist() {
-        if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST)).size() == 0){
-            driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
-        }
+    public boolean hasDrawerItem(String navigationItem){
+        return driverWrapper.elements(By.name(navigationItem.toString())).size() != 0;
     }
-
     
-    /**
-     * The flow to go back from the show details page is different for iOS/Android, so I made a specific method for it
-     *
-     */
-    public abstract void returnFromShowDetails();
-    
-    
-    public String getWatchListStatus(){
-    	return driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).getText();
-    }
 }
 
