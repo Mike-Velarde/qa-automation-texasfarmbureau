@@ -29,75 +29,71 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
             continueThumbnails.get(index).click();
         }
 
-        /* TODO This will need more work to swipe beyond the original view. How do we keep track of where we are? On the schedule heading, there was a similar problem,
-        however, there we could swipe to a specific element. Can we do that here?
-        else{
-            continueWatchingRow.swipe(SwipeElementDirection.LEFT, 1000);
-        }
-        */
+        /*
+         * TODO This will need more work to swipe beyond the original view. How do we keep track of where we are? On the schedule heading, there was a similar problem, however, there we could swipe to a specific element. Can we do that here? else{ continueWatchingRow.swipe(SwipeElementDirection.LEFT, 1000); }
+         */
     }
 
-
-    public void playQueueShow(int columnIndex, int rowIndex){
-        //TODO add more row and column functionality
-        //WebElement queueAndContinueContainer = driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_QUEUE_AND_CONTINUE_CONTAINER);
-        //List<WebElement> queueAndContinueRows = queueAndContinueContainer.findElements(By.id("awe_watchlist_showitemgallery"));
+    public void playQueueShow(int columnIndex, int rowIndex) {
+        // TODO add more row and column functionality
+        // WebElement queueAndContinueContainer = driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_QUEUE_AND_CONTINUE_CONTAINER);
+        // List<WebElement> queueAndContinueRows = queueAndContinueContainer.findElements(By.id("awe_watchlist_showitemgallery"));
         List<WebElement> queueAndContinueRows = driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_ROWS));
 
         List<WebElement> queueRow = null;
-        //TODO this logic goes with the rest of the todo
-        //if(rowIndex < queueAndContinueRows.size()){
-            queueRow = queueAndContinueRows.get(rowIndex).findElements(By.id("awe_watchlist_itemimage"));
-        //}
+        // TODO this logic goes with the rest of the todo
+        // if(rowIndex < queueAndContinueRows.size()){
+        queueRow = queueAndContinueRows.get(rowIndex).findElements(By.id("awe_watchlist_itemimage"));
+        // }
 
-/*        else{
-            //TODO again need to scroll down to get the rows that we can't see
-            //continueWatchingRow.swipe(SwipeElementDirection.UP, 1000);
-            //queueRow = something otherwise NPE
-        }*/
-        //Check to see if we can see the given thumbnail index
-        if(columnIndex < queueRow.size()){
+        /*
+         * else{ //TODO again need to scroll down to get the rows that we can't see //continueWatchingRow.swipe(SwipeElementDirection.UP, 1000); //queueRow = something otherwise NPE }
+         */
+        // Check to see if we can see the given thumbnail index
+        if (columnIndex < queueRow.size()) {
             queueRow.get(columnIndex).click();
         }
-/*        else{
-            //TODO again need to scroll down to get the rows that we can't see
-            //continueWatchingRow.swipe(SwipeElementDirection.LEFT, 1000);
-        }*/
+        /*
+         * else{ //TODO again need to scroll down to get the rows that we can't see //continueWatchingRow.swipe(SwipeElementDirection.LEFT, 1000); }
+         */
 
     }
 
     /**
      * Select queue tab on the watchlist
      */
-    public void selectQueueTab(){
+    public void selectQueueTab() {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_WATCHLIST_QUEUE_TAB).click();
     }
 
     /**
      * Verify is it QUEUE tab
+     * 
      * @return true, if it is QUEUE tab
      */
-    public boolean isQueueTab(){
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_LIST)).size()!=0;
+    public boolean isQueueTab() {
+        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_LIST)).size() != 0;
     }
 
     /**
      * Select continue tab on the watchlist
      */
-    public void selectContinueTab(){
+    public void selectContinueTab() {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_WATCHLIST_CONTINUE_TAB).click();
     }
 
     /**
      * Verifies whether continue tab is exists or not
+     * 
      * @return true, if continue tab exists
      */
-    public boolean hasContinueTab(){
-        return driverWrapper.elements(By.name(ResourceLocator.device.AWE_WATCHLIST_CONTINUE_TAB)).size()!=0;
+    public boolean hasContinueTab() {
+        return driverWrapper.elements(By.name(ResourceLocator.device.AWE_WATCHLIST_CONTINUE_TAB)).size() != 0;
     }
 
     /**
      * Verifies whether queu tab is exists or not
+     * 
      * @return true, if queue tab exists
      */
     public boolean hasQueueTab() {
@@ -107,60 +103,61 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
     /**
      * Scroll up on the watch detail screen
      */
-    public void scrollUp(){
+    public void scrollUp() {
         MobileElement episodeClipsContainer = (MobileElement) driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_DETAILS);
         episodeClipsContainer.swipe(SwipeElementDirection.UP, 75000);
     }
 
-
     /**
      * Tap on the EDIT option
      */
-    public void tapEdit(){
-        ((MobileElement)driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_EDIT)).tap(1,10);
+    public void tapEdit() {
+        ((MobileElement) driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_EDIT)).tap(1, 10);
     }
 
     /**
      * To select all the watchlist shows
      */
-    public void selectAllWatchList(){
-        driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_QUEUE_EDIT_SELECTALL).click();
+    public void selectAllWatchList() {
+        driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_QUEUE_EDIT_SELECT_ALL).click();
     }
 
     /**
      * Verifies the shows available or not
+     * 
      * @return true, if shows empty
      */
-    public boolean isEmpty(){
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_EMPTY_MESSAGE)).size()!=0;
+    public boolean isEmpty() {
+        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_EMPTY_MESSAGE)).size() != 0;
     }
 
     /**
      * To click on remove button
      */
-    public void removeShow(){
+    public void removeShow() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_REMOVE_TITLEBAR).click();
     }
 
     /**
      * After click the remove, accept the remove in confirmation.
      */
-    public void acceptRemove(){
+    public void acceptRemove() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_POPUP_REMOVE).click();
     }
 
     /**
      * Verify for the confirmation popup
+     * 
      * @return true, if confirmation popup exists
      */
-    public boolean isConfirmationPresent(){
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_POPUP_REMOVE)).size()!=0;
+    public boolean isConfirmationPresent() {
+        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_POPUP_REMOVE)).size() != 0;
     }
 
     /**
      * To remove all the shows
      */
-    public void removeAllShows(){
+    public void removeAllShows() {
         tapEdit();
         selectAllWatchList();
         removeShow();
@@ -169,6 +166,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
 
     /**
      * To get the shows count
+     * 
      * @return shows count
      */
     public int getShowsCount() {
@@ -187,15 +185,16 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
 
     /**
      * To get the highlighted shows count
+     * 
      * @return highlighted shows count
      */
-    public String getHighlightedCount(){
+    public String getHighlightedCount() {
         return driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_SELECTION_COUNT).getText();
     }
 
-
     /**
      * It will verify the shows are in sort order
+     * 
      * @return true, if shows are in sort order
      */
     public boolean hasShowsSortOrder() {
@@ -216,12 +215,12 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
 
     /**
      * Verify the contextual bar enabled after click the edit in the menu bar
+     * 
      * @return true, if contextual bar enabled
      */
-    public boolean isContextualBarEnabled(){
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_EDIT_SELECTALL)).size()!=0;
+    public boolean isContextualBarEnabled() {
+        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_EDIT_SELECT_ALL)).size() != 0;
     }
-
 
     /**
      * Select the respective show in the shows

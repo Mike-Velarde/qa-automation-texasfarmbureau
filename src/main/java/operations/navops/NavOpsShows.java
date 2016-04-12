@@ -10,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+
 import config.ResourceLocator;
 import config.ResourceLocatorAndroid;
 import io.appium.java_client.MobileElement;
@@ -29,6 +30,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
 
     /**
      * This currently doesn't account for selecting a row that isn't seen on the device
+     * 
      * @param row
      * @param column
      */
@@ -58,18 +60,19 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
         return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_CLIP_EMPTY_MESSAGE_ID)).size() != 0;
     }
 
-    public void selectEpisodesTab(){
+    public void selectEpisodesTab() {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_EPISODE_TAB).click();
     }
 
-    public void selectClipsTab(){
+    public void selectClipsTab() {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_CLIPS_TAB).click();
     }
 
     /**
      * Select the given index in the season list, first checking to make sure there are actually multiple seasons
      *
-     * @param seasonIndex the index of the season in the array, NOT the season itself
+     * @param seasonIndex
+     *            the index of the season in the array, NOT the season itself
      * @return number of seasons in the list
      */
     public abstract String showDetailSelectSeason(int seasonIndex);
@@ -140,8 +143,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
     }
 
     /**
-     * After clicking the More option, returns the content is availability
-     * status
+     * After clicking the More option, returns the content is availability status
      */
     public boolean verifyContentFeature(String option) {
         WebElement webElement = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_LINK);
@@ -201,8 +203,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
     }
 
     /**
-     * It will check the show has multiple seasons or single season based on
-     * that it will return the no. of seasons available for that show.
+     * It will check the show has multiple seasons or single season based on that it will return the no. of seasons available for that show.
      */
     public int getSeasonsCount() {
         int seasonCount = 0;
@@ -265,12 +266,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      */
     public boolean verifySeasonEpisodesDisplay() {
         selectEpisodesTab();
-        if (episodesEmpty()) {
-            return true;
-        } else {
-            return verifySeasonNames();
-        }
-
+        return episodesEmpty() || verifySeasonNames();
     }
 
     /**
@@ -278,11 +274,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      */
     public boolean verifySeasonClipsDisplay() {
         selectClipsTab();
-        if (clipsEmpty()) {
-            return true;
-        } else {
-            return verifySeasonNames();
-        }
+        return clipsEmpty() || verifySeasonNames();
     }
 
     /**
@@ -381,9 +373,9 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
             List<WebElement> showsColumns = showsRows.get(0).findElements(By.id(ResourceLocator.device.AWE_SHOWS_VIDEO_THUMBNAILS));
             return showsColumns.size();
         } catch (Exception e) {
-
+            ErrorHandler.printErr(e);
+            return 0;
         }
-        return 0;
     }
 
     /**
