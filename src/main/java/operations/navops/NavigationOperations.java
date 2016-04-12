@@ -49,6 +49,9 @@ public abstract class NavigationOperations implements AutomationOperationsListen
     public abstract void mainToolbarBack();
 
     public abstract void mainToolbarSearch();
+    
+    public abstract void serachBarBack();
+    
 
     public void mainToolbarLive() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_LIVE).click();
@@ -122,6 +125,15 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      */
     public void closeMainDrawer(){
         driverWrapper.getElementByFind(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR).click();
+    }
+    
+    
+    /**
+     * To verify the close main drawer exists or not
+     * @return true, if close main drawer exists
+     */
+    public boolean doesCloseMainDrawerExists(){
+        return driverWrapper.elements(driverWrapper.for_find(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR)).size()!=0;
     }
 
     public abstract String getScreenTitle();

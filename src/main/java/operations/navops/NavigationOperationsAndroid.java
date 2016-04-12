@@ -80,4 +80,9 @@ public class NavigationOperationsAndroid extends NavigationOperations {
         driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
     }
 
+	@Override
+	public void serachBarBack() {
+		driverWrapper.getElementByName(ResourceLocator.device.AWE_SEARCH_BAR_BACK).click();
+	}
+
 }

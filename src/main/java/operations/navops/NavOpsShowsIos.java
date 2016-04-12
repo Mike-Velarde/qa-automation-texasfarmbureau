@@ -14,8 +14,8 @@ import java.util.List;
 public class NavOpsShowsIos extends NavOpsShows {
 
     @Override
-    public void selectShow(int showNumber){
-        //TODO replace this xpath with the label
+    public void selectShow(int showNumber) {
+        // TODO replace this xpath with the label
         WebElement element = driverWrapper.getElementByXpath(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID);
         element.findElements(By.className(ResourceLocatorIos.UIA_BUTTON)).get(showNumber).click();
     }
@@ -28,17 +28,17 @@ public class NavOpsShowsIos extends NavOpsShows {
 
     @Override
     public String showDetailSelectSeason(int seasonIndex) {
-        if(!driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_SHOWS_SEASON_ARROW))){
+        if (!driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_SHOWS_SEASON_ARROW))) {
             ErrorHandler.printErr("There is only one season available ", new Exception());
             return "";
         }
 
         driverWrapper.getElementByName(ResourceLocatorIos.AWE_SHOWS_SEASON_ARROW).click();
         WebElement element = driverWrapper.getElementByName(ResourceLocatorIos.AWE_SHOWS_SEASONS_TABLE_VIEW);
-        //get all of the season cells
+        // get all of the season cells
         List<WebElement> seasonList = element.findElements(By.className(ResourceLocatorIos.UIA_TABLE_CELL));
 
-        if(seasonList.size() <= seasonIndex){
+        if (seasonList.size() <= seasonIndex) {
             ErrorHandler.printErr("Season index chosen is greater than number of available seasons", new IndexOutOfBoundsException("season index OOB"));
             return "";
         }
@@ -52,29 +52,10 @@ public class NavOpsShowsIos extends NavOpsShows {
     @Override
     public void playFromActiveSeason(int index) {
         List<WebElement> clipOrEpisodes = driverWrapper.elements(By.xpath(ResourceLocatorIos.AWE_SHOWS_EPISODE_OR_CLIPS_BUTTONS_XPATH));
-        if(clipOrEpisodes.size() <= index){
+        if (clipOrEpisodes.size() <= index) {
             ErrorHandler.printErr("Index chosen is greater than number of available episodes/clips", new IndexOutOfBoundsException("video index OOB"));
             return;
         }
         clipOrEpisodes.get(index).click();
     }
-    
-    
-    //TODO: Need to verify this logic works in ios or not
-    /**
-     * It will check the show has multiple seasons or single season based on that it will return the no. of seasons available for that show.
-     */
-    @Override
-    public int getSeasonsCount(){
-    	int seasonCount=0; 
-    	if(driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD)).size() != 0){
-             driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD).click();
-             List<WebElement> seasonList = driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_SEASON));
-             seasonCount=seasonList.size();
-    	}else{
-    		seasonCount=driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_STATIC_TEXT)).size();
-    	}
-    	return seasonCount;
-    }
-
 }

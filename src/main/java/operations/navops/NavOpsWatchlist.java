@@ -25,7 +25,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
         MobileElement continueWatchingRow = (MobileElement) driverWrapper.getElementById(ResourceLocator.device.AWE_WATCHLIST_CONTINUE_WATCHING_ROW);
         List<MobileElement> continueThumbnails = continueWatchingRow.findElements(By.id(ResourceLocator.device.AWE_WATCHLIST_SHOW_IMAGE));
 
-        if(index < continueThumbnails.size()){
+        if (index < continueThumbnails.size()) {
             continueThumbnails.get(index).click();
         }
 
@@ -100,8 +100,8 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * Verifies whether queu tab is exists or not
      * @return true, if queue tab exists
      */
-    public boolean hasQueuTab(){
-        return driverWrapper.elements(By.name(ResourceLocator.device.AWE_WATCHLIST_QUEUE_TAB)).size()!=0;
+    public boolean hasQueueTab() {
+        return driverWrapper.elements(By.name(ResourceLocator.device.AWE_WATCHLIST_QUEUE_TAB)).size() != 0;
     }
 
     /**
@@ -171,16 +171,16 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * To get the shows count
      * @return shows count
      */
-    public int getShowsCount(){
-        int count=0;
+    public int getShowsCount() {
+        int count = 0;
         try {
             tapEdit();
             selectAllWatchList();
             String selectedCount = getHighlightedCount();
             driverWrapper.back();
             count = Integer.parseInt(selectedCount.split(" ")[0]);
-        }catch(Exception e){
-            //TODO: Add the logger to show the error message
+        } catch (Exception e) {
+            return 0;
         }
         return count;
     }
@@ -198,18 +198,18 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * It will verify the shows are in sort order
      * @return true, if shows are in sort order
      */
-    public boolean hasShowsSortOrder(){
-        List<WebElement> elements=driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_DETAILS_TITLE));
-        String previousTitle="";
-        String currentTitle="";
-        for(int count=0;count<elements.size();count++){
-            currentTitle=elements.get(count).getText();
-            if(count>0){
-                if(!(previousTitle.compareTo(currentTitle)<0)){
+    public boolean hasShowsSortOrder() {
+        List<WebElement> elements = driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_DETAILS_TITLE));
+        String previousTitle = "";
+        String currentTitle = "";
+        for (int count = 0; count < elements.size(); count++) {
+            currentTitle = elements.get(count).getText();
+            if (count > 0) {
+                if (!(previousTitle.compareTo(currentTitle) < 0)) {
                     return false;
                 }
             }
-            previousTitle=currentTitle;
+            previousTitle = currentTitle;
         }
         return true;
     }
@@ -225,28 +225,29 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
 
     /**
      * Select the respective show in the shows
-     * @param shownnumber
+     * 
+     * @param showsNumber
      */
-    public void selectShow(int shownnumber){
-        List<WebElement> elements=driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOWS));
-        elements.get(shownnumber).click();
+    public void selectShow(int showsNumber) {
+        List<WebElement> elements = driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOWS));
+        elements.get(showsNumber).click();
     }
 
-
-    public void doLongPressonShow(int shownnumber){
-        List<WebElement> elements=driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOWS));
-        driverWrapper.longPress(elements.get(shownnumber));
+    /**
+     * Long press on the particular show
+     * 
+     * @param showsNumber
+     */
+    public void doLongPressonShow(int showsNumber) {
+        List<WebElement> elements = driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOWS));
+        driverWrapper.longPress(elements.get(showsNumber));
     }
 
-
-    public String getLastShowTitle(){
-        List<WebElement> queueShows=driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_DETAILS));
-        return queueShows.get(queueShows.size()-1).findElement(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_DETAILS_TITLE)).getText();
+    /**
+     * @return the last show title
+     */
+    public String getLastShowTitle() {
+        List<WebElement> queueShows = driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_DETAILS));
+        return queueShows.get(queueShows.size() - 1).findElement(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_DETAILS_TITLE)).getText();
     }
-
-
-
-
-
-
 }

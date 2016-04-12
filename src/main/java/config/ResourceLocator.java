@@ -85,6 +85,8 @@ public class ResourceLocator {
     public String AWE_PICKFEED_SERVERURL_ID = "com.bottlerocketapps.awe.watcher:id/awe_pickfeed_serverurl";
 
     public String ANDROID_FRAMEWORK_DEV_LIVE_FEED = "http://andfw.dev.bottlerocketservices.com/live/5/usa/config";
+    
+    public String AWE_FEED_PICK_LIST = "awe_pickfeed_list";
 
     /**
      * ADB key events. http://stackoverflow.com/questions/7789826/adb-shell-input-events
@@ -111,6 +113,7 @@ public class ResourceLocator {
     public String AWE_MAIN_TOOLBAR_MORE_OPTIONS = "More options";
     public String AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW = "Search";
     public String AWE_MAIN_TOOLBAR_SHARE_OVERFLOW = "Share";
+    public String AWE_SEARCH_BAR_BACK = "Collapse";
 
     public String AWE_SEARCH_BAR_ENTER_TEXT = "awe_search_actionprovidertext";
     public String AWE_SEARCH_RESULTS = "awe_search_listitem";
@@ -218,8 +221,20 @@ public class ResourceLocator {
     public String AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE_ID = "awe_settings_btnaboutbr";
     public String AWE_SETTINGS_DEV_OPTIONS_TITLE_ID = "awe_settings_btndevoptions";
     public String AWE_SETTINGS_DEV_OPTIONS_MAIN_LIST = "awe_devoptions_list";
+    public String AWE_SETTINGS_VERSION_INFO = "awe_settings_txtversionname";
 
     public String AWE_SETTINGS_DEV_OPTIONS_TITLE = "Developer Options";
+    public String AWE_SETTINGS_ABOUT_BRAND_TITLE = "About Brand";
+    public String AWE_SETTINGS_FAQ_TITLE = "FAQ";
+    public String AWE_SETTINGS_PRIVACY_POLICY_TITLE = "Privacy Policy";
+    public String AWE_SETTINGS_TERMS_CONDITIONS_TITLE = "Terms & Conditions";
+    public String AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE = "About Bottle Rocket and AWE";
+    public String AWE_SETTINGS_WEBVIEW = "android.webkit.WebView";
+    public String AWE_SETTINGS_VIDEO_OVER_WIFI_STATUS = "awe_settings_btnvideooverwifionly";
+    public String AWE_SETTINGS_VIDEO_OVER_WIFI_STATUS_YES = "ON";
+    public String AWE_SETTINGS_BUILD_INFO = "awe_settings_hiddentext";
+
+
 
     /**
      * Watchlist
@@ -238,7 +253,7 @@ public class ResourceLocator {
     public String AWE_WATCHLIST_POPUP_REMOVE = "awe_simpledialog_positivebutton";
     public String AWE_WATCHLIST_QUEUE_SHOW_DETAILS = "awe_watchlist_phonequeueditemroot";
     public String AWE_WATCHLIST_QUEUE_SHOW_DETAILS_TITLE = "awe_watchlist_phonequeueditemtitle";
-    public String AWE_WATCHLIST_QUEUE_EDIT_SELECTALL = "awe_watchlist_textualbutton";
+    public String AWE_WATCHLIST_QUEUE_EDIT_SELECT_ALL = "awe_watchlist_textualbutton";
     public String AWE_WATCHLIST_EMPTY_MESSAGE = "awe_inlineerror_message";
     public String AWE_WATCHLIST_SELECTION_COUNT = "awe_watchlist_selectioncount";
 

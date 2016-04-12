@@ -1,6 +1,10 @@
 package operations.navops;
 
+import org.openqa.selenium.By;
+
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+
+import config.ResourceLocator;
 import operations.AutomationOperationsListener;
 
 /**
@@ -20,5 +24,13 @@ public class NavOpsChooseFeeds implements AutomationOperationsListener {
 
     public void pickFeedToAWEHome(String feedName){
         driverWrapper.getElementByFind(feedName).click();
+    }
+    
+    /**
+     * Verify the Feed page has pick feed list
+     * @return true, if pick feed list exists.
+     */
+    public boolean hasPickFeedList(){
+    	return driverWrapper.elements(By.id(ResourceLocator.device.AWE_FEED_PICK_LIST)).size()!=0;
     }
 }

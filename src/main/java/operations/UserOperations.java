@@ -262,8 +262,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         Calendar timeAfterPlay = AutomationOperations.instance().userOp.getVideoCurrentRunTime(true);
         assertionLogger.assertNotEquals(VideoUtils.getVideoTimeFromCalendar(startTime), VideoUtils.getVideoTimeFromCalendar(timeAfterPlay));
     }
-
-
+    
     public class LongTapAsynch implements Runnable {
 
         public void run() {
@@ -279,6 +278,22 @@ public abstract class UserOperations implements AutomationOperationsListener {
             driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_PLAYER_PLAY_PAUSE).click();
         }
 
+    }
+    
+    public void enterSearchTitle(String title){
+    	driverWrapper.getElementById(ResourceLocator.device.AWE_SEARCH_BAR_ENTER_TEXT).sendKeys(title);
+    }
+    
+    public void clearSearchField(){
+    	driverWrapper.getElementById(ResourceLocator.device.AWE_SEARCH_BAR_ENTER_TEXT).clear();
+    }
+    
+    /**
+     * It will return the search field text
+     * @return search field text
+     */
+    public String getSearchFieldText(){
+    	return driverWrapper.getElementById(ResourceLocator.device.AWE_SEARCH_BAR_ENTER_TEXT).getText();
     }
 }
 
