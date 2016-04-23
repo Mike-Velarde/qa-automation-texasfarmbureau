@@ -31,6 +31,6 @@ public class NavOpsChooseFeeds implements AutomationOperationsListener {
      * @return true, if pick feed list exists.
      */
     public boolean hasPickFeedList(){
-    	return driverWrapper.elements(By.id(ResourceLocator.device.AWE_FEED_PICK_LIST)).size()!=0;
+    	return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_FEED_PICK_LIST));
     }
 }

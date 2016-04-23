@@ -53,11 +53,11 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * @return if the episode list is empty
      */
     public boolean episodesEmpty() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_EPISODE_EMPTY_MESSAGE_ID)).size() != 0;
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_EPISODE_EMPTY_MESSAGE_ID));
     }
 
     public boolean clipsEmpty() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_CLIP_EMPTY_MESSAGE_ID)).size() != 0;
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_CLIP_EMPTY_MESSAGE_ID));
     }
 
     public void selectEpisodesTab() {
@@ -98,7 +98,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * @return seasontitle
      */
     public String getSeasonTitle() {
-        if (driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_TITLE)).size() != 0) {
+        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_TITLE))) {
             return driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_TITLE).getText();
         } else {
             return driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_STATIC_TEXT).getText();
@@ -145,12 +145,12 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
     /**
      * After clicking the More option, returns the content is availability status
      */
-    public boolean verifyContentFeature(String option) {
+    public boolean showDescriptionDisplayed(String option) {
         WebElement webElement = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_LINK);
         if (webElement.getText().equals(option)) {
             webElement.click();
         }
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_CONTENT_DESCRIPTION)).size() != 0;
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_CONTENT_DESCRIPTION));
     }
 
     /**
@@ -159,7 +159,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * @return true, if MORE link exists
      */
     public boolean hasMore() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_LINK)).size() != 0;
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_LINK));
     }
 
     /**
@@ -192,14 +192,14 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * return the selection status of the clips tab
      */
     public boolean isClipsTab() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_CLIP_LIST)).size() != 0 || clipsEmpty();
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_CLIP_LIST)) || clipsEmpty();
     }
 
     /**
      * return the selection status of the episodes tab
      */
     public boolean isEpisodeTab() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_EPISODE_LIST_CONTAINER)).size() != 0 || episodesEmpty();
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_EPISODE_LIST_CONTAINER)) || episodesEmpty();
     }
 
     /**
@@ -207,11 +207,12 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      */
     public int getSeasonsCount() {
         int seasonCount = 0;
-        if (driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD)).size() != 0) {
+        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD))) {
             driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD).click();
             List<WebElement> seasonList = driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_SEASON));
             seasonCount = seasonList.size();
         } else {
+            // Single season count
             seasonCount = driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_STATIC_TEXT)).size();
         }
         return seasonCount;
@@ -281,7 +282,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * Return the date exists on the video or not
      */
     public boolean doesAirDateExists() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_VIDEO_AIRDATE)).size() != 0;
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_VIDEO_AIRDATE));
     }
 
     /**
@@ -323,11 +324,13 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      */
     public int getShowsCount() {
         int showsCount = 0;
-        WebElement webElement = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID);
-        List<WebElement> showsRows = webElement.findElements(By.className(ResourceLocatorAndroid.LINEAR_LAYOUT));
-        for (int count = 0; count < showsRows.size(); count++) {
-            List<WebElement> showsColumns = showsRows.get(count).findElements(By.id(ResourceLocator.device.AWE_SHOWS_VIDEO_THUMBNAILS));
-            showsCount = showsCount + showsColumns.size();
+        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID))) {
+            WebElement webElement = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID);
+            List<WebElement> showsRows = webElement.findElements(By.className(ResourceLocatorAndroid.LINEAR_LAYOUT));
+            for (int count = 0; count < showsRows.size(); count++) {
+                List<WebElement> showsColumns = showsRows.get(count).findElements(By.id(ResourceLocator.device.AWE_SHOWS_VIDEO_THUMBNAILS));
+                showsCount = showsCount + showsColumns.size();
+            }
         }
         return showsCount;
     }
@@ -347,7 +350,12 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
             List<WebElement> showsColumns = showsRows.get(row).findElements(By.id(ResourceLocator.device.AWE_SHOWS_VIDEO_THUMBNAILS));
             for (int col = 0; col < showsColumns.size(); col++) {
                 showsColumns.get(col).click();
-                currentTitle = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SHOW_TITLE).getText();
+                // It will work in the show details or video details
+                if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SHOW_TITLE))) {
+                    currentTitle = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SHOW_TITLE).getText();
+                } else if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_VIDEO_DETAILS_TITLE))) {
+                    currentTitle = driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_DETAILS_TITLE).getText();
+                }
                 if (count == 0) {
                     if (!(currentTitle.compareTo(previousTitle) > 0)) {
                         return false;
@@ -379,9 +387,9 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
     }
 
     /**
-     * Select multiple shows.
+     * Tap on multiple shows
      */
-    public void selectMultipleShows() {
+    public void tapOnMultipleShows() {
         List<WebElement> shows = driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOWS_VIDEO_THUMBNAILS));
         if (shows.size() >= 1) {
             ((MobileElement) shows.get(0)).tap(1, 0);

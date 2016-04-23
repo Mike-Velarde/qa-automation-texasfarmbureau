@@ -30,7 +30,8 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
         }
 
         /*
-         * TODO This will need more work to swipe beyond the original view. How do we keep track of where we are? On the schedule heading, there was a similar problem, however, there we could swipe to a specific element. Can we do that here? else{ continueWatchingRow.swipe(SwipeElementDirection.LEFT, 1000); }
+         * TODO This will need more work to swipe beyond the original view. How do we keep track of where we are? On the schedule heading, there was a similar problem, however, there we could swipe to a specific element. Can we do that here? 
+         * else{ continueWatchingRow.swipe(SwipeElementDirection.LEFT, 1000); }
          */
     }
 
@@ -72,7 +73,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if it is QUEUE tab
      */
     public boolean isQueueTab() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_LIST)).size() != 0;
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_LIST));
     }
 
     /**
@@ -88,16 +89,16 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if continue tab exists
      */
     public boolean hasContinueTab() {
-        return driverWrapper.elements(By.name(ResourceLocator.device.AWE_WATCHLIST_CONTINUE_TAB)).size() != 0;
+        return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_WATCHLIST_CONTINUE_TAB));
     }
 
     /**
-     * Verifies whether queu tab is exists or not
+     * Verifies whether queue tab is exists or not
      * 
      * @return true, if queue tab exists
      */
     public boolean hasQueueTab() {
-        return driverWrapper.elements(By.name(ResourceLocator.device.AWE_WATCHLIST_QUEUE_TAB)).size() != 0;
+        return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_WATCHLIST_QUEUE_TAB));
     }
 
     /**
@@ -128,7 +129,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if shows empty
      */
     public boolean isEmpty() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_EMPTY_MESSAGE)).size() != 0;
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_EMPTY_MESSAGE));
     }
 
     /**
@@ -151,7 +152,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if confirmation popup exists
      */
     public boolean isConfirmationPresent() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_POPUP_REMOVE)).size() != 0;
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_POPUP_REMOVE));
     }
 
     /**
@@ -193,9 +194,9 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
     }
 
     /**
-     * It will verify the shows are in sort order
+     * It will verify the shows are sorted in alphabetically or not.
      * 
-     * @return true, if shows are in sort order
+     * @return true, if shows are in sorted in alphabetically.
      */
     public boolean hasShowsSortOrder() {
         List<WebElement> elements = driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_DETAILS_TITLE));
@@ -219,7 +220,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if contextual bar enabled
      */
     public boolean isContextualBarEnabled() {
-        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_EDIT_SELECT_ALL)).size() != 0;
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_EDIT_SELECT_ALL));
     }
 
     /**

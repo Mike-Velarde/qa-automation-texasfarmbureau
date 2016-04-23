@@ -3,6 +3,7 @@ package operations.navops;
 import config.ResourceLocator;
 import config.ResourceLocatorIos;
 import operations.AutomationOperations;
+
 import org.openqa.selenium.By;
 
 /**
@@ -45,17 +46,17 @@ public class NavigationOperationsIos extends NavigationOperations {
     }
 
     private boolean mainToolbarClosed(){
-        return driverWrapper.elements(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE)).size() != 0;
+        return driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE));
     }
 
     private boolean mainToolbarOpen(){
-        return driverWrapper.elements(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_OPEN_STATE)).size() != 0;
+        return driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_OPEN_STATE));
     }
 
     @Override
     protected boolean mainToolbarVisible() {
         //check if there is a grid open or grid close button
-        return driverWrapper.elements(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_OPEN_STATE)).size() != 0 || driverWrapper.elements(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE)).size() != 0;
+        return driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_OPEN_STATE)) || driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE));
     }
 
     @Override
@@ -79,5 +80,24 @@ public class NavigationOperationsIos extends NavigationOperations {
     @Override
     public void returnFromShowDetails() {
         driverWrapper.getElementById(ResourceLocatorIos.AWE_SHOW_DEATILS_NAV_BACK_FEATURED).click();
+    }
+    @Override
+    public void searchBarBack() {
+        // TODO Have to implement when working on the ios
+        driverWrapper.getElementByName(ResourceLocator.device.AWE_SEARCH_BAR_BACK).click();
+    }
+
+    @Override
+    public boolean hasToolbarSearch() {
+        //TODO: Have to test this logic on IOS device
+        boolean flag = false;
+        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH))) {
+            flag = true;
+        } else {
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS).click();
+            flag = driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW));
+            driverWrapper.back();
+        }
+        return flag;
     }
 }

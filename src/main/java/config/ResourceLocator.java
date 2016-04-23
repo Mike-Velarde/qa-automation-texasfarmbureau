@@ -113,6 +113,7 @@ public class ResourceLocator {
     public String AWE_MAIN_TOOLBAR_MORE_OPTIONS = "More options";
     public String AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW = "Search";
     public String AWE_MAIN_TOOLBAR_SHARE_OVERFLOW = "Share";
+    public String AWE_MAIN_TOOLBAR_CHROME_CAST = "Media output";
     public String AWE_SEARCH_BAR_BACK = "Collapse";
 
     public String AWE_SEARCH_BAR_ENTER_TEXT = "awe_search_actionprovidertext";
@@ -120,6 +121,7 @@ public class ResourceLocator {
     public String AWE_SEARCH_RESULTS_CONTAINER = "awe_search_list";
 
     public String AWE_DRAWER_WATCHLIST_COUNT = "awe_navigation_itemcount";
+    
 
     /**
      * Share
@@ -145,6 +147,7 @@ public class ResourceLocator {
     public String AWE_LOGIN_CONTINUE = "awe_auth_welcomecontinue";
     public String AWE_LOGIN_PROVIDER_NOT_LISTED = "awe_auth_picknotlisted";
     public String AWE_AUTH_PROVIDER_CONTAINER = "awe_auth_pickcontentcontainer";
+    public String AWE_SETTINGS_LIST_OPTIONS = "awe_settings_listoptions";
 
     public String GMAIL_COMPOSE_TITLE = "action_bar_title";
     public String GMAIL_COMPOSE_TEXT = "Compose";
@@ -222,6 +225,9 @@ public class ResourceLocator {
     public String AWE_SETTINGS_DEV_OPTIONS_TITLE_ID = "awe_settings_btndevoptions";
     public String AWE_SETTINGS_DEV_OPTIONS_MAIN_LIST = "awe_devoptions_list";
     public String AWE_SETTINGS_VERSION_INFO = "awe_settings_txtversionname";
+    public String AWE_SETTINGS_FEEDBACK_MORE_SCREEN = "resolver_list";
+    public String AWE_SETTINGS_FEEDBACK_MORE_SCREEN_OPTIONS = "text1";
+    
 
     public String AWE_SETTINGS_DEV_OPTIONS_TITLE = "Developer Options";
     public String AWE_SETTINGS_ABOUT_BRAND_TITLE = "About Brand";
@@ -233,6 +239,8 @@ public class ResourceLocator {
     public String AWE_SETTINGS_VIDEO_OVER_WIFI_STATUS = "awe_settings_btnvideooverwifionly";
     public String AWE_SETTINGS_VIDEO_OVER_WIFI_STATUS_YES = "ON";
     public String AWE_SETTINGS_BUILD_INFO = "awe_settings_hiddentext";
+    public String AWE_SETTINGS_FEEDBACK_EMAIL = "email|compose";
+    
 
 
 
@@ -264,6 +272,7 @@ public class ResourceLocator {
      * Video details page, this page has the details of the video on the side and is shown before the video is played
      */
     public String AWE_VIDEO_DETAILS_PLAY_BUTTON = "awe_videodetail_thumbnailimage";
+    public String AWE_VIDEO_DETAILS_TITLE = "awe_videodetail_title";
 
     /**
      * Cable providers

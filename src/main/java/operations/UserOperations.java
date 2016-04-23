@@ -152,9 +152,8 @@ public abstract class UserOperations implements AutomationOperationsListener {
 
     private boolean isVideoFinished() {
         boolean finished;
-
         driverWrapper.setImplicitWait(5, TimeUnit.SECONDS);
-        finished = driverWrapper.elements(By.id(ResourceLocator.device.AWE_VIDEO_PLAYER_ROOT)).size() == 0;
+        finished = !driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_VIDEO_PLAYER_ROOT));
         driverWrapper.restoreImplicitWait();
 
         return finished;
@@ -168,7 +167,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         long timeElapsed;
 
         // While there is a loading spinner wait
-        while (driverWrapper.elements(By.id(ResourceLocator.device.AWE_VIDEO_LOADING_SPINNER)).size() != 0) {
+        while (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_VIDEO_LOADING_SPINNER))) {
             // divide by 1000 to get seconds
             timeElapsed = (System.currentTimeMillis() - currentTime) / 1000;
             if (timeout < timeElapsed) {
@@ -178,7 +177,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
 
         currentTime = System.currentTimeMillis();
         // check for ads
-        while (driverWrapper.elements(By.id(ResourceLocator.device.AWE_VIDEO_PLAYER_AD_COUNTDOWN_BANNER)).size() != 0) {
+        while (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_VIDEO_PLAYER_AD_COUNTDOWN_BANNER))) {
             timeElapsed = (System.currentTimeMillis() - currentTime) / 1000;
             if (150 > timeElapsed) {
                 throw new TimeoutException("The ads took too long to load");
@@ -207,7 +206,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
     public void videoDetailsPlayVideo() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_DETAILS_PLAY_BUTTON).click();
     }
-
+    
     /**
      * This will work if called from any screen which can see the banner. Since it seems to be most screens, I've opted not to make this more disruptive by forcing unnecessary navigation.
      * 
@@ -216,7 +215,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
     public boolean isUserLoggedIn() {
         driverWrapper.setImplicitWait(5, TimeUnit.SECONDS);
         // If this element is there then a user is logged in
-        boolean loggedIn = driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_PROVIDER_LOGO)).size() != 0;
+        boolean loggedIn = driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_PROVIDER_LOGO));
         driverWrapper.restoreImplicitWait();
         return loggedIn;
     }

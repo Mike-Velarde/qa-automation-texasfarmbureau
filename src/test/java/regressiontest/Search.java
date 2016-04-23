@@ -28,53 +28,58 @@ public class Search extends AppiumMain {
         // Select the shows
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
 
-        // Verify the shows displayed in the navigation drawer
+        // Click on the search icon
         AutomationOperations.instance().navOp.mainToolbarSearch();
 
         // Verify search input spans full screen
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory, "AAFR_Search_02_Verify_Search_input_field_spans_full_screen_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Search_02_verify_search_input_field_spans_full_screen_" + System.currentTimeMillis());
 
         // Verify keyboard visibility
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory, "AAFR_Search_03_Verify_keyboard_visibility_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Search_03_verify_keyboard_visibility_" + System.currentTimeMillis());
 
         // Verify brand logo
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory, "AAFR_Search_09_Verify_search_input_location_after_brand_logo_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Search_09_verify_search_input_location_after_brand_logo_" + System.currentTimeMillis());
 
+        // Select the show
         AutomationOperations.instance().navOp.shows.selectShow(0, 0);
 
-        // Navigates to the About BR screen
+        // Verify the screen title has shows
         assertionLogger.setTestType("Test for Shows title : ");
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.shows.toString());
 
-        // Verify the shows displayed in the navigation drawer
+        // Click on the search icon
         AutomationOperations.instance().navOp.mainToolbarSearch();
 
-        AutomationOperations.instance().navOp.serachBarBack();
+        // Click on the search bar back button
+        AutomationOperations.instance().navOp.searchBarBack();
 
-        // Navigates to the About BR screen
+        // Verify the screen title as shows
         assertionLogger.setTestType("Test for Shows title : ");
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.shows.toString());
 
-        // Verify the shows displayed in the navigation drawer
+        // Click on the search icon
         AutomationOperations.instance().navOp.mainToolbarSearch();
 
         driverWrapper.back();
 
-        // Navigates to the About BR screen
+        // Verify the screen title as shows
         assertionLogger.setTestType("Test for Shows title : ");
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.shows.toString());
 
-        // Verify the shows displayed in the navigation drawer
+        // Click on the search icon
         AutomationOperations.instance().navOp.mainToolbarSearch();
 
+        // Enter the text "testing" in the search bar
         AutomationOperations.instance().userOp.enterSearchTitle("testing");
 
+        // Verify the "testing" is entered in the search bar
         assertionLogger.setTestType("Test for the search content is entered : ");
         assertionLogger.assertEquals(AutomationOperations.instance().userOp.getSearchFieldText(), "testing");
 
         // Clear the text in the search field
         AutomationOperations.instance().userOp.clearSearchField();
 
+        // Clear the text in the search field
         assertionLogger.setTestType("Test for the search content is entered : ");
         assertionLogger.assertEquals(AutomationOperations.instance().userOp.getSearchFieldText(), "");
     }
