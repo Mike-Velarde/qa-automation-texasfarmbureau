@@ -25,9 +25,8 @@ public class Shows extends AppiumMain {
 
     @Test
     public void testShowDetails() {
-        // Device width
+
         int deviceWidth = 720;
-        // Device height
         int deviceHeight = 1280;
 
         // Open the navigation drawer

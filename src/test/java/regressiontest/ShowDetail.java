@@ -165,7 +165,7 @@ public class ShowDetail extends AppiumMain {
 
         // Verify show title is fade in state
         assertionLogger.setTestType("Test the images are identical or not: ");
-        assertionLogger.assertFalse(driverWrapper.doesImagesIdentical(image1, image2));
+        assertionLogger.assertFalse(driverWrapper.areImagesIdentical(image1, image2));
 
         // Show title, Subtitle, MORE link, Sponsor Image fade to black
         driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Show_Details_49_verify_activity_circle_while_loading_videos_" + System.currentTimeMillis());
@@ -211,15 +211,15 @@ public class ShowDetail extends AppiumMain {
         String watchlistImage2 = driverWrapper.takeObjectScreenshot(driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_WATCHLIST), outPutLocation,"/AAFR_Show_Details_10_after_scroll_up_watchlist_image_" + System.currentTimeMillis());
         // Verify more image
         assertionLogger.setTestType("Test the more images are identical or not: ");
-        assertionLogger.assertFalse(driverWrapper.doesImagesIdentical(moreImage1, moreImage2));
+        assertionLogger.assertFalse(driverWrapper.areImagesIdentical(moreImage1, moreImage2));
         
         // Verify full screenshots
         assertionLogger.setTestType("Test the full screen shots are identical or not: ");
-        assertionLogger.assertFalse(driverWrapper.doesImagesIdentical(fullImage1, fullImage2));
+        assertionLogger.assertFalse(driverWrapper.areImagesIdentical(fullImage1, fullImage2));
         
         // Verify watchlist image
         assertionLogger.setTestType("Test the watchlist images are identical or not: ");
-        assertionLogger.assertTrue(driverWrapper.doesImagesIdentical(watchlistImage1, watchlistImage2));
+        assertionLogger.assertTrue(driverWrapper.areImagesIdentical(watchlistImage1, watchlistImage2));
         
         // Show title, Subtitle, MORE link, Sponsor Image fade to black
         driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Show_Details_49_verify_activity_circle_while_loading_videos_" + System.currentTimeMillis());

@@ -68,7 +68,7 @@ public class Settings extends AppiumMain {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
         // Launch the Feedback option
-        AutomationOperations.instance().navOp.settings.launchFeedback();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_FEEDBACK_TITLE_ID);
 
         // Click on email option
         AutomationOperations.instance().navOp.settings.clickOnEmail();

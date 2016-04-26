@@ -30,8 +30,10 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
     }
 
     /**
-     * To verify the Settings options 
-     * @param title, the settings option title
+     * To verify the Settings options
+     * 
+     * @param title,
+     *            the settings option title
      * @return true, if title exists
      */
     public boolean hasSettingsOption(String title) {
@@ -58,48 +60,6 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
      * After selecting a settings option, return back to the settings page. This currently makes sense for Android and not iOS
      */
     public abstract void backFromSettingsOption();
-
-    /**
-     * It will launch the about brand in the Settings page
-     */
-    public void launchAboutBrand() {
-        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_ABOUT_BRAND_TITLE_ID).click();
-    }
-
-    /**
-     * It will launch the FAQ screen
-     */
-    public void launchFAQ() {
-        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_FAQ_TITLE_ID).click();
-    }
-
-    /**
-     * It will launch the privacy policy screen
-     */
-    public void launchPrivacyPolicy() {
-        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_PRIVACY_POLICY_TITLE_ID).click();
-    }
-
-    /**
-     * It will launch the Terms & Condition screen
-     */
-    public void launchTermsConditions() {
-        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_TERMS_AND_CONDITIONS_TITLE_ID).click();
-    }
-
-    /**
-     * It will launch the Feedback option
-     */
-    public void launchFeedback() {
-        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_FEEDBACK_TITLE_ID).click();
-    }
-
-    /**
-     * It will launch the About BR screen
-     */
-    public void launchAboutBR() {
-        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE_ID).click();
-    }
 
     /**
      * Verify the screen has webview

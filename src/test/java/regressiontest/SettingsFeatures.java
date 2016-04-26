@@ -29,7 +29,7 @@ public class SettingsFeatures extends AppiumMain {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
         // Click on the About brand
-        AutomationOperations.instance().navOp.settings.launchAboutBrand();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_ABOUT_BRAND_TITLE_ID);
         // Navigates to the About Brand screen
         assertionLogger.setTestType("Test for about brand title: ");
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.device.AWE_SETTINGS_ABOUT_BRAND_TITLE);
@@ -38,12 +38,12 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertTrue(AutomationOperations.instance().navOp.settings.hasWebView());
 
         // Verify page content with server configuration
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-AboutBrand_02_check_admin_server_config_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-AboutBrand_02_check_admin_server_config_" + System.currentTimeMillis());
         // Verify the brand logo and about app brand name
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-AboutBrand_03_verify_brand_logo_name_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-AboutBrand_03_verify_brand_logo_name_" + System.currentTimeMillis());
 
         // Verify correct background displays
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-AboutBrand_06_verify_background_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-AboutBrand_06_verify_background_" + System.currentTimeMillis());
 
         // click on the back button on the title bar
         AutomationOperations.instance().navOp.mainToolbarBack();
@@ -52,7 +52,7 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // Click on the About brand
-        AutomationOperations.instance().navOp.settings.launchAboutBrand();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_ABOUT_BRAND_TITLE_ID);
         // Navigate to the back button
         driverWrapper.back();
         // Verify user navigated to the Settings screen
@@ -60,16 +60,16 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // Click on the About brand
-        AutomationOperations.instance().navOp.settings.launchAboutBrand();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_ABOUT_BRAND_TITLE_ID);
 
         // Screenshot of before scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-AboutBrand_07_before_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-AboutBrand_07_before_scroll_up_" + System.currentTimeMillis());
 
         // Verify scroll functionality
         AutomationOperations.instance().navOp.settings.webviewScrollUp();
 
         // Screenshot of after scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-AboutBrand_07_after_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-AboutBrand_07_after_scroll_up_" + System.currentTimeMillis());
 
         driverWrapper.back();
     }
@@ -79,23 +79,23 @@ public class SettingsFeatures extends AppiumMain {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         // Launch the FAQ screen
-        AutomationOperations.instance().navOp.settings.launchFAQ();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_FAQ_TITLE_ID);
 
         // Navigates to the FAQ screen
         assertionLogger.setTestType("Test for FAQ title: ");
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.device.AWE_SETTINGS_FAQ_TITLE);
 
         // Verify brand logo
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-FAQ_03_verify_brand_logo_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-FAQ_03_verify_brand_logo_" + System.currentTimeMillis());
 
         assertionLogger.setTestType("Test for FAQ web view: ");
         assertionLogger.assertTrue(AutomationOperations.instance().navOp.settings.hasWebView());
 
         // Verify page content with server configuration
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-FAQ_02_check_content_with_admin_server_config_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-FAQ_02_check_content_with_admin_server_config_" + System.currentTimeMillis());
 
         // Verify correct background displays
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-FAQ_06_verify_background_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-FAQ_06_verify_background_" + System.currentTimeMillis());
 
         // click on the back button on the title bar
         AutomationOperations.instance().navOp.mainToolbarBack();
@@ -104,7 +104,7 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // Click on the About brand
-        AutomationOperations.instance().navOp.settings.launchFAQ();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_FAQ_TITLE_ID);
 
         // Navigate to the back button
         driverWrapper.back();
@@ -113,16 +113,16 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // Launch the FAQ screen
-        AutomationOperations.instance().navOp.settings.launchFAQ();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_FAQ_TITLE_ID);
 
         // Screenshot of before scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-FAQ_07_before_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-FAQ_07_before_scroll_up_" + System.currentTimeMillis());
 
         // Verify scroll functionality
         AutomationOperations.instance().navOp.settings.webviewScrollUp();
 
         // Screenshot of after scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-FAQ_08_after_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-FAQ_08_after_scroll_up_" + System.currentTimeMillis());
 
         driverWrapper.back();
     }
@@ -133,23 +133,23 @@ public class SettingsFeatures extends AppiumMain {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
         // Launch the PRIVACY POLICY screen
-        AutomationOperations.instance().navOp.settings.launchPrivacyPolicy();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_PRIVACY_POLICY_TITLE_ID);
 
         // Navigates to the PRIVACY POLICY screen
         assertionLogger.setTestType("Test for Privacy Policy title: ");
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.device.AWE_SETTINGS_PRIVACY_POLICY_TITLE);
 
         // Verify brand logo
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Privacy_Policy_03_verify_brand_logo_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Privacy_Policy_03_verify_brand_logo_" + System.currentTimeMillis());
 
         assertionLogger.setTestType("Test for Privacy Policy web view: ");
         assertionLogger.assertTrue(AutomationOperations.instance().navOp.settings.hasWebView());
 
         // Verify page content with server configuration
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Privacy_Policy_02_check_content_with_admin_server_config_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Privacy_Policy_02_check_content_with_admin_server_config_" + System.currentTimeMillis());
 
         // Verify correct background displays
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Privacy_Policy_06_verify_background_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Privacy_Policy_06_verify_background_" + System.currentTimeMillis());
 
         // click on the back button on the title bar
         AutomationOperations.instance().navOp.mainToolbarBack();
@@ -158,7 +158,7 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // Click on the About brand
-        AutomationOperations.instance().navOp.settings.launchPrivacyPolicy();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_PRIVACY_POLICY_TITLE_ID);
         // Navigate to the back button
         driverWrapper.back();
         // Verify user navigated to the Settings screen
@@ -166,16 +166,16 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // Launch the PRIVACY POLICY screen
-        AutomationOperations.instance().navOp.settings.launchPrivacyPolicy();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_PRIVACY_POLICY_TITLE_ID);
 
         // Screenshot of before scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Privacy_Policy_07_before_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Privacy_Policy_07_before_scroll_up_" + System.currentTimeMillis());
 
         // Verify scroll functionality
         AutomationOperations.instance().navOp.settings.webviewScrollUp();
 
         // Screenshot of after scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Privacy_Policy_07_after_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Privacy_Policy_07_after_scroll_up_" + System.currentTimeMillis());
 
         driverWrapper.back();
     }
@@ -186,22 +186,22 @@ public class SettingsFeatures extends AppiumMain {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
         // Launch the Terms & Conditions screen
-        AutomationOperations.instance().navOp.settings.launchTermsConditions();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_TERMS_AND_CONDITIONS_TITLE_ID);
 
         // Navigates to the Terms and conditions screen
         assertionLogger.setTestType("Test for Terms & Conditions title: ");
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.device.AWE_SETTINGS_TERMS_CONDITIONS_TITLE);
 
         // Verify brand logo
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Terms&Conditions_03_verify_brand_logo_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Terms&Conditions_03_verify_brand_logo_" + System.currentTimeMillis());
 
         assertionLogger.setTestType("Test for Terms & Conditions web view: ");
         assertionLogger.assertTrue(AutomationOperations.instance().navOp.settings.hasWebView());
         // Verify page content with server configuration
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Terms&Conditions_02_check_content_with_admin_server_config_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Terms&Conditions_02_check_content_with_admin_server_config_" + System.currentTimeMillis());
 
         // Verify correct background displays
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Terms&Conditions_06_verify_background_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Terms&Conditions_06_verify_background_" + System.currentTimeMillis());
 
         // click on the back button on the title bar
         AutomationOperations.instance().navOp.mainToolbarBack();
@@ -210,7 +210,7 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // Launch the Terms & Conditions screen
-        AutomationOperations.instance().navOp.settings.launchTermsConditions();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_TERMS_AND_CONDITIONS_TITLE_ID);
         // Navigate to the back button
         driverWrapper.back();
         // Verify user navigated to the Settings screen
@@ -218,16 +218,16 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // Launch the Terms & Conditions screen
-        AutomationOperations.instance().navOp.settings.launchTermsConditions();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_TERMS_AND_CONDITIONS_TITLE_ID);
 
         // Screenshot of before scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Terms&Conditions_07_before_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Terms&Conditions_07_before_scroll_up_" + System.currentTimeMillis());
 
         // Verify scroll functionality
         AutomationOperations.instance().navOp.settings.webviewScrollUp();
 
         // Screenshot of after scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Terms&Conditions_07_after_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Terms&Conditions_07_after_scroll_up_" + System.currentTimeMillis());
 
         driverWrapper.back();
     }
@@ -238,28 +238,28 @@ public class SettingsFeatures extends AppiumMain {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
         // click on the Feedback option
-        AutomationOperations.instance().navOp.settings.launchFeedback();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_FEEDBACK_TITLE_ID);
 
         // Verify brand logo
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Feedback_01_verify_more_screen_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Feedback_01_verify_more_screen_" + System.currentTimeMillis());
 
         // Click on email option
         AutomationOperations.instance().navOp.settings.clickOnEmail();
 
         // Verify for the keyboard displayed before click the back button
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Feedback_05_verify_keyboard_displayed_before_click_back_button_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Feedback_05_verify_keyboard_displayed_before_click_back_button_" + System.currentTimeMillis());
 
         // Click on the back button
         driverWrapper.back();
 
         // Verify for the keyboard dismissed after clicking the back button
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Feedback_05_verify_keyboard_dismissed_after_click_back_button_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Feedback_05_verify_keyboard_dismissed_after_click_back_button_" + System.currentTimeMillis());
 
         // Verify TO field as per server configuration file
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Feedback_02_verify_TO_field_config_file_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Feedback_02_verify_TO_field_config_file_" + System.currentTimeMillis());
 
         // Verify compose screen and app version, Device, OS version and Connection Type
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-Feedback_03_verify_pre_populated_instructions_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-Feedback_03_verify_pre_populated_instructions_" + System.currentTimeMillis());
 
         // Click on the back button
         driverWrapper.back();
@@ -275,22 +275,22 @@ public class SettingsFeatures extends AppiumMain {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
         // click on the About BottleRocket option
-        AutomationOperations.instance().navOp.settings.launchAboutBR();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE_ID);
 
         // Navigates to the About BR screen
         assertionLogger.setTestType("Test for About BR title: ");
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.device.AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE);
 
         // Verify brand logo
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-About_BR_03_verify_brand_logo_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-About_BR_03_verify_brand_logo_" + System.currentTimeMillis());
 
         assertionLogger.setTestType("Test for About BR web view: ");
         assertionLogger.assertTrue(AutomationOperations.instance().navOp.settings.hasWebView());
         // Verify page content with server configuration
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-About_BR_02_check_content_with_admin_server_config_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-About_BR_02_check_content_with_admin_server_config_" + System.currentTimeMillis());
 
         // Verify correct background displays
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-About_BR_06_verify_background_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-About_BR_06_verify_background_" + System.currentTimeMillis());
 
         // click on the back button on the title bar
         AutomationOperations.instance().navOp.mainToolbarBack();
@@ -299,7 +299,7 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // click on the About BottleRocket option
-        AutomationOperations.instance().navOp.settings.launchAboutBR();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE_ID);
         // Navigate to the back button
         driverWrapper.back();
         // Verify user navigated to the Settings screen
@@ -307,16 +307,16 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), ResourceLocator.DrawerNavigationItem.settings.toString());
 
         // click on the About BottleRocket option
-        AutomationOperations.instance().navOp.settings.launchAboutBR();
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE_ID);
 
         // Screenshot of before scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-About_BR_07_before_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-About_BR_07_before_scroll_up_" + System.currentTimeMillis());
 
         // Verify scroll functionality
         AutomationOperations.instance().navOp.settings.webviewScrollUp();
 
         // Screenshot of after scrolls up
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "AAFR_Settings-About_BR_07_after_scroll_up_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Settings-About_BR_07_after_scroll_up_" + System.currentTimeMillis());
 
         driverWrapper.back();
     }
@@ -332,8 +332,7 @@ public class SettingsFeatures extends AppiumMain {
         assertionLogger.setTestType("Verify the screen title is the title we expected");
         try {
             assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), title);
-        }
-        finally {
+        } finally {
             AutomationOperations.instance().navOp.mainToolbarBack();
         }
     }
