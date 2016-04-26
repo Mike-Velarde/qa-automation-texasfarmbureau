@@ -3,6 +3,7 @@ package smokeTest.generic;
  * Created by ford.arnett on 11/30/15.
  */
 
+import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
 import config.ResourceLocator;
 import main.AppiumMain;
@@ -33,7 +34,7 @@ public class VideoPlayerFunctions extends AppiumMain {
         //AutomationOperations.instance().userOp.playPauseVideo();
         //Give the video extra time to load
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-        AutomationOperations.instance().userOp.assertVideoRuntimeChanged(assertionLogger, 10000);
+        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         AutomationOperations.instance().userOp.scrubVideo(0.6);
         AutomationOperations.instance().userOp.closedCaptionsToggle();

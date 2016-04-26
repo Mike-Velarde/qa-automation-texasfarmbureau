@@ -1,5 +1,6 @@
 package smokeTest.ios;
 
+import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
@@ -53,7 +54,7 @@ public class ShowsIos extends Shows {
 
         //Wait for ads
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-        AutomationOperations.instance().userOp.assertVideoRuntimeChanged(assertionLogger, 10000);
+        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         AutomationOperations.instance().navOp.mainToolbarBack();
         AutomationOperations.instance().navOp.mainToolbarBack();

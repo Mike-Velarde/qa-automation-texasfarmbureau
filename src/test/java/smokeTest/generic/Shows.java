@@ -1,5 +1,6 @@
 package smokeTest.generic;
 
+import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
 import config.ResourceLocator;
 import main.AppiumMain;
@@ -43,7 +44,7 @@ public class Shows extends AppiumMain {
 
         //Wait for ads
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-        AutomationOperations.instance().userOp.assertVideoRuntimeChanged(assertionLogger, 10000);
+        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         AutomationOperations.instance().navOp.mainToolbarBack();
         AutomationOperations.instance().navOp.mainToolbarBack();
@@ -55,7 +56,6 @@ public class Shows extends AppiumMain {
 
         AutomationOperations.instance().navOp.mainToolbarBack();
 
-        assertionLogger.logMessages();
     }
 
     /**

@@ -1,5 +1,6 @@
 package smokeTest.ios;
 
+import assertions.AssertionLibrary;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
@@ -60,7 +61,7 @@ public class FeaturedIos extends Featured {
             ErrorHandler.printErr("error taking screenshot",e);
         }
         //check that video has played
-        AutomationOperations.instance().userOp.assertVideoRuntimeChanged(assertionLogger, 10000);
+        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         //Get screenshot to compare against before so we know video is playing
         try {

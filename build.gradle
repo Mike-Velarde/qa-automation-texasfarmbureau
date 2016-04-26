@@ -8,14 +8,6 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    maven {
-        url 'https://artifacts.bottlerocketservices.com/repository/repo'
-        credentials
-                {
-                    username='ford.arnett'
-                    password='AP6tg5K9KkVrJv5ma7GToEBVeLd'
-                }
-    }
 }
 
 /*sourceSets {
@@ -31,8 +23,9 @@ test{
 
 dependencies {
     compile project(':automation_library')
-    compile group: 'io.appium', name: 'java-client', version:'3.2.0'
-    compile(group: 'com.bottlerocketstudios.automation', name: 'Automation_Library', version: '1.0-SNAPSHOT')
+    compile group: 'io.appium', name: 'java-client', version:'3.4.0'
+    //This isn't necessary since it comes included in Intellij, but unfortunately every time you synchronize the build.gradle you must tell it to add to the classpath again and it gets annoying
+    compile group: 'org.testng', name: 'testng', version:'6.8.8'
 }
 
 /*task login(type: Test){

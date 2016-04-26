@@ -4,6 +4,7 @@ package smokeTest.generic;
  * Created by ford.arnett on 11/23/15.
  */
 
+import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
@@ -40,41 +41,14 @@ public class Watchlist extends AppiumMain {
 
     private void playContinue(){
         AutomationOperations.instance().navOp.watchlist.playContinueWatchingShow(1);
-        try {
-            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
-        }
-        catch(Exception e){
-            ErrorHandler.printErr("error taking screenshot", e);
-        }
-
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-
-        try {
-            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_after_" + System.currentTimeMillis());
-        }
-        catch(Exception e){
-            ErrorHandler.printErr("error taking screenshot",e);
-        }
-        driverWrapper.back();
+        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
     }
 
     private void playQueue(){
-        try {
-            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_before_" + System.currentTimeMillis());
-        }
-        catch(Exception e){
-            ErrorHandler.printErr("error taking screenshot",e);
-        }
         AutomationOperations.instance().navOp.watchlist.playQueueShow(1, 0);
-
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-        try {
-            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_after_" + System.currentTimeMillis());
-        }
-        catch(Exception e){
-            ErrorHandler.printErr("error taking screenshot",e);
-        }
-        driverWrapper.back();
+        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
     }
 
     @AfterClass

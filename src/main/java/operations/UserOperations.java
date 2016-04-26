@@ -1,6 +1,5 @@
 package operations;
 
-import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
@@ -10,7 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import utils.VideoUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -247,21 +245,6 @@ public abstract class UserOperations implements AutomationOperationsListener {
     }
 
     public abstract int search(String searchTerm);
-
-    /**
-     * Assert that the video runtime has changed
-     *
-     * This may not belong in this class
-     *
-     * @param wait
-     */
-    public void assertVideoRuntimeChanged(AssertionLogger assertionLogger, int wait) {
-        Calendar startTime = AutomationOperations.instance().userOp.getVideoCurrentRunTime(true);
-        driverWrapper.waitLogErr(wait);
-        assertionLogger.setTestType("Verify that the video time has progressed, meaning the video has played.");
-        Calendar timeAfterPlay = AutomationOperations.instance().userOp.getVideoCurrentRunTime(true);
-        assertionLogger.assertNotEquals(VideoUtils.getVideoTimeFromCalendar(startTime), VideoUtils.getVideoTimeFromCalendar(timeAfterPlay));
-    }
 
 
     public class LongTapAsynch implements Runnable {
