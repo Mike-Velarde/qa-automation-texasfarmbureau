@@ -6,8 +6,11 @@ package operations.navops;
 
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.SwipeElementDirection;
 import operations.AutomationOperationsListener;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 /**
@@ -48,6 +51,15 @@ public abstract class NavigationOperations implements AutomationOperationsListen
     public abstract void mainToolbarBack();
 
     public abstract void mainToolbarSearch();
+    
+    public abstract void searchBarBack();
+    
+   
+    /**
+     * To know search icon exists or not
+     * @return true, if search icon exists
+     */
+    public abstract boolean hasToolbarSearch();
 
     public void mainToolbarLive() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_LIVE).click();
@@ -55,7 +67,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
 
     public void mainToolbarShare() {
         //If there is a share icon handle it this way
-        if(driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE)).size() !=0){
+        if(driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE))){
             driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE).click();
         }
         //If share is in overflow use this
@@ -64,16 +76,53 @@ public abstract class NavigationOperations implements AutomationOperationsListen
             driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE_OVERFLOW).click();
         }
     }
+    
+    
+    /**
+     * Tap on the share pop-up
+     */
+    public void tapMainToolbarShare() {
+        //If there is a share icon handle it this way
+        if(driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE))){
+            ((MobileElement)driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE)).tap(1, 10);
+        }
+        //If share is in overflow use this
+        else {
+        	
+        	((MobileElement)driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE_OVERFLOW)).tap(1, 10);
+        }
+    }
 
     public void mainToolbarWatchlist() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_WATCHLIST).click();
     }
 
+    
+    /**
+     * To know the toolbar watchlist exist or not
+     * @return true, if watchlist exists
+     */
+    public boolean hasToolbarWatchlist() {
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_WATCHLIST));
+    }
+    
     public void shareFacebook() {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK).click();
         driverWrapper.find("POST").click();
     }
 
+    
+    public boolean isFaceBookExists(){
+    	return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK));
+    }
+    
+    /**
+     * To know the chromecast is enabled or not 
+     * @return true, if chromecast exists 
+     */
+    public boolean doesChromecastExists(){
+        return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_CHROME_CAST)); 
+    }
 
     /**
      * Returns true iff the main toolbar is found on the current page
@@ -92,6 +141,23 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      */
     public void closeMainDrawer(){
         driverWrapper.getElementByFind(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR).click();
+    }
+    
+    
+    /**
+     * To verify the close main drawer exists or not
+     * @return true, if close main drawer exists
+     */
+    public boolean doesCloseMainDrawerExists(){
+        return driverWrapper.checkElementExists(driverWrapper.for_find(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR));
+    }
+    
+    /**
+     * It will verify for the Hamburger icon
+     * @return true, if Hamburger exists
+     */
+    public boolean hasOpenMainDrawer(){
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_DRAWER));
     }
 
     public abstract String getScreenTitle();
@@ -114,11 +180,9 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * Add to watchlist. If already added, remove then add again
      */
     public void addShowToWatchlist() {
-
-        if (driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST)).size() == 0) {
+        if(!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))){
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
         }
-
         driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
 
     }
@@ -128,5 +192,72 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      *
      */
     public abstract void returnFromShowDetails();
+    
+    /**
+     * Remove the show from the watch list
+     */
+    public void removeFromWatchList(){
+        if(!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))){
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
+        }
+    }
+    
+    /**
+     * Tap to add the show to the watch list
+     */
+    public void tapAddShowToWatchlist() {
+        if(!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))){
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
+        }
+
+        MobileElement element=(MobileElement)driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST);
+        element.tap(1, 10);
+    }
+    
+    /**
+     * Tap to remove from the watch list
+     */
+    public void tapRemoveShowToWatchlist() {
+        if(!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST))){
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
+        }
+        MobileElement element=(MobileElement)driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST);
+        element.tap(1, 10);
+    }
+
+    /**
+     * 
+     * @return true, if remove show list exists 
+     */
+    public boolean hasRemoveShowWatchList(){
+  	  return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST));
+    }
+    
+    /**
+     * 
+     * @return true, if add show list exists
+     */
+    public boolean hasAddShowWatchList(){
+  	  return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST));
+    }
+
+    /**
+     * To verify the navigation item is available in the main drawer
+     * @param navigationItem
+     * @return true, if navigation item exists
+     */
+    public boolean hasDrawerItem(String navigationItem){
+        return driverWrapper.checkElementExists(By.name(navigationItem.toString()));
+    }
+    
+    /**
+     * Used to scroll up the navigation drawer
+     */
+    public void navigationDrawerScrollUp(){
+        MobileElement episodeClipsContainer = (MobileElement) driverWrapper.getElementByName(ResourceLocator.DrawerNavigationItem.movies.toString());
+        episodeClipsContainer.swipe(SwipeElementDirection.UP, 1, 0, 5000);
+    }
+    
+        
 }
 

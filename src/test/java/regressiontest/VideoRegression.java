@@ -34,7 +34,7 @@ public class VideoRegression extends AppiumMain {
 
         //how to rotate http://stackoverflow.com/questions/25864385/changing-android-device-orientation-with-adb
 
-        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory, "verify_i_am_full_screen_" + System.currentTimeMillis());
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory+""+this.getClass().getSimpleName()+"/", "verify_i_am_full_screen_" + System.currentTimeMillis());
         assertionLogger.setTestType("Check run time is of the format xx:xx:xx and is left of the total run time");
         Calendar calBefore = AutomationOperations.instance().userOp.getVideoCurrentRunTime(true);
         Calendar calAfter = AutomationOperations.instance().userOp.getVideoCurrentRunTime(false);

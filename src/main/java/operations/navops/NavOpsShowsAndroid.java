@@ -24,7 +24,7 @@ public class NavOpsShowsAndroid extends NavOpsShows {
     @Override
     public String showDetailSelectSeason(int seasonIndex) {
         //The season select spinner has a different id from the single season heading ids. If it is the season select id, we can proceed
-        if(driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD)).size() != 0){
+        if(driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD))){
             driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD).click();
             List<WebElement> seasonList = driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_SEASON));
             //Prevent array OOB
@@ -59,5 +59,6 @@ public class NavOpsShowsAndroid extends NavOpsShows {
         //TODO doesn't seem to play when parts of the screen load before others
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
     }
+
 
 }

@@ -85,6 +85,8 @@ public class ResourceLocator {
     public String AWE_PICKFEED_SERVERURL_ID = "com.bottlerocketapps.awe.watcher:id/awe_pickfeed_serverurl";
 
     public String ANDROID_FRAMEWORK_DEV_LIVE_FEED = "http://andfw.dev.bottlerocketservices.com/live/5/usa/config";
+    
+    public String AWE_FEED_PICK_LIST = "awe_pickfeed_list";
 
     /**
      * ADB key events. http://stackoverflow.com/questions/7789826/adb-shell-input-events
@@ -111,12 +113,15 @@ public class ResourceLocator {
     public String AWE_MAIN_TOOLBAR_MORE_OPTIONS = "More options";
     public String AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW = "Search";
     public String AWE_MAIN_TOOLBAR_SHARE_OVERFLOW = "Share";
+    public String AWE_MAIN_TOOLBAR_CHROME_CAST = "Media output";
+    public String AWE_SEARCH_BAR_BACK = "Collapse";
 
     public String AWE_SEARCH_BAR_ENTER_TEXT = "awe_search_actionprovidertext";
     public String AWE_SEARCH_RESULTS = "awe_search_listitem";
     public String AWE_SEARCH_RESULTS_CONTAINER = "awe_search_list";
 
     public String AWE_DRAWER_WATCHLIST_COUNT = "awe_navigation_itemcount";
+    
 
     /**
      * Share
@@ -126,7 +131,7 @@ public class ResourceLocator {
     public String AWE_SHARE_OPTIONS_GMAIL = "Gmail";
 
     public String FACEBOOK_POST_OPTION = "post_button";
-
+    public String FACEBOOK_DISCARD_OPTION = "Discard";
     /**
      * Awe featured
      */
@@ -142,6 +147,7 @@ public class ResourceLocator {
     public String AWE_LOGIN_CONTINUE = "awe_auth_welcomecontinue";
     public String AWE_LOGIN_PROVIDER_NOT_LISTED = "awe_auth_picknotlisted";
     public String AWE_AUTH_PROVIDER_CONTAINER = "awe_auth_pickcontentcontainer";
+    public String AWE_SETTINGS_LIST_OPTIONS = "awe_settings_listoptions";
 
     public String GMAIL_COMPOSE_TITLE = "action_bar_title";
     public String GMAIL_COMPOSE_TEXT = "Compose";
@@ -189,6 +195,16 @@ public class ResourceLocator {
     public String AWE_SHOW_DETAILS_SEASON_TITLE = "awe_seasondropdownlistspinner_title";
     public String AWE_SHOW_DETAILS_ADD_TO_WATCHLIST = "Add To Watchlist"; //legacy menu_add_to_watchlist
     public String AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST = "Remove from Watchlist"; //legacy menu_remove_from_watchlist
+    public String AWE_SHOW_DETAILS_CLIP_LIST="awe_showdetail_cliplist";
+    public String AWE_SHOW_DETAILS_EPISODE_DURATION="awe_videodetail_seasonepisodeduration";
+    public String AWE_SHOW_DETAILS_MORE_LINK="awe_showdetail_infotoggle";
+    public String AWE_SHOW_DETAILS_MORE_CONTENT_DESCRIPTION = "awe_showdetail_contentdescription";
+    public String AWE_SHOW_DETAILS_SEASON_STATIC_TEXT = "awe_showdetail_filterstatictext";
+    public String AWE_SHOW_DETAILS_VIDEO_PARENT_TITLE = "awe_videodetail_parenttitle";
+    public String AWE_SHOW_DETAILS_VIDEO_AIRDATE = "awe_videodetail_airdateratingcaption";
+    public String AWE_SHOW_DETAILS_CONTAINER = "awe_showdetail_topcontainer";
+    public String AWE_SHOW_DETAILS_FEATURED_INFO = "awe_showdetail_featuredinfo";
+    public String AWE_SHOW_DETAILS_FOREGROUND_CONTAINER = "awe_foregroundoverlay_container";
 
     /**
      * Schedule
@@ -208,8 +224,25 @@ public class ResourceLocator {
     public String AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE_ID = "awe_settings_btnaboutbr";
     public String AWE_SETTINGS_DEV_OPTIONS_TITLE_ID = "awe_settings_btndevoptions";
     public String AWE_SETTINGS_DEV_OPTIONS_MAIN_LIST = "awe_devoptions_list";
+    public String AWE_SETTINGS_VERSION_INFO = "awe_settings_txtversionname";
+    public String AWE_SETTINGS_FEEDBACK_MORE_SCREEN = "resolver_list";
+    public String AWE_SETTINGS_FEEDBACK_MORE_SCREEN_OPTIONS = "text1";
+    
 
     public String AWE_SETTINGS_DEV_OPTIONS_TITLE = "Developer Options";
+    public String AWE_SETTINGS_ABOUT_BRAND_TITLE = "About Brand";
+    public String AWE_SETTINGS_FAQ_TITLE = "FAQ";
+    public String AWE_SETTINGS_PRIVACY_POLICY_TITLE = "Privacy Policy";
+    public String AWE_SETTINGS_TERMS_CONDITIONS_TITLE = "Terms & Conditions";
+    public String AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE = "About Bottle Rocket and AWE";
+    public String AWE_SETTINGS_WEBVIEW = "android.webkit.WebView";
+    public String AWE_SETTINGS_VIDEO_OVER_WIFI_STATUS = "awe_settings_btnvideooverwifionly";
+    public String AWE_SETTINGS_VIDEO_OVER_WIFI_STATUS_YES = "ON";
+    public String AWE_SETTINGS_BUILD_INFO = "awe_settings_hiddentext";
+    public String AWE_SETTINGS_FEEDBACK_EMAIL = "email|compose";
+    
+
+
 
     /**
      * Watchlist
@@ -218,12 +251,28 @@ public class ResourceLocator {
     public String AWE_WATCHLIST_QUEUE_AND_CONTINUE_CONTAINER = "awe_watchlist_tabletlist";
     public String AWE_WATCHLIST_QUEUE_SHOW_ROWS = "awe_watchlist_showitemgallery";
     public String AWE_WATCHLIST_SHOW_IMAGE = "awe_watchlist_itemimage";
+    public String AWE_WATCHLIST_CONTINUE_TAB = "CONTINUE";
+    public String AWE_WATCHLIST_QUEUE_TAB = "QUEUE";
+    public String AWE_WATCHLIST_QUEUE_SHOW_LIST = "awe_watchlist_phonequeuedshowslist";
+    public String AWE_WATCHLIST_QUEUE_SHOWS = "awe_watchlist_phonequeuedshowitemoverlay";
+    public String AWE_WATCHLIST_EDIT = "awe_menu_edit";
+    public String AWE_WATCHLIST_SELECTALL_OPTIONS = "Select All";
+    public String AWE_WATCHLIST_REMOVE_TITLEBAR = "menu_remove";
+    public String AWE_WATCHLIST_POPUP_REMOVE = "awe_simpledialog_positivebutton";
+    public String AWE_WATCHLIST_QUEUE_SHOW_DETAILS = "awe_watchlist_phonequeueditemroot";
+    public String AWE_WATCHLIST_QUEUE_SHOW_DETAILS_TITLE = "awe_watchlist_phonequeueditemtitle";
+    public String AWE_WATCHLIST_QUEUE_EDIT_SELECT_ALL = "awe_watchlist_textualbutton";
+    public String AWE_WATCHLIST_EMPTY_MESSAGE = "awe_inlineerror_message";
+    public String AWE_WATCHLIST_SELECTION_COUNT = "awe_watchlist_selectioncount";
+
+
 
 
     /**
      * Video details page, this page has the details of the video on the side and is shown before the video is played
      */
     public String AWE_VIDEO_DETAILS_PLAY_BUTTON = "awe_videodetail_thumbnailimage";
+    public String AWE_VIDEO_DETAILS_TITLE = "awe_videodetail_title";
 
     /**
      * Cable providers

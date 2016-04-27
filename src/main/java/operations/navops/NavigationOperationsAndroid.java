@@ -13,7 +13,7 @@ public class NavigationOperationsAndroid extends NavigationOperations {
     @Override
     public void openMainDrawerSafe() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR).click();
-        //See if the drawer opens properly
+        // See if the drawer opens properly
         driverWrapper.driverWait.until(ExpectedConditions.elementToBeClickable(By.id(ResourceLocator.device.AWE_MAIN_DRAWER)));
 
     }
@@ -22,44 +22,61 @@ public class NavigationOperationsAndroid extends NavigationOperations {
     public NavOpsSettings createNavOpsSettings() {
         return new NavOpsSettingsAndroid();
     }
+
     @Override
     public NavOpsFeatured createNavOpsFeatured() {
         return new NavOpsFeaturedAndroid();
     }
+
     @Override
     public NavOpsShows createNavOpsShows() {
         return new NavOpsShowsAndroid();
     }
 
     @Override
-    public void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem){
-        if(mainToolbarVisible()){
+    public void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem) {
+        if (mainToolbarVisible()) {
             openMainDrawerSafe();
             driverWrapper.getElementByName(navigationItem.toString()).click();
 
-/*            WebDriverWait wait = driverWrapper.newWait(5);
-            wait.pollingEvery(500, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
-            wait.until(ExpectedConditions.elementToBeClickable(driverWrapper.getElementByFind(navigationItem.toString())));*/
+            /*
+             * WebDriverWait wait = driverWrapper.newWait(5); wait.pollingEvery(500, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class); wait.until(ExpectedConditions.elementToBeClickable(driverWrapper.getElementByFind(navigationItem.toString())));
+             */
         }
     }
 
     protected boolean mainToolbarVisible() {
-        return (driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR)).size() != 0);
+        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR));
     }
 
     public String getScreenTitle() {
         return driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_TITLE_ID).getText();
     }
 
-    public void mainToolbarBack(){
+    public void mainToolbarBack() {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_BACK).click();
     }
 
-    public void mainToolbarSearch() {
-        if(driverWrapper.elements(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH)).size() !=0) {
-            driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH).click();
+    /**
+     * To verify the search icon exists or not
+     */
+    @Override
+    public boolean hasToolbarSearch() {
+        boolean flag = false;
+        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH))) {
+            flag = true;
+        } else {
+            driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS).click();
+            flag = driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW));
+            driverWrapper.back();
         }
-        else {
+        return flag;
+    }
+
+    public void mainToolbarSearch() {
+        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH))) {
+            driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH).click();
+        } else {
             driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS).click();
             driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW).click();
         }
@@ -73,14 +90,15 @@ public class NavigationOperationsAndroid extends NavigationOperations {
 
     @Override
     public void addShowToWatchlist() {
-
-        if(driverWrapper.elements(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST)).size() == 0){
+        if (!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))) {
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
         }
-
         driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
+    }
 
-
+    @Override
+    public void searchBarBack() {
+        driverWrapper.getElementByName(ResourceLocator.device.AWE_SEARCH_BAR_BACK).click();
     }
 
 }
