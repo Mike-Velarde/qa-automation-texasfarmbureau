@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
  */
 public class UserOperationsIos extends UserOperations {
 
-    public void signIn(UserBank.User user){
+    public void signIn(UserBank.User user, boolean forced){
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         //do we need to scroll down for smaller screens?
 

@@ -14,7 +14,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="automation_library" exported="" />
+    <orderEntry type="module" module-name="automation_library" />
     <orderEntry type="library" exported="" name="Gradle: io.appium:java-client:3.2.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.seleniumhq.selenium:selenium-java:2.47.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: cglib:cglib:3.1" level="project" />
@@ -66,15 +66,8 @@
     <orderEntry type="library" exported="" name="Gradle: org.codehaus.groovy:groovy-all:2.3.11" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.squareup.okhttp3:okhttp:3.1.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.squareup.okio:okio:1.6.0" level="project" />
-    <orderEntry type="module-library">
-      <library name="testng">
-        <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/testng.jar!/" />
-          <root url="jar://$APPLICATION_HOME_DIR$/plugins/testng/lib/jcommander.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="Gradle: org.testng:testng:6.8.8" level="project" />
+    <orderEntry type="library" name="Gradle: org.beanshell:bsh:2.0b4" level="project" />
+    <orderEntry type="library" name="Gradle: com.beust:jcommander:1.27" level="project" />
   </component>
 </module>

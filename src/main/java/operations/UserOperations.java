@@ -4,21 +4,19 @@ import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
 import domod.UserBank;
-import io.appium.java_client.*;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.SwipeElementDirection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
-import com.bottlerocket.utils.ErrorHandler;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import assertions.AssertionLogger;
-import config.ResourceLocator;
-import domod.UserBank;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.SwipeElementDirection;
-import utils.VideoUtils;
 
 /**
  * Operations which are performed on a screen, often what a user themselves would do 
@@ -34,7 +32,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         this.driverWrapper = driverWrapper;
     }
 
-    abstract public void signIn(UserBank.User userBank);
+    abstract public void signIn(UserBank.User userBank, boolean forced);
 
     /**
      * Check to see if the button is in login or logout mode
@@ -153,7 +151,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
     private boolean isVideoFinished() {
         boolean finished;
         driverWrapper.setImplicitWait(5, TimeUnit.SECONDS);
-        finished = !driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_VIDEO_PLAYER_ROOT));
+        finished = !driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_VIDEO_PLAYER_ROOT));
         driverWrapper.restoreImplicitWait();
 
         return finished;
@@ -167,7 +165,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         long timeElapsed;
 
         // While there is a loading spinner wait
-        while (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_VIDEO_LOADING_SPINNER))) {
+        while (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_VIDEO_LOADING_SPINNER))) {
             // divide by 1000 to get seconds
             timeElapsed = (System.currentTimeMillis() - currentTime) / 1000;
             if (timeout < timeElapsed) {
@@ -177,7 +175,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
 
         currentTime = System.currentTimeMillis();
         // check for ads
-        while (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_VIDEO_PLAYER_AD_COUNTDOWN_BANNER))) {
+        while (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_VIDEO_PLAYER_AD_COUNTDOWN_BANNER))) {
             timeElapsed = (System.currentTimeMillis() - currentTime) / 1000;
             if (150 > timeElapsed) {
                 throw new TimeoutException("The ads took too long to load");
@@ -215,7 +213,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
     public boolean isUserLoggedIn() {
         driverWrapper.setImplicitWait(5, TimeUnit.SECONDS);
         // If this element is there then a user is logged in
-        boolean loggedIn = driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_PROVIDER_LOGO));
+        boolean loggedIn = driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_PROVIDER_LOGO));
         driverWrapper.restoreImplicitWait();
         return loggedIn;
     }
@@ -245,7 +243,6 @@ public abstract class UserOperations implements AutomationOperationsListener {
     }
 
     public abstract int search(String searchTerm);
-
 
     public class LongTapAsynch implements Runnable {
 

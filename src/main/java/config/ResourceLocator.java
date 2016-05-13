@@ -15,7 +15,7 @@ public class ResourceLocator {
 
     //This doesn't really have a home right now, so it lives here for now
     //Seconds = Time / 1000
-    public static final int AWE_INITIAL_ADS_WAIT_TIME = 1200000;
+    public static final int AWE_INITIAL_ADS_WAIT_TIME = 120000;
 
     /**
     * AWE brands

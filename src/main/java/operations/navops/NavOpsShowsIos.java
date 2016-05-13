@@ -28,7 +28,7 @@ public class NavOpsShowsIos extends NavOpsShows {
 
     @Override
     public String showDetailSelectSeason(int seasonIndex) {
-        if (!driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_SHOWS_SEASON_ARROW))) {
+        if (!driverWrapper.elementExists(By.name(ResourceLocatorIos.AWE_SHOWS_SEASON_ARROW))) {
             ErrorHandler.printErr("There is only one season available ", new Exception());
             return "";
         }

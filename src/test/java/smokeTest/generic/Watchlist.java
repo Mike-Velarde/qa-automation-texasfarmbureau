@@ -13,6 +13,7 @@ import main.AppiumMain;
 import operations.AutomationOperations;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 public class Watchlist extends AppiumMain {
@@ -43,6 +44,8 @@ public class Watchlist extends AppiumMain {
         AutomationOperations.instance().navOp.watchlist.playContinueWatchingShow(1);
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
         AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AutomationOperations.instance().navOp.mainToolbarBack();
+        AutomationOperations.instance().navOp.mainToolbarBack();
     }
 
     private void playQueue(){
