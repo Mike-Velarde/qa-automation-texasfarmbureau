@@ -8,6 +8,7 @@ import assertions.AssertionLogger;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
+import operations.OperationsException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -19,7 +20,7 @@ public class VideoPlayerFunctions extends AppiumMain {
     AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
-    public void setup() {
+    public void setup() throws OperationsException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
         AutomationOperations.instance().navOp.shows.selectShow(1, 0);
         AutomationOperations.instance().navOp.shows.playFromActiveSeason(1);

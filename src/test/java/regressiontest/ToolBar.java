@@ -122,7 +122,7 @@ public class ToolBar extends AppiumMain {
                     AutomationOperations.instance().navOp.navigationDrawerScrollUp();
                 }
                 driverWrapper.getElementByName(item.toString()).click();
-                if (!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_BACK))) {
+                if (!driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_BACK))) {
                     // Verify screen titles
                     assertionLogger.setTestType("Verify the screen title is the title we expected :");
                     assertionLogger.assertEquals(AutomationOperations.instance().navOp.getScreenTitle(), item.toString());

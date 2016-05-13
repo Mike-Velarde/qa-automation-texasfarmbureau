@@ -17,7 +17,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
 /**
  * Operations which are performed on a screen, often what a user themselves would do 
  * //TODO consider moving all the video operations to it's own video operations class
@@ -32,7 +31,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         this.driverWrapper = driverWrapper;
     }
 
-    abstract public void signIn(UserBank.User userBank, boolean forced);
+    abstract public void signIn(UserBank.User userBank);
 
     /**
      * Check to see if the button is in login or logout mode
@@ -243,6 +242,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
     }
 
     public abstract int search(String searchTerm);
+
 
     public class LongTapAsynch implements Runnable {
 

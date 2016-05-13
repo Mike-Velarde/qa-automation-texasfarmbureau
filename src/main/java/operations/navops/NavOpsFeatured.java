@@ -26,7 +26,7 @@ public abstract class NavOpsFeatured implements AutomationOperationsListener{
      */
     public boolean isOnPage() {
         //See if the awe featured tag is visible
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_TITLE_ID));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_TITLE_ID));
     }
 
     public abstract String selectCallToAction(ResourceLocator.CallsToAction callsToAction);
