@@ -75,7 +75,7 @@ public class UserOperationsAndroid extends UserOperations {
         if(AutomationOperations.instance().navOp.featured.isOnPage())
             return;
 
-        AutomationOperations.instance().navOp.chooseFeeds.choseBrandToPickFeed(aweBrandName);
+        AutomationOperations.instance().navOp.chooseFeeds.chooseBrandToPickFeed(aweBrandName);
         AutomationOperations.instance().navOp.chooseFeeds.pickFeedToAWEHome(feedName);
         selectFeed(pickFeedServerURLID);
     }

@@ -46,7 +46,7 @@ public class NavigationOperationsAndroid extends NavigationOperations {
     }
 
     protected boolean mainToolbarVisible() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR));
     }
 
     public String getScreenTitle() {
@@ -63,18 +63,18 @@ public class NavigationOperationsAndroid extends NavigationOperations {
     @Override
     public boolean hasToolbarSearch() {
         boolean flag = false;
-        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH))) {
+        if (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH))) {
             flag = true;
         } else {
             driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS).click();
-            flag = driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW));
+            flag = driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW));
             driverWrapper.back();
         }
         return flag;
     }
 
     public void mainToolbarSearch() {
-        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH))) {
+        if (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH))) {
             driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH).click();
         } else {
             driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS).click();
@@ -90,7 +90,7 @@ public class NavigationOperationsAndroid extends NavigationOperations {
 
     @Override
     public void addShowToWatchlist() {
-        if (!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))) {
+        if (!driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))) {
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
         }
         driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();

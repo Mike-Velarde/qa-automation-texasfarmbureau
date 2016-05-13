@@ -73,7 +73,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if it is QUEUE tab
      */
     public boolean isQueueTab() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_LIST));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_SHOW_LIST));
     }
 
     /**
@@ -89,7 +89,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if continue tab exists
      */
     public boolean hasContinueTab() {
-        return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_WATCHLIST_CONTINUE_TAB));
+        return driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_WATCHLIST_CONTINUE_TAB));
     }
 
     /**
@@ -98,7 +98,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if queue tab exists
      */
     public boolean hasQueueTab() {
-        return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_WATCHLIST_QUEUE_TAB));
+        return driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_WATCHLIST_QUEUE_TAB));
     }
 
     /**
@@ -129,7 +129,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if shows empty
      */
     public boolean isEmpty() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_EMPTY_MESSAGE));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_EMPTY_MESSAGE));
     }
 
     /**
@@ -152,7 +152,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if confirmation popup exists
      */
     public boolean isConfirmationPresent() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_POPUP_REMOVE));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_POPUP_REMOVE));
     }
 
     /**
@@ -220,7 +220,7 @@ public class NavOpsWatchlist implements AutomationOperationsListener {
      * @return true, if contextual bar enabled
      */
     public boolean isContextualBarEnabled() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_EDIT_SELECT_ALL));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_WATCHLIST_QUEUE_EDIT_SELECT_ALL));
     }
 
     /**

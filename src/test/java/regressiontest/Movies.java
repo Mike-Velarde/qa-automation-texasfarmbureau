@@ -1,5 +1,6 @@
 package regressiontest;
 
+import operations.OperationsException;
 import org.openqa.selenium.Dimension;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -24,7 +25,7 @@ public class Movies extends AppiumMain {
     }
 
     @Test
-    public void testMoviesDetails() {
+    public void testMoviesDetails() throws OperationsException {
         // Device width
         int deviceWidth = 720;
         // Device height

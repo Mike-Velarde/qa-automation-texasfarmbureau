@@ -18,7 +18,7 @@ public class NavOpsChooseFeeds implements AutomationOperationsListener {
         this.driverWrapper = driverWrapper;
     }
 
-    public void choseBrandToPickFeed(String brandName){
+    public void chooseBrandToPickFeed(String brandName){
         driverWrapper.getElementByFind(brandName).click();
     }
 
@@ -31,6 +31,6 @@ public class NavOpsChooseFeeds implements AutomationOperationsListener {
      * @return true, if pick feed list exists.
      */
     public boolean hasPickFeedList(){
-    	return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_FEED_PICK_LIST));
+    	return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_FEED_PICK_LIST));
     }
 }

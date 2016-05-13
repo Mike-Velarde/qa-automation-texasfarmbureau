@@ -1,5 +1,6 @@
 package regressiontest;
 
+import operations.OperationsException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -23,7 +24,7 @@ public class Search extends AppiumMain {
     }
 
     @Test
-    public void testSearchFunctionalities() {
+    public void testSearchFunctionalities() throws OperationsException {
 
         // Select the shows
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);

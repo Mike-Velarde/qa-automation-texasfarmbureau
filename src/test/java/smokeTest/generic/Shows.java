@@ -5,6 +5,7 @@ import assertions.AssertionLogger;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
+import operations.OperationsException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -21,7 +22,7 @@ public class Shows extends AppiumMain {
     }
 
     @Test
-    public void testShows(){
+    public void testShows() throws OperationsException {
 
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
         AutomationOperations.instance().navOp.shows.selectShow(0,2);

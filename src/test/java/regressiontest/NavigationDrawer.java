@@ -1,5 +1,6 @@
 package regressiontest;
 
+import operations.OperationsException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -78,7 +79,7 @@ public class NavigationDrawer extends AppiumMain {
      * Verify the navigation drawer page titles.
      */
     @Test(enabled = true, priority = 3)
-    public void testNaigationPageTitles() {
+    public void testNaigationPageTitles() throws OperationsException {
         // Verify screen titles
         for (ResourceLocator.DrawerNavigationItem item : ResourceLocator.DrawerNavigationItem.values()) {
             // Navigating to the option
@@ -106,7 +107,7 @@ public class NavigationDrawer extends AppiumMain {
     /**
      * verify does watchlist shows the display number.
      */
-    private boolean doesWatchlistHaveCount() {
+    private boolean doesWatchlistHaveCount() throws OperationsException {
         // Get the count in the watch list
         int watchCount = AutomationOperations.instance().userOp.getDrawerWatchlistCount();
         if (watchCount > 0) {

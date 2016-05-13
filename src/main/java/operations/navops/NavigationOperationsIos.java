@@ -46,17 +46,17 @@ public class NavigationOperationsIos extends NavigationOperations {
     }
 
     private boolean mainToolbarClosed(){
-        return driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE));
+        return driverWrapper.elementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE));
     }
 
     private boolean mainToolbarOpen(){
-        return driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_OPEN_STATE));
+        return driverWrapper.elementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_OPEN_STATE));
     }
 
     @Override
     protected boolean mainToolbarVisible() {
         //check if there is a grid open or grid close button
-        return driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_OPEN_STATE)) || driverWrapper.checkElementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE));
+        return driverWrapper.elementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_OPEN_STATE)) || driverWrapper.elementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE));
     }
 
     @Override
@@ -91,11 +91,11 @@ public class NavigationOperationsIos extends NavigationOperations {
     public boolean hasToolbarSearch() {
         //TODO: Have to test this logic on IOS device
         boolean flag = false;
-        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH))) {
+        if (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH))) {
             flag = true;
         } else {
             driverWrapper.getElementByName(ResourceLocator.device.AWE_MAIN_TOOLBAR_MORE_OPTIONS).click();
-            flag = driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW));
+            flag = driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_SEARCH_OVERFLOW));
             driverWrapper.back();
         }
         return flag;

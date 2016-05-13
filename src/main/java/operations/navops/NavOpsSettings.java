@@ -37,7 +37,7 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
      * @return true, if title exists
      */
     public boolean hasSettingsOption(String title) {
-        return driverWrapper.checkElementExists(By.id(title));
+        return driverWrapper.elementExists(By.id(title));
     }
 
     /**
@@ -67,7 +67,7 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
      * @return true, if screen has web view
      */
     public boolean hasWebView() {
-        return driverWrapper.checkElementExists(By.className(ResourceLocator.device.AWE_SETTINGS_WEBVIEW));
+        return driverWrapper.elementExists(By.className(ResourceLocator.device.AWE_SETTINGS_WEBVIEW));
     }
 
     /**
@@ -85,7 +85,7 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
      * @return true, if developer options exists
      */
     public boolean hasDevOptions() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE_ID));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE_ID));
     }
 
     /**
@@ -101,7 +101,7 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
      * @return true, if version info exists
      */
     public boolean hasVersionInfo() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SETTINGS_VERSION_INFO));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SETTINGS_VERSION_INFO));
     }
 
     /**
@@ -117,7 +117,7 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
      * @return true, if more build info exists
      */
     public boolean hasBuildInfo() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SETTINGS_BUILD_INFO));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SETTINGS_BUILD_INFO));
     }
 
     /**

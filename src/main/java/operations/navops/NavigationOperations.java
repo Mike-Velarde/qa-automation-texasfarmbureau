@@ -67,7 +67,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
 
     public void mainToolbarShare() {
         //If there is a share icon handle it this way
-        if(driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE))){
+        if(driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE))){
             driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE).click();
         }
         //If share is in overflow use this
@@ -83,7 +83,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      */
     public void tapMainToolbarShare() {
         //If there is a share icon handle it this way
-        if(driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE))){
+        if(driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE))){
             ((MobileElement)driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_SHARE)).tap(1, 10);
         }
         //If share is in overflow use this
@@ -103,7 +103,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * @return true, if watchlist exists
      */
     public boolean hasToolbarWatchlist() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_WATCHLIST));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_WATCHLIST));
     }
     
     public void shareFacebook() {
@@ -113,7 +113,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
 
     
     public boolean isFaceBookExists(){
-    	return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK));
+    	return driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK));
     }
     
     /**
@@ -121,7 +121,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * @return true, if chromecast exists 
      */
     public boolean doesChromecastExists(){
-        return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_CHROME_CAST)); 
+        return driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_MAIN_TOOLBAR_CHROME_CAST));
     }
 
     /**
@@ -149,7 +149,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * @return true, if close main drawer exists
      */
     public boolean doesCloseMainDrawerExists(){
-        return driverWrapper.checkElementExists(driverWrapper.for_find(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR));
+        return driverWrapper.elementExists(driverWrapper.for_find(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR));
     }
     
     /**
@@ -157,7 +157,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * @return true, if Hamburger exists
      */
     public boolean hasOpenMainDrawer(){
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_MAIN_DRAWER));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_DRAWER));
     }
 
     public abstract String getScreenTitle();
@@ -180,7 +180,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * Add to watchlist. If already added, remove then add again
      */
     public void addShowToWatchlist() {
-        if(!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))){
+        if(!driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))){
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
         }
         driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
@@ -197,7 +197,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * Remove the show from the watch list
      */
     public void removeFromWatchList(){
-        if(!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))){
+        if(!driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))){
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
         }
     }
@@ -206,7 +206,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * Tap to add the show to the watch list
      */
     public void tapAddShowToWatchlist() {
-        if(!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))){
+        if(!driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST))){
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST).click();
         }
 
@@ -218,7 +218,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * Tap to remove from the watch list
      */
     public void tapRemoveShowToWatchlist() {
-        if(!driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST))){
+        if(!driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST))){
             driverWrapper.getElementByName(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST).click();
         }
         MobileElement element=(MobileElement)driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST);
@@ -230,7 +230,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * @return true, if remove show list exists 
      */
     public boolean hasRemoveShowWatchList(){
-  	  return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST));
+  	  return driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST));
     }
     
     /**
@@ -238,7 +238,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * @return true, if add show list exists
      */
     public boolean hasAddShowWatchList(){
-  	  return driverWrapper.checkElementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST));
+  	  return driverWrapper.elementExists(By.name(ResourceLocator.device.AWE_SHOW_DETAILS_ADD_TO_WATCHLIST));
     }
 
     /**
@@ -247,7 +247,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * @return true, if navigation item exists
      */
     public boolean hasDrawerItem(String navigationItem){
-        return driverWrapper.checkElementExists(By.name(navigationItem.toString()));
+        return driverWrapper.elementExists(By.name(navigationItem.toString()));
     }
     
     /**

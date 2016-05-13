@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import operations.OperationsException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -29,15 +30,21 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
     }
 
     /**
-     * This currently doesn't account for selecting a row that isn't seen on the device
      * 
      * @param row
      * @param column
+     * @throws OperationsException if the row or column provided is outside what is actually on the screen
      */
-    public void selectShow(int row, int column) {
+    public void selectShow(int row, int column) throws OperationsException {
         WebElement webElement = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID);
         List<WebElement> showsRows = webElement.findElements(By.className(ResourceLocatorAndroid.LINEAR_LAYOUT));
+        if(row >= showsRows.size()){
+            throw new OperationsException("You have selected a row that doesn't exist on screen " + row + ">=" + showsRows.size());
+        }
         List<WebElement> showsColumns = showsRows.get(row).findElements(By.id(ResourceLocator.device.AWE_SHOWS_VIDEO_THUMBNAILS));
+        if(column >= showsColumns.size()){
+            throw new OperationsException("You have selected a column that doesn't exist on screen " + column + ">=" + showsRows.size());
+        }
         WebElement show = showsColumns.get(column);
 
         show.click();
@@ -53,11 +60,11 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * @return if the episode list is empty
      */
     public boolean episodesEmpty() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_EPISODE_EMPTY_MESSAGE_ID));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_EPISODE_EMPTY_MESSAGE_ID));
     }
 
     public boolean clipsEmpty() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_CLIP_EMPTY_MESSAGE_ID));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_CLIP_EMPTY_MESSAGE_ID));
     }
 
     public void selectEpisodesTab() {
@@ -98,7 +105,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * @return seasontitle
      */
     public String getSeasonTitle() {
-        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_TITLE))) {
+        if (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_TITLE))) {
             return driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_TITLE).getText();
         } else {
             return driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_STATIC_TEXT).getText();
@@ -150,7 +157,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
         if (webElement.getText().equals(option)) {
             webElement.click();
         }
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_CONTENT_DESCRIPTION));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_CONTENT_DESCRIPTION));
     }
 
     /**
@@ -159,7 +166,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * @return true, if MORE link exists
      */
     public boolean hasMore() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_LINK));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_MORE_LINK));
     }
 
     /**
@@ -192,14 +199,14 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * return the selection status of the clips tab
      */
     public boolean isClipsTab() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_CLIP_LIST)) || clipsEmpty();
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_CLIP_LIST)) || clipsEmpty();
     }
 
     /**
      * return the selection status of the episodes tab
      */
     public boolean isEpisodeTab() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_EPISODE_LIST_CONTAINER)) || episodesEmpty();
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_EPISODE_LIST_CONTAINER)) || episodesEmpty();
     }
 
     /**
@@ -207,7 +214,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      */
     public int getSeasonsCount() {
         int seasonCount = 0;
-        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD))) {
+        if (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD))) {
             driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_HEAD).click();
             List<WebElement> seasonList = driverWrapper.elements(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SEASON_SELECT_SEASON));
             seasonCount = seasonList.size();
@@ -282,7 +289,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * Return the date exists on the video or not
      */
     public boolean doesAirDateExists() {
-        return driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_VIDEO_AIRDATE));
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_VIDEO_AIRDATE));
     }
 
     /**
@@ -324,7 +331,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      */
     public int getShowsCount() {
         int showsCount = 0;
-        if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID))) {
+        if (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID))) {
             WebElement webElement = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID);
             List<WebElement> showsRows = webElement.findElements(By.className(ResourceLocatorAndroid.LINEAR_LAYOUT));
             for (int count = 0; count < showsRows.size(); count++) {
@@ -351,9 +358,9 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
             for (int col = 0; col < showsColumns.size(); col++) {
                 showsColumns.get(col).click();
                 // It will work in the show details or video details
-                if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SHOW_TITLE))) {
+                if (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SHOW_DETAILS_SHOW_TITLE))) {
                     currentTitle = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SHOW_TITLE).getText();
-                } else if (driverWrapper.checkElementExists(By.id(ResourceLocator.device.AWE_VIDEO_DETAILS_TITLE))) {
+                } else if (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_VIDEO_DETAILS_TITLE))) {
                     currentTitle = driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_DETAILS_TITLE).getText();
                 }
                 if (count == 0) {
