@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

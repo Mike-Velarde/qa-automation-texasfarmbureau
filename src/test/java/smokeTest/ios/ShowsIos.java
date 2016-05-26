@@ -2,6 +2,7 @@ package smokeTest.ios;
 
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
@@ -24,7 +25,7 @@ public class ShowsIos extends Shows {
     }
 
     @Test
-    public void testShows(){
+    public void testShows() throws WebDriverWrapperException {
 
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
         AutomationOperations.instance().navOp.shows.selectShow(2);

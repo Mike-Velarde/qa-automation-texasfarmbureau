@@ -1,10 +1,12 @@
 package operations;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapperIos;
 import config.ResourceLocator;
 import config.ResourceLocatorIos;
 import domod.UserBank;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -12,7 +14,7 @@ import org.openqa.selenium.WebElement;
  */
 public class UserOperationsIos extends UserOperations {
 
-    public void signIn(UserBank.User user){
+    public void signIn(UserBank.User user) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         //do we need to scroll down for smaller screens?
 
@@ -50,16 +52,15 @@ public class UserOperationsIos extends UserOperations {
     @Override
     public void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID) {}
 
-    public int search(String searchTerm) {
+    public int search(String searchTerm) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.mainToolbarSearch();
         InputUtils utils = AutomationOperations.instance().deviceAutomationComponents.createInputUtils(driverWrapper);
         utils.setTextField(searchTerm);
         //iOS is proving tricky to submit forms, and this one has the done keyboard customized to read Search
         ((WebDriverWrapperIos)driverWrapper).hideKeyboard("Search");
 
-        //TODO labels needed
         //See how many search results there are on the page
-        return -1;
+        return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SEARCH_RESULTS)).size();
     }
 
     public String getShowDetailsShowTitle() {

@@ -2,6 +2,7 @@ package smokeTest.generic;
 
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
@@ -28,7 +29,7 @@ public class Featured extends AppiumMain{
      * Test all items of the featured screen.
      */
     @Test (enabled =  false)
-    public void testFeatured(){
+    public void testFeatured() throws WebDriverWrapperException {
         testSearch();
 
         testShowDetails();
@@ -47,7 +48,7 @@ public class Featured extends AppiumMain{
     }
 
     @Test
-    protected void testWebsite() {
+    protected void testWebsite() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.website);
         boolean visible = AutomationOperations.instance().navOp.featured.isWebsiteVisible();
         assertionLogger.setTestType("Verify that the website is visible.");
@@ -56,7 +57,7 @@ public class Featured extends AppiumMain{
     }
 
     @Test
-    protected void testPlay() {
+    protected void testPlay() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
         try {
@@ -93,7 +94,7 @@ public class Featured extends AppiumMain{
     }
 
     @Test
-    protected void testWatchlist() {
+    protected void testWatchlist() throws WebDriverWrapperException {
         int watchCount = AutomationOperations.instance().userOp.getDrawerWatchlistCount();
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.watchlist);
         //  Assert.assertTrue(watchCount + 1 == AutomationOperations.instance().userOp.getDrawerWatchlistCount());
@@ -102,7 +103,7 @@ public class Featured extends AppiumMain{
     }
 
     @Test
-    protected void testSearch() {
+    protected void testSearch() throws WebDriverWrapperException {
         int resultOnPage = AutomationOperations.instance().userOp.search("episode");
         assertionLogger.setTestType("Test that there are more than 0 results");
         assertionLogger.assertNotEquals(resultOnPage, 0);
@@ -110,7 +111,7 @@ public class Featured extends AppiumMain{
     }
 
     @Test
-    protected void testShowDetails() {
+    protected void testShowDetails() throws WebDriverWrapperException {
         String showTitle = AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.details);
         assertionLogger.setTestType("Verify that the show title is what we expect");
         assertionLogger.assertTrue(showTitle.equalsIgnoreCase(AutomationOperations.instance().userOp.getShowDetailsShowTitle()));

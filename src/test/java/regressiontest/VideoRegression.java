@@ -6,6 +6,7 @@ package regressiontest;
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
 import com.bottlerocket.config.AutomationConfigProperties;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
@@ -25,7 +26,7 @@ public class VideoRegression extends AppiumMain {
     }
 
     @Test
-    public void testVideo(){
+    public void testVideo() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
 

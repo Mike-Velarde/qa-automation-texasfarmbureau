@@ -5,12 +5,14 @@ package smokeTest.ios;
  */
 
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
 import dataproviders.Endpoints;
 import main.AppiumMain;
 import operations.AutomationOperations;
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,7 +26,9 @@ public class SettingsIos extends AppiumMain {
     AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
-    public void setup() {
+    public void setup() throws WebDriverWrapperException {
+        //Wait for tool bar to show up, need to fix the is toolbar visible method
+        driverWrapper.waitLogErr(7000);
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
     }
 

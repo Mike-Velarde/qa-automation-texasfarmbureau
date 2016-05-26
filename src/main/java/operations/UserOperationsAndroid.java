@@ -1,5 +1,6 @@
 package operations;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class UserOperationsAndroid extends UserOperations {
 
-    public void signIn(UserBank.User user){
+    public void signIn(UserBank.User user) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         //Some devices have the bottom options off screen, this will scroll down for those devices
         driverWrapper.scroll_to(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE);
@@ -70,7 +71,7 @@ public class UserOperationsAndroid extends UserOperations {
         driverWrapper.driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR)));
     }
 
-    public void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID){
+    public void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID) throws WebDriverWrapperException {
         //Check if we are on feature screen
         if(AutomationOperations.instance().navOp.featured.isOnPage())
             return;
@@ -84,7 +85,7 @@ public class UserOperationsAndroid extends UserOperations {
         driverWrapper.getElementById(pickFeedServerURLId).click();
     }
 
-    public int search(String searchTerm) {
+    public int search(String searchTerm) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.mainToolbarSearch();
         InputUtils utils = AutomationOperations.instance().deviceAutomationComponents.createInputUtils(driverWrapper);
         WebElement search = driverWrapper.getElementById(ResourceLocator.device.AWE_SEARCH_BAR_ENTER_TEXT);

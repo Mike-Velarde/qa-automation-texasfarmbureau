@@ -5,22 +5,20 @@ package smokeTest.generic;
 
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import utils.VideoUtils;
-
-import java.util.Calendar;
 
 public class VideoPlayerFunctions extends AppiumMain {
     AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
-    public void setup() throws OperationsException {
+    public void setup() throws OperationsException, WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
         AutomationOperations.instance().navOp.shows.selectShow(1, 1);
         AutomationOperations.instance().navOp.shows.playFromActiveSeason(1);

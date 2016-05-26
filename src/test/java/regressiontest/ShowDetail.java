@@ -3,7 +3,8 @@ package regressiontest;
 import java.util.ArrayList;
 import java.util.List;
 
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -26,7 +27,7 @@ public class ShowDetail extends AppiumMain {
     private final String outputLocation = AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/";
 
     @BeforeClass
-    public void setup() {
+    public void setup() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
     }
 
@@ -53,7 +54,7 @@ public class ShowDetail extends AppiumMain {
      * Verifies the watch list functionality
      */
     @Test(enabled = true, priority = 2)
-    public void testWatchList() throws OperationsException {
+    public void testWatchList() throws OperationsException, WebDriverWrapperException {
         // Check for the More link
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
@@ -118,7 +119,7 @@ public class ShowDetail extends AppiumMain {
      * Verify that the correct tab on the show details screen has been defaulted to by checking the criteria for clips. If the criteria for clips has not been met, then it should be episodes
      */
     @Test(enabled = true, priority = 3)
-    public void testShowDetailsDefaultTab() throws OperationsException {
+    public void testShowDetailsDefaultTab() throws OperationsException, WebDriverWrapperException {
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
         }
@@ -149,7 +150,7 @@ public class ShowDetail extends AppiumMain {
      * Verifies the scrolling functionality
      */
     @Test(enabled = true, priority = 4)
-    public void testScrollFunctionality() throws OperationsException {
+    public void testScrollFunctionality() throws OperationsException, WebDriverWrapperException {
         // Verify the for More link
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
@@ -188,7 +189,7 @@ public class ShowDetail extends AppiumMain {
     }
 
     @Test(enabled = true, priority = 5)
-    public void testImageComparisons() throws OperationsException {
+    public void testImageComparisons() throws OperationsException, WebDriverWrapperException {
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
         }
@@ -231,7 +232,7 @@ public class ShowDetail extends AppiumMain {
      * Verifies the respective tab has respective assets or not
      */
     @Test(enabled = true, priority = 6)
-    public void testTabAssets() throws OperationsException {
+    public void testTabAssets() throws OperationsException, WebDriverWrapperException {
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
         }
@@ -257,7 +258,7 @@ public class ShowDetail extends AppiumMain {
      * Verifies the respective season videos are displaying or not
      */
     @Test(enabled = true, priority = 7)
-    public void testSeasons() throws OperationsException {
+    public void testSeasons() throws OperationsException, WebDriverWrapperException {
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
         }
@@ -273,7 +274,7 @@ public class ShowDetail extends AppiumMain {
      * Verifies the show feed information on the videos
      */
     @Test(enabled = true, priority = 8)
-    public void testShowsFeed() throws OperationsException {
+    public void testShowsFeed() throws OperationsException, WebDriverWrapperException {
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
         }
@@ -299,7 +300,7 @@ public class ShowDetail extends AppiumMain {
 
     // Episode is the default tab. Verify whether episode is appearing as default or clips. If no videos available in episode then clips is default.
     @Test(enabled = true, priority = 9)
-    public void testDefaultTab() throws OperationsException {
+    public void testDefaultTab() throws OperationsException, WebDriverWrapperException {
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
         }
@@ -319,7 +320,7 @@ public class ShowDetail extends AppiumMain {
      * Verify More/Less functionalities
      */
     @Test(enabled = true, priority = 10)
-    public void testMoreFunctionality() throws OperationsException {
+    public void testMoreFunctionality() throws OperationsException, WebDriverWrapperException {
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
         }
@@ -365,7 +366,7 @@ public class ShowDetail extends AppiumMain {
      * Verify videos sort functionality
      */
     @Test(enabled = true, priority = 11)
-    public void testEpisodesSort() throws OperationsException {
+    public void testEpisodesSort() throws OperationsException, WebDriverWrapperException {
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
         }
@@ -397,7 +398,7 @@ public class ShowDetail extends AppiumMain {
     }
 
     @Test(enabled = true, priority = 12)
-    public void testRotateFunctionalities() throws OperationsException {
+    public void testRotateFunctionalities() throws OperationsException, WebDriverWrapperException {
         boolean clipsTabStatus = false;
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
@@ -440,7 +441,7 @@ public class ShowDetail extends AppiumMain {
     }
 
     @Test(enabled = true, priority = 13)
-    public void testShareFunctionality() throws OperationsException {
+    public void testShareFunctionality() throws OperationsException, WebDriverWrapperException {
         if (AutomationOperations.instance().navOp.shows.hasMore()) {
             driverWrapper.back();
         }

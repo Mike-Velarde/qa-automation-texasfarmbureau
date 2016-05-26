@@ -1,6 +1,7 @@
 package regressiontest;
 
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -27,7 +28,7 @@ public class WatchList extends AppiumMain {
      * Verify the basic features of the watchlist screen
      */
     @Test(enabled = true, priority = 1)
-    public void testBasicFeatures() {
+    public void testBasicFeatures() throws WebDriverWrapperException {
         // Navigate to the watchlist
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.watchlist);
 
@@ -55,7 +56,7 @@ public class WatchList extends AppiumMain {
      * Verifies the shows are available in alphabetical order or not
      */
     @Test(enabled = true, priority = 2)
-    public void testVerifyQueueShowsSortOrder() throws OperationsException {
+    public void testVerifyQueueShowsSortOrder() throws OperationsException, WebDriverWrapperException {
         // Adding shows to the watchlist
         addShowsToWatchList();
         // Navigate to watchlist
@@ -82,7 +83,7 @@ public class WatchList extends AppiumMain {
      * Verify the contextual bar remove functionality
      */
     @Test(enabled = true, priority = 3)
-    public void testRemoveFunctionality() throws OperationsException {
+    public void testRemoveFunctionality() throws OperationsException, WebDriverWrapperException {
         // Adding shows to the watchlist
         addShowsToWatchList();
         // Navigate to watchlst
@@ -133,7 +134,7 @@ public class WatchList extends AppiumMain {
     }
 
     @Test(enabled = true, priority = 4)
-    public void testActionBarEditFunctionalities() throws OperationsException {
+    public void testActionBarEditFunctionalities() throws OperationsException, WebDriverWrapperException {
         // Adding shows to the watchlist
         addShowsToWatchList();
         int watchCount = AutomationOperations.instance().userOp.getDrawerWatchlistCount();
@@ -178,7 +179,7 @@ public class WatchList extends AppiumMain {
     /**
      * Clear all the shows in the watch list
      */
-    private void clearShows() {
+    private void clearShows() throws WebDriverWrapperException {
         // Get the count in the watch list
         int watchCount = AutomationOperations.instance().userOp.getDrawerWatchlistCount();
         if (watchCount > 0) {
@@ -204,7 +205,7 @@ public class WatchList extends AppiumMain {
     /**
      * Add the shows to the watchlist
      */
-    private void addShowsToWatchList() throws OperationsException {
+    private void addShowsToWatchList() throws OperationsException, WebDriverWrapperException {
         clearShows();
         int actualWatchCount = AutomationOperations.instance().userOp.getDrawerWatchlistCount();
         // Add the complete show

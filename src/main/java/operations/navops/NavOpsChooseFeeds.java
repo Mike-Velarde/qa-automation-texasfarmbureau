@@ -1,5 +1,6 @@
 package operations.navops;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.openqa.selenium.By;
 
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
@@ -18,11 +19,11 @@ public class NavOpsChooseFeeds implements AutomationOperationsListener {
         this.driverWrapper = driverWrapper;
     }
 
-    public void chooseBrandToPickFeed(String brandName){
+    public void chooseBrandToPickFeed(String brandName) throws WebDriverWrapperException {
         driverWrapper.getElementByFind(brandName).click();
     }
 
-    public void pickFeedToAWEHome(String feedName){
+    public void pickFeedToAWEHome(String feedName) throws WebDriverWrapperException {
         driverWrapper.getElementByFind(feedName).click();
     }
     

@@ -4,6 +4,7 @@ package operations.navops;
  * Created by ford.arnett on 10/2/15.
  */
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
 import io.appium.java_client.MobileElement;
@@ -46,11 +47,11 @@ public abstract class NavigationOperations implements AutomationOperationsListen
 
     }
 
-    public abstract void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem);
+    public abstract void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem) throws WebDriverWrapperException;
 
     public abstract void mainToolbarBack();
 
-    public abstract void mainToolbarSearch();
+    public abstract void mainToolbarSearch() throws WebDriverWrapperException;
     
     public abstract void searchBarBack();
     
@@ -106,7 +107,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
         return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_WATCHLIST));
     }
     
-    public void shareFacebook() {
+    public void shareFacebook() throws WebDriverWrapperException {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK).click();
         driverWrapper.find("POST").click();
     }
@@ -134,12 +135,12 @@ public abstract class NavigationOperations implements AutomationOperationsListen
     /**
      * Open main drawer and make sure it is clickable
      */
-    public abstract void openMainDrawerSafe();
+    public abstract void openMainDrawerSafe() throws WebDriverWrapperException;
 
     /**
      * Close the main drawer
      */
-    public void closeMainDrawer(){
+    public void closeMainDrawer() throws WebDriverWrapperException {
         driverWrapper.getElementByFind(ResourceLocator.device.AWE_MAIN_DRAWER_ANCHOR).click();
     }
     

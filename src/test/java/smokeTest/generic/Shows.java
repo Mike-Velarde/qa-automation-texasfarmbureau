@@ -2,10 +2,11 @@ package smokeTest.generic;
 
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -22,7 +23,7 @@ public class Shows extends AppiumMain {
     }
 
     @Test
-    public void testShows() throws OperationsException {
+    public void testShows() throws OperationsException, WebDriverWrapperException {
 
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
         AutomationOperations.instance().navOp.shows.selectShow(0,2);

@@ -1,6 +1,7 @@
 package smokeTest.ios;
 
 import assertions.AssertionLibrary;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
@@ -24,7 +25,7 @@ public class FeaturedIos extends Featured {
      * Test the items of the featured screen.
      */
     @Test
-    public void testFeatured(){
+    public void testFeatured() throws WebDriverWrapperException {
         testSearch();
 
         testShowDetails();
@@ -42,7 +43,7 @@ public class FeaturedIos extends Featured {
     }
 
     @Override
-    protected void testPlay() {
+    protected void testPlay() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
         try {
@@ -79,7 +80,7 @@ public class FeaturedIos extends Featured {
     }
 
     @Override
-    protected void testWatchlist() {
+    protected void testWatchlist() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.watchlist);
         //TODO reevaluate how to verify on iOS
         //assertionLogger.setTestType("Verify that the watchlist count is the expected count");

@@ -1,6 +1,7 @@
 package regressiontest;
 
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.openqa.selenium.Dimension;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -25,7 +26,7 @@ public class Movies extends AppiumMain {
     }
 
     @Test
-    public void testMoviesDetails() throws OperationsException {
+    public void testMoviesDetails() throws OperationsException, WebDriverWrapperException {
         // Device width
         int deviceWidth = 720;
         // Device height

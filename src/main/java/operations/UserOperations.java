@@ -1,5 +1,6 @@
 package operations;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
@@ -31,7 +32,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         this.driverWrapper = driverWrapper;
     }
 
-    abstract public void signIn(UserBank.User userBank);
+    abstract public void signIn(UserBank.User userBank) throws WebDriverWrapperException;
 
     /**
      * Check to see if the button is in login or logout mode
@@ -46,7 +47,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         return loginLogoutButton.getText().equalsIgnoreCase("Log in to provider") || loginLogoutButton.getText().equalsIgnoreCase("Login to provider") || loginLogoutButton.getText().equalsIgnoreCase("Sign in to provider") || loginLogoutButton.getText().equalsIgnoreCase("Log In To Provider");
     }
 
-    public void signOut() {
+    public void signOut() throws WebDriverWrapperException {
         String title = driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_TITLE_ID).getText();
         if (!title.equalsIgnoreCase(ResourceLocator.DrawerNavigationItem.settings.toString())) {
             AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
@@ -68,11 +69,11 @@ public abstract class UserOperations implements AutomationOperationsListener {
      * @param feedName
      * @param pickFeedServerURLID
      */
-    public abstract void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID);
+    public abstract void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID) throws WebDriverWrapperException;
 
     public abstract String getShowDetailsShowTitle();
 
-    public int getDrawerWatchlistCount() {
+    public int getDrawerWatchlistCount() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.openMainDrawerSafe();
         List<WebElement> watchlistCount = driverWrapper.elements(By.id(ResourceLocator.device.AWE_DRAWER_WATCHLIST_COUNT));
         // We have already checked if the drawer is open using openMainDrawerSafe, so if this doesn't exist count is 0
@@ -241,7 +242,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         seekBar.swipe(SwipeElementDirection.LEFT, 1, scrubFromLeft, 1);
     }
 
-    public abstract int search(String searchTerm);
+    public abstract int search(String searchTerm) throws WebDriverWrapperException;
 
 
     public class LongTapAsynch implements Runnable {

@@ -5,6 +5,7 @@ package smokeTest.generic;
  */
 
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
 import config.ResourceLocator;
@@ -21,7 +22,7 @@ public class Settings extends AppiumMain {
     AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
-    public void setup() {
+    public void setup() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
     }
 
