@@ -1,9 +1,9 @@
 package operations;
 
-import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import config.ResourceLocator;
 import config.ResourceLocatorAndroid;
 import domod.UserBank;
@@ -19,16 +19,31 @@ import java.util.List;
  */
 public class UserOperationsAndroid extends UserOperations {
 
-    public void signIn(UserBank.User user) throws WebDriverWrapperException {
+    /**
+     * Sign in to allow the playing of restricted content
+     *
+     *
+     * @param user The login credentials
+     * @param forced This will force a logout if already signed in and then sign in again. If forced is false and user is already logged in the method will return.
+     */
+    public void signIn(UserBank.User user, boolean forced){
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         //Some devices have the bottom options off screen, this will scroll down for those devices
         driverWrapper.scroll_to(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE);
         driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
-        if(!inLoginMode())
-            signOut();
+        if(!inLoginMode()) {
+            if(forced) {
+                signOut();
+            }
+            else {
+                return;
+            }
+        }
+
         driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT).click();
-        driverWrapper.getElementById(ResourceLocator.device.AWE_LOGIN_CONTINUE).click();
-        driverWrapper.swipeToElement(ResourceLocator.device.CABLE_PROVIDER_IMAGE_ID, ResourceLocator.device.OPTIMUM_CONTENT_DESC, WebDriverWrapper.AttributeCompareType.contentDesc, 20000).click();
+        MobileElement cableProvider = driverWrapper.swipeToElement(ResourceLocator.device.CABLE_PROVIDER_IMAGE_ID, ResourceLocator.device.OPTIMUM_CONTENT_DESC, WebDriverWrapper.AttributeCompareType.contentDesc, 90000, 2);
+
+        cableProvider.click();
 
 
         //This part is all in a WebView, we must use find in order to get the elements
@@ -71,7 +86,7 @@ public class UserOperationsAndroid extends UserOperations {
         driverWrapper.driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR)));
     }
 
-    public void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID) throws WebDriverWrapperException {
+    public void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID){
         //Check if we are on feature screen
         if(AutomationOperations.instance().navOp.featured.isOnPage())
             return;
@@ -85,7 +100,7 @@ public class UserOperationsAndroid extends UserOperations {
         driverWrapper.getElementById(pickFeedServerURLId).click();
     }
 
-    public int search(String searchTerm) throws WebDriverWrapperException {
+    public int search(String searchTerm) {
         AutomationOperations.instance().navOp.mainToolbarSearch();
         InputUtils utils = AutomationOperations.instance().deviceAutomationComponents.createInputUtils(driverWrapper);
         WebElement search = driverWrapper.getElementById(ResourceLocator.device.AWE_SEARCH_BAR_ENTER_TEXT);

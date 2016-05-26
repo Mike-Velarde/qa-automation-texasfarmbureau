@@ -26,7 +26,7 @@ public class Login extends AppiumMain {
     public void testLogin() throws WebDriverWrapperException {
         UserBank user = new UserBank();
 
-        AutomationOperations.instance().userOp.signIn(user.defaultUser);
+        AutomationOperations.instance().userOp.signIn(user.defaultUser, true);
         assertionLogger.setTestType("Check that the user is logged in");
         assertionLogger.assertTrue(AutomationOperations.instance().userOp.isUserLoggedIn());
     }
@@ -35,7 +35,7 @@ public class Login extends AppiumMain {
     public void testLogout() throws WebDriverWrapperException {
         if(AutomationOperations.instance().userOp.isUserLoggedIn()) {
             UserBank user = new UserBank();
-            AutomationOperations.instance().userOp.signIn(user.defaultUser);
+            AutomationOperations.instance().userOp.signIn(user.defaultUser, false);
         }
         AutomationOperations.instance().userOp.signOut();
         assertionLogger.setTestType("Check that the user is logged out");

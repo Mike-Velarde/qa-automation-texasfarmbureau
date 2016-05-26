@@ -26,7 +26,7 @@ public class Shows extends AppiumMain {
     public void testShows() throws OperationsException, WebDriverWrapperException {
 
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
-        AutomationOperations.instance().navOp.shows.selectShow(0,2);
+        AutomationOperations.instance().navOp.shows.selectShow(0,1);
 
         //For now I am making the assumption that if we can get the show title then we have made it to the show details screen
         assertionLogger.setTestType("Test if the show title is non empty");
@@ -42,7 +42,7 @@ public class Shows extends AppiumMain {
         String seasonNameAfter = AutomationOperations.instance().navOp.shows.showDetailSelectSeason(1);
         assertionLogger.setTestType("Verify the season name has changed");
         assertionLogger.assertNotEquals(seasonNameBefore, seasonNameAfter);
-        AutomationOperations.instance().navOp.shows.playFromActiveSeason(2);
+        AutomationOperations.instance().navOp.shows.playFromActiveSeason(0);
 
         //Wait for ads
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);

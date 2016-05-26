@@ -17,7 +17,7 @@ public class SplashScreen extends AppiumMain {
 
     }
 
-    @Test
+    @Test (enabled = false)
     /**
      * This currently doesn't work, it seems to run after first page is loaded
      */

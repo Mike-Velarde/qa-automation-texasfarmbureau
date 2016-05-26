@@ -20,7 +20,7 @@ public class VideoPlayerFunctions extends AppiumMain {
     @BeforeClass
     public void setup() throws OperationsException, WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
-        AutomationOperations.instance().navOp.shows.selectShow(1, 1);
+        AutomationOperations.instance().navOp.shows.selectShow(1, 0);
         AutomationOperations.instance().navOp.shows.playFromActiveSeason(1);
     }
 

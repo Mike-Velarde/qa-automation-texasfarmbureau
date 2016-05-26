@@ -109,7 +109,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
     
     public void shareFacebook() throws WebDriverWrapperException {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_SHARE_OPTIONS_FACEBOOK).click();
-        driverWrapper.find("POST").click();
+        driverWrapper.find("Post").click();
     }
 
     
