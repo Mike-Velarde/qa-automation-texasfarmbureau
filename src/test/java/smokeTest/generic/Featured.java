@@ -97,7 +97,6 @@ public class Featured extends AppiumMain{
     protected void testWatchlist() throws WebDriverWrapperException {
         int watchCount = AutomationOperations.instance().userOp.getDrawerWatchlistCount();
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.watchlist);
-        //  Assert.assertTrue(watchCount + 1 == AutomationOperations.instance().userOp.getDrawerWatchlistCount());
         assertionLogger.setTestType("Verify that the watchlist count is the expected count");
         assertionLogger.assertNotEquals(watchCount, AutomationOperations.instance().userOp.getDrawerWatchlistCount());
     }
