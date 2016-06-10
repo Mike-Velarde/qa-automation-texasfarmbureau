@@ -33,7 +33,7 @@ public class VideoPlayerFunctions extends AppiumMain {
         //AutomationOperations.instance().userOp.playPauseVideo();
         //Give the video extra time to load
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AutomationOperations.instance().assertions.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         AutomationOperations.instance().userOp.scrubVideo(0.6);
         AutomationOperations.instance().userOp.closedCaptionsToggle();

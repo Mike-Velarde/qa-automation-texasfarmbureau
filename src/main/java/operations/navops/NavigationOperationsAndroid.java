@@ -1,5 +1,6 @@
 package operations.navops;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import operations.AutomationOperations;
 import org.openqa.selenium.By;
@@ -31,6 +32,11 @@ public class NavigationOperationsAndroid extends NavigationOperations {
     @Override
     public NavOpsShows createNavOpsShows() {
         return new NavOpsShowsAndroid();
+    }
+
+    @Override
+    public NavOpsWatchlist createNavOpsWatchlist() {
+        return new NavOpsWatchlistAndroid();
     }
 
     @Override
@@ -86,6 +92,16 @@ public class NavigationOperationsAndroid extends NavigationOperations {
     public void returnFromShowDetails() {
         mainToolbarBack();
 
+    }
+
+    @Override
+    public void closeVideoPlayer() {
+        return;
+    }
+
+    @Override
+    public void returnFromVideoPlayer() throws WebDriverWrapperException {
+        AutomationOperations.instance().navOp.mainToolbarBack();
     }
 
     @Override

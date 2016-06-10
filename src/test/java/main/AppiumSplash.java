@@ -1,12 +1,14 @@
 package main;
 
 import com.bottlerocket.config.AutomationConfigProperties;
+import com.bottlerocket.utils.Logger;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.net.URL;
@@ -28,15 +30,16 @@ public class AppiumSplash {
     /** Run before each test **/
     @BeforeClass
     public void setUp() throws Exception {
-        DesiredCapabilities capabilitiesDelete = new DesiredCapabilities();
-        capabilitiesDelete.setCapability("app", "/Users/ford.arnett/apks/AWE/watcher-hgtvGoogle-debug.apk");
-        capabilitiesDelete.setCapability("platformName", "Android");
-        capabilitiesDelete.setCapability("platformVersion", "4.4");
-        capabilitiesDelete.setCapability("deviceName", "galaxy");
-        capabilitiesDelete.setCapability("noReset", "true");
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("app", "/Users/ford.arnett/Library/Developer/CoreSimulator/Devices/9CC0F6C1-39A2-4B48-930C-3A1AC3CD27D7/data/Containers/Bundle/Application/012751D9-2415-42AC-A2FB-073518D23FD1/Reference.app");
+        capabilities.setCapability("platformName", "ios");
+        capabilities.setCapability("platformVersion", "9.2");
+        capabilities.setCapability("deviceName", "iPad Air");
+        capabilities.setCapability("noReset", "true");
+        capabilities.setCapability("udid", "9CC0F6C1-39A2-4B48-930C-3A1AC3CD27D7");
 
         URL serverAddress = new URL("http://127.0.0.1:4723/wd/hub");
-        AndroidDriver driver = new AndroidDriver(serverAddress, capabilitiesDelete);
+        AndroidDriver driver = new AndroidDriver(serverAddress, capabilities);
 
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         long time = System.currentTimeMillis();
@@ -45,6 +48,11 @@ public class AppiumSplash {
             FileUtils.copyFile(srcFiler, new File(AutomationConfigProperties.screenshotsDirectory + "/testing/splash_screen_abc" + System.currentTimeMillis()));
         }
 
+    }
+
+    @Test
+    public void doSomething(){
+        Logger.log("test");
     }
 
 

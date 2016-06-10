@@ -1,5 +1,6 @@
 package operations.navops;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
 import config.ResourceLocatorAndroid;
@@ -59,7 +60,7 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
     /**
      * After selecting a settings option, return back to the settings page. This currently makes sense for Android and not iOS
      */
-    public abstract void backFromSettingsOption();
+    public abstract void backFromSettingsOption() throws WebDriverWrapperException;
 
     /**
      * Verify the screen has webview

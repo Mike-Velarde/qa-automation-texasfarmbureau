@@ -12,7 +12,6 @@ import config.ResourceLocator;
 import dataproviders.Endpoints;
 import main.AppiumMain;
 import operations.AutomationOperations;
-import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -39,7 +38,7 @@ public class SettingsIos extends AppiumMain {
      * @param title
      * @param URL
      */
-    @Test(dataProvider = "settings-endpoints", dataProviderClass = Endpoints.class)
+    @Test(dataProvider = "endpoints", dataProviderClass = Endpoints.class)
     public void testWebViewOptions(String testType, String title, String URL){
         AutomationOperations.instance().navOp.settings.navigateToSettingsOption(title);
         int responseCode = AutomationOperations.instance().navOp.settings.testWebContentEndpoint(URL);
@@ -56,7 +55,7 @@ public class SettingsIos extends AppiumMain {
     }
 
     @Test
-    public void testDeveloperOptions(){
+    public void testDeveloperOptions() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE_ID);
         driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_MAIN_LIST);
         AutomationOperations.instance().navOp.mainToolbarBack();

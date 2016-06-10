@@ -27,11 +27,12 @@ public abstract class NavigationOperations implements AutomationOperationsListen
     public NavOpsShows shows = createNavOpsShows();
     public NavOpsSchedule schedule = new NavOpsSchedule();
     public NavOpsSettings settings = createNavOpsSettings();
-    public NavOpsWatchlist watchlist = new NavOpsWatchlist();
+    public NavOpsWatchlist watchlist = createNavOpsWatchlist();
 
     public abstract NavOpsSettings createNavOpsSettings();
     public abstract NavOpsFeatured createNavOpsFeatured();
     public abstract NavOpsShows createNavOpsShows();
+    public abstract NavOpsWatchlist createNavOpsWatchlist();
 
     @Override
     public void init(WebDriverWrapper driverWrapper) {
@@ -49,7 +50,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
 
     public abstract void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem) throws WebDriverWrapperException;
 
-    public abstract void mainToolbarBack();
+    public abstract void mainToolbarBack() throws WebDriverWrapperException;
 
     public abstract void mainToolbarSearch() throws WebDriverWrapperException;
     
@@ -172,6 +173,10 @@ public abstract class NavigationOperations implements AutomationOperationsListen
         }
     }
 
+    public void genericOkPopup(){
+        driverWrapper.getElementByName("OK").click();
+    }
+
     //This may not belong in this class, but it seems silly to have a whole NavOps for splash
     public boolean brandAndSponsorVisible() {
         return driverWrapper.getElementById("awe_splash_brandlogo").isDisplayed() && driverWrapper.getElementById("awe_splash_sponsorlogo").isDisplayed();
@@ -248,7 +253,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
      * @return true, if navigation item exists
      */
     public boolean hasDrawerItem(String navigationItem){
-        return driverWrapper.elementExists(By.name(navigationItem.toString()));
+        return driverWrapper.elementExists(By.name(navigationItem));
     }
     
     /**
@@ -258,7 +263,10 @@ public abstract class NavigationOperations implements AutomationOperationsListen
         MobileElement episodeClipsContainer = (MobileElement) driverWrapper.getElementByName(ResourceLocator.DrawerNavigationItem.movies.toString());
         episodeClipsContainer.swipe(SwipeElementDirection.UP, 1, 0, 5000);
     }
-    
-        
+
+
+    public abstract void closeVideoPlayer();
+
+    public abstract void returnFromVideoPlayer() throws WebDriverWrapperException;
 }
 

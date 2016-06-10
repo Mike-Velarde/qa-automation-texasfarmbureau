@@ -21,27 +21,6 @@ public class FeaturedIos extends Featured {
 
     }
 
-    /**
-     * Test the items of the featured screen.
-     */
-    @Test
-    public void testFeatured() throws WebDriverWrapperException {
-        testSearch();
-
-        testShowDetails();
-
-        testWatchlist();
-
-        testWebsite();
-
-        testPlay();
-
-        //TODO this broke somehow, need to figure out how to fix. Tried scrolling with lots of ids none seemed to work
-        //AutomationOperations.instance().navOp.featured.scrollToBottom();
-
-
-    }
-
     @Override
     protected void testPlay() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
@@ -56,13 +35,11 @@ public class FeaturedIos extends Featured {
         //Give video extra time to load
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
         try {
-            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_during_" + System.currentTimeMillis());
+            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, "video_playing_before" + System.currentTimeMillis());
         }
         catch(Exception e){
             ErrorHandler.printErr("error taking screenshot",e);
         }
-        //check that video has played
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         //Get screenshot to compare against before so we know video is playing
         try {

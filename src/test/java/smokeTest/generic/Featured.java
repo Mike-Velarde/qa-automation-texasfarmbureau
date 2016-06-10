@@ -22,7 +22,7 @@ public class Featured extends AppiumMain{
     protected AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
-    public void setup(){
+    public void setup() throws WebDriverWrapperException {
         UserBank user = new UserBank();
 
         AutomationOperations.instance().userOp.signIn(user.defaultUser, false);
@@ -55,7 +55,7 @@ public class Featured extends AppiumMain{
     protected void testWebsite() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.website);
         boolean visible = AutomationOperations.instance().navOp.featured.isWebsiteVisible();
-        assertionLogger.setTestType("Verify that the website is visible.");
+        assertionLogger.setTestType("Verify that the website is visible");
         assertionLogger.assertTrue(visible);
         AutomationOperations.instance().navOp.mainToolbarBack();
     }
@@ -80,7 +80,7 @@ public class Featured extends AppiumMain{
             ErrorHandler.printErr("error taking screenshot",e);
         }
         //check that video has played
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AutomationOperations.instance().assertions.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         //Get screenshot to compare against before so we know video is playing
         try {

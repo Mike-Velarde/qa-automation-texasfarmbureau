@@ -228,7 +228,7 @@ public class ToolBar extends AppiumMain {
      * @param title
      *            - Settings option title
      */
-    private void verifySettingsOptions(String testType, String buttonID, String title) {
+    private void verifySettingsOptions(String testType, String buttonID, String title) throws WebDriverWrapperException {
         while (!AutomationOperations.instance().navOp.settings.hasSettingsOption(buttonID)) {
             AutomationOperations.instance().navOp.settings.settingsOptionsScrollUp();
         }

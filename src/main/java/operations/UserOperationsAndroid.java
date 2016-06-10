@@ -1,5 +1,6 @@
 package operations;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
@@ -13,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ford.arnett on 11/3/15.
@@ -26,7 +28,7 @@ public class UserOperationsAndroid extends UserOperations {
      * @param user The login credentials
      * @param forced This will force a logout if already signed in and then sign in again. If forced is false and user is already logged in the method will return.
      */
-    public void signIn(UserBank.User user, boolean forced){
+    public void signIn(UserBank.User user, boolean forced) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         //Some devices have the bottom options off screen, this will scroll down for those devices
         driverWrapper.scroll_to(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE);
@@ -86,7 +88,46 @@ public class UserOperationsAndroid extends UserOperations {
         driverWrapper.driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR)));
     }
 
-    public void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID){
+    public void signOut() throws WebDriverWrapperException {
+        String title = driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_TITLE_ID).getText();
+        if (!title.equalsIgnoreCase(ResourceLocator.DrawerNavigationItem.settings.toString())) {
+            AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
+        }
+        // Some devices have the bottom options off screen, this will scroll down for those devices
+        driverWrapper.scroll_to(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE);
+        WebElement loginLogoutButton = driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
+
+        loginLogoutButton.click();
+        AutomationOperations.instance().navOp.genericYesNoPopup(true);
+    }
+
+    /**
+     * Check to see if the button is in login or logout mode
+     *
+     * This may need to be expanded
+     *
+     * @return True if the button is in "login" mode, that is clicking it will start the login process
+     */
+    protected boolean inLoginMode() {
+        WebElement loginLogoutButton = driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
+        // Older versions have has different variations of the login text, as does iOS
+        return loginLogoutButton.getText().equalsIgnoreCase("Log in to provider") || loginLogoutButton.getText().equalsIgnoreCase("Login to provider") || loginLogoutButton.getText().equalsIgnoreCase("Sign in to provider") || loginLogoutButton.getText().equalsIgnoreCase("Log In To Provider");
+    }
+
+    /**
+     * This will work if called from any screen which can see the banner. Since it seems to be most screens, I've opted not to make this more disruptive by forcing unnecessary navigation.
+     *
+     * @return true if a user is logged in
+     */
+    public boolean isUserLoggedIn() {
+        driverWrapper.setImplicitWait(10, TimeUnit.SECONDS);
+        // If this element is there then a user is logged in
+        boolean loggedIn = driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_PROVIDER_LOGO));
+        driverWrapper.restoreImplicitWait();
+        return loggedIn;
+    }
+
+    public void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID) throws WebDriverWrapperException {
         //Check if we are on feature screen
         if(AutomationOperations.instance().navOp.featured.isOnPage())
             return;
@@ -100,7 +141,7 @@ public class UserOperationsAndroid extends UserOperations {
         driverWrapper.getElementById(pickFeedServerURLId).click();
     }
 
-    public int search(String searchTerm) {
+    public int search(String searchTerm) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.mainToolbarSearch();
         InputUtils utils = AutomationOperations.instance().deviceAutomationComponents.createInputUtils(driverWrapper);
         WebElement search = driverWrapper.getElementById(ResourceLocator.device.AWE_SEARCH_BAR_ENTER_TEXT);

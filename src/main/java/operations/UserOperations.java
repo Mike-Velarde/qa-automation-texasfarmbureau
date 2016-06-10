@@ -32,7 +32,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         this.driverWrapper = driverWrapper;
     }
 
-    abstract public void signIn(UserBank.User userBank) throws WebDriverWrapperException;
+    abstract public void signIn(UserBank.User userBank, boolean forced) throws WebDriverWrapperException;
 
     /**
      * Check to see if the button is in login or logout mode
@@ -41,26 +41,9 @@ public abstract class UserOperations implements AutomationOperationsListener {
      *
      * @return True if the button is in "login" mode, that is clicking it will start the login process
      */
-    protected boolean inLoginMode() {
-        WebElement loginLogoutButton = driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
-        // Older versions have has different variations of the login text, as does iOS
-        return loginLogoutButton.getText().equalsIgnoreCase("Log in to provider") || loginLogoutButton.getText().equalsIgnoreCase("Login to provider") || loginLogoutButton.getText().equalsIgnoreCase("Sign in to provider") || loginLogoutButton.getText().equalsIgnoreCase("Log In To Provider");
-    }
+    protected abstract boolean inLoginMode();
 
-    public void signOut() throws WebDriverWrapperException {
-        String title = driverWrapper.getElementById(ResourceLocator.device.AWE_MAIN_TOOLBAR_TITLE_ID).getText();
-        if (!title.equalsIgnoreCase(ResourceLocator.DrawerNavigationItem.settings.toString())) {
-            AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
-        }
-        // Some devices have the bottom options off screen, this will scroll down for those devices
-        driverWrapper.scroll_to(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE);
-        WebElement loginLogoutButton = driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
-        // I'm not sure this check is necessary
-        if (!inLoginMode()) {
-            loginLogoutButton.click();
-            AutomationOperations.instance().navOp.genericYesNoPopup(true);
-        }
-    }
+    public abstract void signOut() throws WebDriverWrapperException;
 
     /**
      * Check to see if the feed picker has been launched, and if it has select the given brand and feed
@@ -204,19 +187,8 @@ public abstract class UserOperations implements AutomationOperationsListener {
     public void videoDetailsPlayVideo() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_DETAILS_PLAY_BUTTON).click();
     }
-    
-    /**
-     * This will work if called from any screen which can see the banner. Since it seems to be most screens, I've opted not to make this more disruptive by forcing unnecessary navigation.
-     * 
-     * @return true if a user is logged in
-     */
-    public boolean isUserLoggedIn() {
-        driverWrapper.setImplicitWait(5, TimeUnit.SECONDS);
-        // If this element is there then a user is logged in
-        boolean loggedIn = driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_PROVIDER_LOGO));
-        driverWrapper.restoreImplicitWait();
-        return loggedIn;
-    }
+
+    public abstract boolean isUserLoggedIn();
 
     public void closedCaptionsToggle() {
         // open CC menu

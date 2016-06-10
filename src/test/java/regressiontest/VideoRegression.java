@@ -42,7 +42,7 @@ public class VideoRegression extends AppiumMain {
         assertionLogger.addMessage(VideoUtils.getVideoTimeFromCalendar(calBefore) + "/" + VideoUtils.getVideoTimeFromCalendar(calAfter));
         assertionLogger.assertTrue(calBefore.before(calAfter));
 
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AutomationOperations.instance().assertions.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         driverWrapper.takeScreenshotSuppressError("verify_progress_bar_is_moving_appropriately_before");
         //Wait long enough to see a noticeable difference in the scrubber
@@ -59,7 +59,7 @@ public class VideoRegression extends AppiumMain {
         AutomationOperations.instance().userOp.playPauseVideo();
         assertionLogger.assertTrue(AutomationOperations.instance().userOp.isVideoPaused());
         AutomationOperations.instance().userOp.playPauseVideo();
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AutomationOperations.instance().assertions.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
 
     }

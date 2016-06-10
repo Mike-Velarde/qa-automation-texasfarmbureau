@@ -2,6 +2,7 @@ package smokeTest.ios;
 
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.OperationsException;
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
@@ -25,16 +26,15 @@ public class ShowsIos extends Shows {
     }
 
     @Test
-    public void testShows() throws WebDriverWrapperException {
+    public void testShows() throws WebDriverWrapperException, OperationsException {
 
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
-        AutomationOperations.instance().navOp.shows.selectShow(2);
+        AutomationOperations.instance().navOp.shows.selectShow(1);
 
         //For now I am making the assumption that if we can get the show title then we have made it to the show details screen
         assertionLogger.setTestType("Test if the show title is non empty");
         assertionLogger.assertNotEquals(AutomationOperations.instance().userOp.getShowDetailsShowTitle(), "");
 
-        //TODO think about this, on iOS there is no way to know right now if this button is adding or removing from list
         AutomationOperations.instance().navOp.addShowToWatchlist();
 
         try {
@@ -50,24 +50,22 @@ public class ShowsIos extends Shows {
         catch(Exception e){
             ErrorHandler.printErr("Error taking screenshot ", e);
         }
-        //TODO finish this method (there's multiple episodes stacked in UI viewer, so need to handle odd index issue ie 0 is 1 1 is 3 2 is 5 etc.
         AutomationOperations.instance().navOp.shows.playFromActiveSeason(2);
 
         //Wait for ads
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        driverWrapper.takeScreenshotSuppressError("run_time_before");
+        driverWrapper.waitLogErr(10000);
+        driverWrapper.takeScreenshotSuppressError("run_time_after");
 
-        AutomationOperations.instance().navOp.mainToolbarBack();
+        AutomationOperations.instance().navOp.closeVideoPlayer();
         AutomationOperations.instance().navOp.mainToolbarBack();
 
-        //This needs more work
-        AutomationOperations.instance().navOp.shows.showDetailSelectSeason(1);
-        //This isn't working right now
         AutomationOperations.instance().navOp.shows.scrollToBottom();
+        driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory, "verify_season_change_after_" + System.currentTimeMillis());
+        driverWrapper.waitLogErr(3000);
 
         AutomationOperations.instance().navOp.mainToolbarBack();
-
-        assertionLogger.logMessages();
     }
 
     @AfterClass

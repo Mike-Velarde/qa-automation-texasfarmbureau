@@ -1,6 +1,8 @@
 package operations.navops;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
+import io.appium.java_client.MobileElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -10,9 +12,10 @@ import org.openqa.selenium.WebElement;
 public class NavOpsFeaturedIos extends NavOpsFeatured{
 
     @Override
-    public String selectCallToAction(ResourceLocator.CallsToAction callsToAction){
-        //Look for the CTA on the screen. This method can be improved by adding more labels, currently we cannot narrow down this search because we do not have the labels to do so
-        driverWrapper.getElementById(callsToAction.toString()).click();
+    public String selectCallToAction(ResourceLocator.CallsToAction callsToAction) throws WebDriverWrapperException {
+        //Look for the CTA on the screen.
+        MobileElement element = (MobileElement)driverWrapper.element(By.id(callsToAction.toString()));
+        driverWrapper.tap(1, element, 100);
 
         //Not yet possible on iOS due to lack of labels
         //Get the title of the show for the CTA

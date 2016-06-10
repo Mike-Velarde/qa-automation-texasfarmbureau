@@ -1,5 +1,6 @@
 package operations.navops;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import operations.AutomationOperations;
 
 /**
@@ -7,7 +8,7 @@ import operations.AutomationOperations;
  */
 public class NavOpsSettingsAndroid extends NavOpsSettings {
     @Override
-    public void backFromSettingsOption() {
+    public void backFromSettingsOption() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.mainToolbarBack();
     }
 }
