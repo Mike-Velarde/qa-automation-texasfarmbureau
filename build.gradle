@@ -17,9 +17,53 @@ repositories {
     }
 }*/
 
-test{
-    useTestNG()
+test {
+    String uniqueFolder = "../automation_test_results/awe_framework/" + getFilterFolderName() + "/" + getDate() + "_" + project.gradle.startParameter.taskNames
+
+    useTestNG {
+        //suites 'src/test/java/smokeTest/awe_smoke_test.xml'
+        useDefaultListeners = true
+        //Use the unique name and the task name to create the folder
+        reports.html.destination = file(uniqueFolder)
+    }
+
+    //Set these properties if they exist
+    if(hasProperty('device_id')){
+        systemProperty "CL_DEVICE_ID",deviceID
+    }
+    if(hasProperty('port')){
+        systemProperty "CL_PORT",port
+    }
+
+    systemProperty "UNIQUE_FOLDER",uniqueFolder
+    systemProperty "USE_GRADLE_VALUES","TRUE"
+
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+
+    // listen to standard out and standard error of the test JVM(s)
+    onOutput { descriptor, event ->
+        logger.lifecycle("Test: " + descriptor + " logged: " + event.message )
+    }
 }
+
+
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('MM_dd_yyyy HH_mm_ss a')
+    return formattedDate
+}
+
+def getFilterFolderName() {
+    def date = new Date()
+    def month = date.format('MMMM_yy')
+    return month
+}
+
+
 
 dependencies {
     compile project(':automation_library')
