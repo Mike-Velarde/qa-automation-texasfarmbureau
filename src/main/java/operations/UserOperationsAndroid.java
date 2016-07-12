@@ -3,6 +3,7 @@ package operations;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import config.ResourceLocator;
 import config.ResourceLocatorAndroid;
@@ -26,7 +27,7 @@ public class UserOperationsAndroid extends UserOperations {
      * @param user The login credentials
      * @param forced This will force a logout if already signed in and then sign in again. If forced is false and user is already logged in the method will return.
      */
-    public void signIn(UserBank.User user, boolean forced){
+    public void signIn(UserBank.User user, boolean forced) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         //Some devices have the bottom options off screen, this will scroll down for those devices
         driverWrapper.scroll_to(ResourceLocator.device.AWE_SETTINGS_DEV_OPTIONS_TITLE);

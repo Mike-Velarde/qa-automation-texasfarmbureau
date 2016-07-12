@@ -4,6 +4,7 @@ import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
 import config.ResourceLocator;
 import domod.UserBank;
 import main.AppiumMain;
@@ -21,11 +22,16 @@ public class Featured extends AppiumMain{
     protected AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
-    public void setup(){
+    public void setup() throws WebDriverWrapperException {
         UserBank user = new UserBank();
 
-        AutomationOperations.instance().userOp.signIn(user.defaultUser, false);
-        AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.featured);
+        try {
+            AutomationOperations.instance().userOp.signIn(user.defaultUser, false);
+            AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.featured);
+        }
+        catch (Exception ex){
+            driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory, "featured_setup_login_failed" + System.currentTimeMillis());
+        }
     }
 
     /**

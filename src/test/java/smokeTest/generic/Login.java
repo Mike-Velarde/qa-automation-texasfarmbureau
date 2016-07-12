@@ -1,6 +1,7 @@
 package smokeTest.generic;
 
 import assertions.AssertionLogger;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
 import domod.UserBank;
 import main.AppiumMain;
 import operations.AutomationOperations;
@@ -22,7 +23,7 @@ public class Login extends AppiumMain {
     }
 
     @Test(priority = 2)
-    public void testLogin(){
+    public void testLogin() throws WebDriverWrapperException {
         UserBank user = new UserBank();
 
         AutomationOperations.instance().userOp.signIn(user.defaultUser, true);
@@ -31,7 +32,7 @@ public class Login extends AppiumMain {
     }
 
     @Test(priority = 1)
-    public void testLogout(){
+    public void testLogout() throws WebDriverWrapperException {
         if(AutomationOperations.instance().userOp.isUserLoggedIn()) {
             UserBank user = new UserBank();
             AutomationOperations.instance().userOp.signIn(user.defaultUser, false);

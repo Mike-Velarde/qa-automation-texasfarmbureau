@@ -5,6 +5,7 @@ package smokeTest.generic;
 
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
+import com.bottlerocket.utils.Logger;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
@@ -20,14 +21,15 @@ public class VideoPlayerFunctions extends AppiumMain {
     AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
-    public void setup() throws OperationsException {
-        AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
-        AutomationOperations.instance().navOp.shows.selectShow(1, 0);
-        AutomationOperations.instance().navOp.shows.playFromActiveSeason(1);
+    public void setup(){
+
     }
 
     @Test
-    public void testVideoFunctions(){
+    public void testVideoFunctions() throws OperationsException{
+        AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
+        AutomationOperations.instance().navOp.shows.selectShow(1, 0);
+        AutomationOperations.instance().navOp.shows.playFromActiveSeason(1);
         //Replace this with pull up video UI
         //AutomationOperations.instance().userOp.pauseVideo();
 
@@ -42,8 +44,6 @@ public class VideoPlayerFunctions extends AppiumMain {
         AutomationOperations.instance().userOp.closedCaptionsToggle();
         //Allow user to see what just happened, mainly for demo purposes
         driverWrapper.waitLogErr(5000);
-
-        assertionLogger.logMessages();
     }
 
 

@@ -1,6 +1,7 @@
 package operations.navops;
 
 
+ import com.bottlerocket.utils.Logger;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
 import io.appium.java_client.MobileElement;
@@ -48,6 +49,8 @@ public class NavOpsSchedule implements AutomationOperationsListener {
                 mobileElement.swipe(SwipeElementDirection.DOWN, 1);
                 //increment the index by the total headings on screen minus the index we are about to move to, this will get the net moved.
                 currentHeadingIndex += indexesToTheRight;
+                //Let settle after swipe, this seems to fix a few odd timing issues, not sure what's causing them but the exit if condition seems to trigger early in these situations
+                driverWrapper.waitLogErr(3000);
             }
 
         }
@@ -99,6 +102,8 @@ public class NavOpsSchedule implements AutomationOperationsListener {
         showLayout = (MobileElement)driverWrapper.elements(By.id(ResourceLocator.device.AWE_SCHEDULE_SHOW_LISTING)).get(0);
         showLayout.swipe(direction, 1000);
 
+        //Wait for the swipe to settle. There may be an object we can wait on but I have no idea what that would be.
+        driverWrapper.waitLogErr(4000);
         //Heading may have changed based on the swipe direction.
         return getCurrentDateHeading();
     }

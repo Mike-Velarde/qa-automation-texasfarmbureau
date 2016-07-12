@@ -25,7 +25,7 @@ public class Shows extends AppiumMain {
     public void testShows() throws OperationsException {
 
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
-        AutomationOperations.instance().navOp.shows.selectShow(0,1);
+        AutomationOperations.instance().navOp.shows.selectShow(1,0);
 
         //For now I am making the assumption that if we can get the show title then we have made it to the show details screen
         assertionLogger.setTestType("Test if the show title is non empty");

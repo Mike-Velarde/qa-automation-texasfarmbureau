@@ -2,6 +2,7 @@ package operations;
 
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
 import config.ResourceLocator;
 import domod.UserBank;
 import io.appium.java_client.MobileElement;
@@ -31,7 +32,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
         this.driverWrapper = driverWrapper;
     }
 
-    abstract public void signIn(UserBank.User userBank);
+    abstract public void signIn(UserBank.User userBank, boolean forced) throws WebDriverWrapperException;
 
     /**
      * Check to see if the button is in login or logout mode

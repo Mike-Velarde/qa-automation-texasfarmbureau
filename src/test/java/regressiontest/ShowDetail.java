@@ -166,12 +166,8 @@ public class ShowDetail extends AppiumMain {
         String image2 = driverWrapper.takeObjectScreenshot(driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SHOW_TITLE), outputLocation, "AAFR_Show_Details_10_afterScrollUp_" + System.currentTimeMillis());
 
         // Verify show title is fade in state
-        assertionLogger.setTestType("Test the images are identical or not: ");
-<<<<<<< Updated upstream
-        assertionLogger.assertFalse(driverWrapper.areImagesIdentical(image1, image2));
-=======
+
         assertionLogger.assertFalse(driverWrapper.areImagesIdentical(image1,image2));
->>>>>>> Stashed changes
 
         // Show title, Subtitle, MORE link, Sponsor Image fade to black
         driverWrapper.takeScreenshotSuppressError(outputLocation, "AAFR_Show_Details_49_verify_activity_circle_while_loading_videos_" + System.currentTimeMillis());

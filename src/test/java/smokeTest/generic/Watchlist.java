@@ -43,15 +43,14 @@ public class Watchlist extends AppiumMain {
     private void playContinue(){
         AutomationOperations.instance().navOp.watchlist.playContinueWatchingShow(1);
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
-        AutomationOperations.instance().navOp.mainToolbarBack();
+        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 5000);
         AutomationOperations.instance().navOp.mainToolbarBack();
     }
 
     private void playQueue(){
         AutomationOperations.instance().navOp.watchlist.playQueueShow(1, 0);
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 5000);
     }
 
     @AfterClass
