@@ -6,6 +6,7 @@ package regressiontest;
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
 import com.bottlerocket.config.AutomationConfigProperties;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
@@ -25,7 +26,7 @@ public class VideoRegression extends AppiumMain {
     }
 
     @Test
-    public void testVideo(){
+    public void testVideo() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
 
@@ -41,7 +42,7 @@ public class VideoRegression extends AppiumMain {
         assertionLogger.addMessage(VideoUtils.getVideoTimeFromCalendar(calBefore) + "/" + VideoUtils.getVideoTimeFromCalendar(calAfter));
         assertionLogger.assertTrue(calBefore.before(calAfter));
 
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AutomationOperations.instance().assertions.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         driverWrapper.takeScreenshotSuppressError("verify_progress_bar_is_moving_appropriately_before");
         //Wait long enough to see a noticeable difference in the scrubber
@@ -58,7 +59,7 @@ public class VideoRegression extends AppiumMain {
         AutomationOperations.instance().userOp.playPauseVideo();
         assertionLogger.assertTrue(AutomationOperations.instance().userOp.isVideoPaused());
         AutomationOperations.instance().userOp.playPauseVideo();
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AutomationOperations.instance().assertions.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
 
     }

@@ -5,6 +5,7 @@ package smokeTest.generic;
  */
 
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import io.appium.java_client.SwipeElementDirection;
 import main.AppiumMain;
@@ -22,7 +23,7 @@ public class Schedule extends AppiumMain {
     }
 
     @Test
-    public void testSchedule(){
+    public void testSchedule() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.schedule);
         String currentDateHeading = AutomationOperations.instance().navOp.schedule.getCurrentDateHeading();
         assertionLogger.setTestType("Check to see if heading is shown");

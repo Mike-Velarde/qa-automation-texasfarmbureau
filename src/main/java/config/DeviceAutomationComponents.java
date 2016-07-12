@@ -1,5 +1,6 @@
 package config;
 
+import assertions.AssertionLibrary;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
@@ -19,4 +20,6 @@ public interface DeviceAutomationComponents {
     ResourceLocator initResourceLocator();
 
     InputUtils createInputUtils(WebDriverWrapper driverWrapper);
+
+    AssertionLibrary getAssertions();
 }

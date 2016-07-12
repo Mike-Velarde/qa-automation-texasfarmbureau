@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -84,9 +84,17 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      */
     public abstract String showDetailSelectSeason(int seasonIndex);
 
+    /**
+     * This implementation is somewhat nieve but it should work in most cases
+     */
     public void scrollToBottom() {
-        MobileElement episodeClipsContainer = (MobileElement) driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_CONTAINER);
-        episodeClipsContainer.swipe(SwipeElementDirection.UP, 1, 0, 75000);
+        //MobileElement episodeClipsContainer = (MobileElement) driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_CONTAINER);
+        //episodeClipsContainer.swipe(SwipeElementDirection.UP, 1, 0, 75000);
+        int height = driverWrapper.getWindow().getSize().getHeight();
+        int width = driverWrapper.getWindow().getSize().getWidth();
+        driverWrapper.swipe(width, height, 10, 10, 5000);
+        //Sometimes the first scroll hangs at the end
+        driverWrapper.swipe(width, height, 10, 10, 5000);
     }
 
     /**
@@ -97,7 +105,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
         episodeClipsContainer.swipe(SwipeElementDirection.UP, 75000);
     }
 
-    public abstract void playFromActiveSeason(int index);
+    public abstract void playFromActiveSeason(int index) throws OperationsException;
 
     /**
      * It will return the season title

@@ -1,5 +1,6 @@
 package regressiontest;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -21,13 +22,13 @@ public class Settings extends AppiumMain {
     int count = 2;
 
     @BeforeClass
-    public void setup() {
+    public void setup() throws WebDriverWrapperException {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
     }
 
     @Test(enabled = true, priority = 1)
-    public void testSettingsDetails() {
+    public void testSettingsDetails() throws WebDriverWrapperException {
         // Launch the navigation bar
         AutomationOperations.instance().navOp.openMainDrawerSafe();
 
@@ -63,7 +64,7 @@ public class Settings extends AppiumMain {
     }
 
     @Test(enabled = true, priority = 3)
-    public void testFeedbackAndVersion() {
+    public void testFeedbackAndVersion() throws WebDriverWrapperException {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 

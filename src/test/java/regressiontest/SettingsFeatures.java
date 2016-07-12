@@ -1,5 +1,6 @@
 package regressiontest;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,7 +25,7 @@ public class SettingsFeatures extends AppiumMain {
     }
 
     @Test
-    public void testAboutBrand() {
+    public void testAboutBrand() throws WebDriverWrapperException {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
@@ -75,7 +76,7 @@ public class SettingsFeatures extends AppiumMain {
     }
 
     @Test
-    public void testFAQ() {
+    public void testFAQ() throws WebDriverWrapperException {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         // Launch the FAQ screen
@@ -128,7 +129,7 @@ public class SettingsFeatures extends AppiumMain {
     }
 
     @Test
-    public void testPrivacyPolicy() {
+    public void testPrivacyPolicy() throws WebDriverWrapperException {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
@@ -181,7 +182,7 @@ public class SettingsFeatures extends AppiumMain {
     }
 
     @Test
-    public void testTermsAndConditions() {
+    public void testTermsAndConditions() throws WebDriverWrapperException {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
@@ -233,7 +234,7 @@ public class SettingsFeatures extends AppiumMain {
     }
 
     @Test
-    public void testFeedback() {
+    public void testFeedback() throws WebDriverWrapperException {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
@@ -270,7 +271,7 @@ public class SettingsFeatures extends AppiumMain {
     }
 
     @Test
-    public void testAboutBR() {
+    public void testAboutBR() throws WebDriverWrapperException {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
 
@@ -325,7 +326,7 @@ public class SettingsFeatures extends AppiumMain {
      * It will verify all the links
      */
     @Test(dataProvider = "settings-verify-titles", dataProviderClass = Titles.class, groups = { "android" })
-    public void testAllLinks(String testType, String buttonID, String title) {
+    public void testAllLinks(String testType, String buttonID, String title) throws WebDriverWrapperException {
         // Select the settings
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         AutomationOperations.instance().navOp.settings.navigateToSettingsOption(buttonID);

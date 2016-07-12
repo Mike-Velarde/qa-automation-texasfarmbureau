@@ -173,6 +173,7 @@ public class ResourceLocator {
     public String AWE_VIDEO_PLAYER_AD_COUNTDOWN_BANNER = "awe_player_adcountdowntimer";
     public String AWE_VIDEO_PLAYER_CLOSED_CAPTION_DESC = "Toggle Closed Captions";
     public String AWE_VIDEO_PLAYER_SEEK_BAR = "awe_player_controlsseekbar";
+    public String AWE_VIDEO_PLAYER_CLOSE = "Close Video";
 
     /**
      * Shows
@@ -291,6 +292,7 @@ public class ResourceLocator {
     public String USA_ENDPOINT_TERMS_AND_CONDITIONS = "http://www.usanetwork.com/terms";
 
     public String BR_ENDPOINT_ABOUT_BR = "http://www.bottlerocketapps.com/brAbout";
+
 
     //Use this to allow subclasses to overwrite the enum's string
     //public abstract void initCallsToAction();

@@ -1,5 +1,6 @@
 package operations.navops;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
 import io.appium.java_client.MobileElement;
@@ -29,7 +30,7 @@ public abstract class NavOpsFeatured implements AutomationOperationsListener{
         return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR_TITLE_ID));
     }
 
-    public abstract String selectCallToAction(ResourceLocator.CallsToAction callsToAction);
+    public abstract String selectCallToAction(ResourceLocator.CallsToAction callsToAction) throws WebDriverWrapperException;
 
     public boolean isWebsiteVisible() {
         return driverWrapper.driverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className(ResourceLocator.device.WEBKIT_WEBVIEW))).size() != 0;

@@ -1,6 +1,7 @@
 package operations;
 
 
+import assertions.AssertionLibrary;
 import com.bottlerocket.config.AutomationConfigurations;
 import config.DeviceAutomationComponents;
 import operations.navops.NavigationOperations;
@@ -26,6 +27,7 @@ public class AutomationOperations {
     public UserOperations userOp;
     public NavigationOperations navOp;
     public AutomationConfigurations config;
+    public AssertionLibrary assertions;
 
     public void initOperations(DeviceAutomationComponents deviceAutomationComponents){
         this.deviceAutomationComponents = deviceAutomationComponents;
@@ -34,6 +36,7 @@ public class AutomationOperations {
         config = deviceAutomationComponents.getAutomationConfigurations();
         navOp = deviceAutomationComponents.getNavigationOperations();
         userOp = deviceAutomationComponents.getUserOperations();
+        assertions = deviceAutomationComponents.getAssertions();
 
     }
 }

@@ -1,28 +1,34 @@
 package operations;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapperIos;
 import config.ResourceLocator;
 import config.ResourceLocatorIos;
 import domod.UserBank;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ford.arnett on 11/3/15.
  */
 public class UserOperationsIos extends UserOperations {
 
-    public void signIn(UserBank.User user, boolean forced){
+    public void signIn(UserBank.User user, boolean forced) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         //do we need to scroll down for smaller screens?
 
-        //Is this check necessary?
-        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT);
-        if(!inLoginMode())
-            signOut();
-        driverWrapper.getElementById(ResourceLocator.device.AWE_SETTINGS_LOGIN_LOGOUT_TEXT).click();
-        driverWrapper.getElementById(ResourceLocator.device.AWE_LOGIN_CONTINUE).click();
-        driverWrapper.getElementById(ResourceLocator.device.OPTIMUM).click();
+        if(!inLoginMode()) {
+            if (forced) {
+                signOut();
+            } else {
+                return;
+            }
+        }
+        driverWrapper.getElementById(ResourceLocatorIos.AWE_SETTINGS_LOGIN_BUTTON_ID).click();
+        driverWrapper.getElementBy(By.id(ResourceLocator.device.OPTIMUM), 60000).click();
 
         InputUtils utils = AutomationOperations.instance().deviceAutomationComponents.createInputUtils(driverWrapper);
 
@@ -34,10 +40,43 @@ public class UserOperationsIos extends UserOperations {
         utils.sendKeysSafe(password, user.password);
 
         utils.submitForm();
+    }
 
-        //TODO update this for iOS
-        //Wait for toolbar, then check to see that provider logo is now in toolbar
-        //driverWrapper.driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(ResourceLocator.device.AWE_MAIN_TOOLBAR)));
+    /**
+     * This method is not as forgiving as it's Android counterpart, for example it does not check that it's on the settings page and then navigate if not.
+     *
+     * @throws WebDriverWrapperException
+     */
+    @Override
+    public void signOut() throws WebDriverWrapperException {
+        WebElement loginLogoutButton = driverWrapper.getElementById(ResourceLocatorIos.AWE_SETTINGS_LOGOUT_BUTTON_ID);
+        loginLogoutButton.click();
+        AutomationOperations.instance().navOp.genericYesNoPopup(true);
+        AutomationOperations.instance().navOp.genericOkPopup();
+    }
+
+    /**
+     * Check to see if the button is in login or logout mode
+     *
+     * This may need to be expanded
+     *
+     * @return True if the button is in "login" mode, that is clicking it will start the login process
+     */
+    protected boolean inLoginMode() {
+        return driverWrapper.elementExists(By.id(ResourceLocatorIos.AWE_SETTINGS_LOGIN_BUTTON_ID));
+    }
+
+    /**
+     * Unlike Android, this must be called from the settings screen
+     *
+     * @return true if a user is logged in
+     */
+    public boolean isUserLoggedIn() {
+        driverWrapper.setImplicitWait(10, TimeUnit.SECONDS);
+        // If this element is there then a user is logged in
+        boolean loggedIn = driverWrapper.elementExists(By.id(ResourceLocatorIos.AWE_SETTINGS_LOGOUT_BUTTON_ID));
+        driverWrapper.restoreImplicitWait();
+        return loggedIn;
     }
 
     /**
@@ -50,7 +89,7 @@ public class UserOperationsIos extends UserOperations {
     @Override
     public void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID) {}
 
-    public int search(String searchTerm) {
+    public int search(String searchTerm) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.mainToolbarSearch();
         InputUtils utils = AutomationOperations.instance().deviceAutomationComponents.createInputUtils(driverWrapper);
         utils.setTextField(searchTerm);

@@ -5,31 +5,27 @@ package smokeTest.generic;
 
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
-import com.bottlerocket.utils.Logger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import utils.VideoUtils;
-
-import java.util.Calendar;
 
 public class VideoPlayerFunctions extends AppiumMain {
     AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
-    public void setup(){
-
-    }
-
-    @Test
-    public void testVideoFunctions() throws OperationsException{
+    public void setup() throws OperationsException, WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
         AutomationOperations.instance().navOp.shows.selectShow(1, 0);
         AutomationOperations.instance().navOp.shows.playFromActiveSeason(1);
+    }
+
+    @Test
+    public void testVideoFunctions(){
         //Replace this with pull up video UI
         //AutomationOperations.instance().userOp.pauseVideo();
 
@@ -37,13 +33,15 @@ public class VideoPlayerFunctions extends AppiumMain {
         //AutomationOperations.instance().userOp.playPauseVideo();
         //Give the video extra time to load
         driverWrapper.waitLogErr(ResourceLocator.AWE_INITIAL_ADS_WAIT_TIME);
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AutomationOperations.instance().assertions.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         AutomationOperations.instance().userOp.scrubVideo(0.6);
         AutomationOperations.instance().userOp.closedCaptionsToggle();
         AutomationOperations.instance().userOp.closedCaptionsToggle();
         //Allow user to see what just happened, mainly for demo purposes
         driverWrapper.waitLogErr(5000);
+
+        assertionLogger.logMessages();
     }
 
 

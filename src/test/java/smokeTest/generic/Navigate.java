@@ -1,6 +1,7 @@
 package smokeTest.generic;
 
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import main.AppiumMain;
 import operations.AutomationOperations;
@@ -22,7 +23,7 @@ public class Navigate extends AppiumMain {
     }
 
     @Test
-    public void navigateTabs() {
+    public void navigateTabs() throws WebDriverWrapperException {
         for (ResourceLocator.DrawerNavigationItem item : ResourceLocator.DrawerNavigationItem.values()) {
             String navItemName = item.toString();
             AutomationOperations.instance().navOp.navigateUsingDrawer(item);

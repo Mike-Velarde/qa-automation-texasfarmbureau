@@ -1,5 +1,7 @@
 package config;
 
+import assertions.AssertionLibrary;
+import assertions.AssertionLibraryAndroid;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.config.AutomationConfigurationsAndroid;
 import com.bottlerocket.utils.InputUtils;
@@ -40,4 +42,7 @@ public class AndroidAutomationComponents implements DeviceAutomationComponents {
     public ResourceLocator initResourceLocator() {
         return ResourceLocator.device = new ResourceLocatorAndroid();
     }
+
+    @Override
+    public AssertionLibrary getAssertions() {return new AssertionLibraryAndroid();}
 }

@@ -9,7 +9,7 @@ import org.testng.annotations.DataProvider;
  */
 public class Endpoints {
     @DataProvider(name = "settings-endpoints")
-    public static Object[][] endpointsAndroid() {
+    public static Object[][] endpoints() {
         if (AutomationConfigurations.isAndroid()) {
             return new Object[][]{
                     {"Check endpoint content", ResourceLocator.device.AWE_SETTINGS_ABOUT_BRAND_TITLE_ID, ResourceLocator.device.USA_ENDPOINT_ABOUT_USA_NOW},
@@ -26,7 +26,7 @@ public class Endpoints {
                     {"Check endpoint content", "FAQ", ResourceLocator.device.USA_ENDPOINT_FAQ},
                     {"Check endpoint content", "Privacy Policy", ResourceLocator.device.USA_ENDPOINT_PRIVACY_POLICY},
                     {"Check endpoint content", "Terms & Conditions", ResourceLocator.device.USA_ENDPOINT_TERMS_AND_CONDITIONS},
-                    {"Check endpoint content", "About Bottle Rocket", ResourceLocator.device.BR_ENDPOINT_ABOUT_BR}
+                    {"Check endpoint content", "About Bottle Rocket and AWE", ResourceLocator.device.BR_ENDPOINT_ABOUT_BR}
             };
         }
 

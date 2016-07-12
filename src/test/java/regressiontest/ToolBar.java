@@ -1,5 +1,6 @@
 package regressiontest;
 
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -29,7 +30,7 @@ public class ToolBar extends AppiumMain {
      * To verify the Hamburger functionality.
      */
     @Test(enabled = true, priority = 0)
-    public void testHamburger() {
+    public void testHamburger() throws WebDriverWrapperException {
 
         // Verify the Hamburger item
         driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Tool_Bar_01_verify_hamburger_" + System.currentTimeMillis());
@@ -59,7 +60,7 @@ public class ToolBar extends AppiumMain {
     }
 
     @Test(dataProvider = "settings-verify-titles", dataProviderClass = Titles.class, groups = { "android" }, enabled = true, priority = 2)
-    public void testSettingsTitles(String testType, String buttonID, String title) {
+    public void testSettingsTitles(String testType, String buttonID, String title) throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
         verifySettingsOptions(testType, buttonID, title);
         driverWrapper.rotate();
@@ -68,7 +69,7 @@ public class ToolBar extends AppiumMain {
     }
 
     @Test(enabled = true, priority = 3)
-    public void testIcons() {
+    public void testIcons() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.featured);
         // Verify the search icon exists or not
         assertionLogger.setTestType("Test the search icon exists :");
@@ -91,7 +92,7 @@ public class ToolBar extends AppiumMain {
     /**
      * To verify the icons work correctly in portrait and landscape mode
      */
-    private void verifyIcons() {
+    private void verifyIcons() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.openMainDrawerSafe();
         driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory + "" + this.getClass().getSimpleName() + "/", "AAFR_Tool_Bar_10_verify_items_portrait_" + System.currentTimeMillis());
         // Click on the search icon
@@ -227,7 +228,7 @@ public class ToolBar extends AppiumMain {
      * @param title
      *            - Settings option title
      */
-    private void verifySettingsOptions(String testType, String buttonID, String title) {
+    private void verifySettingsOptions(String testType, String buttonID, String title) throws WebDriverWrapperException {
         while (!AutomationOperations.instance().navOp.settings.hasSettingsOption(buttonID)) {
             AutomationOperations.instance().navOp.settings.settingsOptionsScrollUp();
         }

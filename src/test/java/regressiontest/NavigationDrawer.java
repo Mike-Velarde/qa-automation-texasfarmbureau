@@ -1,6 +1,7 @@
 package regressiontest;
 
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -27,7 +28,7 @@ public class NavigationDrawer extends AppiumMain {
      * To verify the basic functionalities of the navigation drawer
      */
     @Test(enabled = true, priority = 1)
-    public void testBasicFunctionalities() {
+    public void testBasicFunctionalities() throws WebDriverWrapperException {
         // Open the navigation drawer
         AutomationOperations.instance().navOp.openMainDrawerSafe();
 
@@ -60,7 +61,7 @@ public class NavigationDrawer extends AppiumMain {
      * Verify the navigation drawer options.
      */
     @Test(enabled = true, priority = 2)
-    public void testNavigationDrawerOptions() {
+    public void testNavigationDrawerOptions() throws WebDriverWrapperException {
 
         // Open the navigation drawer
         AutomationOperations.instance().navOp.openMainDrawerSafe();
@@ -79,7 +80,7 @@ public class NavigationDrawer extends AppiumMain {
      * Verify the navigation drawer page titles.
      */
     @Test(enabled = true, priority = 3)
-    public void testNaigationPageTitles() throws OperationsException {
+    public void testNaigationPageTitles() throws OperationsException, WebDriverWrapperException {
         // Verify screen titles
         for (ResourceLocator.DrawerNavigationItem item : ResourceLocator.DrawerNavigationItem.values()) {
             // Navigating to the option
@@ -107,7 +108,7 @@ public class NavigationDrawer extends AppiumMain {
     /**
      * verify does watchlist shows the display number.
      */
-    private boolean doesWatchlistHaveCount() throws OperationsException {
+    private boolean doesWatchlistHaveCount() throws OperationsException, WebDriverWrapperException {
         // Get the count in the watch list
         int watchCount = AutomationOperations.instance().userOp.getDrawerWatchlistCount();
         if (watchCount > 0) {

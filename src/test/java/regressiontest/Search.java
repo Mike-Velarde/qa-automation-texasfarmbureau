@@ -1,6 +1,7 @@
 package regressiontest;
 
-import operations.OperationsException;
+import com.bottlerocket.errorhandling.OperationsException;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -24,7 +25,7 @@ public class Search extends AppiumMain {
     }
 
     @Test
-    public void testSearchFunctionalities() throws OperationsException {
+    public void testSearchFunctionalities() throws OperationsException, WebDriverWrapperException {
 
         // Select the shows
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);

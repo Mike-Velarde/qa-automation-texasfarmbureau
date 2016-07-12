@@ -1,7 +1,7 @@
 package smokeTest.generic;
 
 import assertions.AssertionLogger;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import domod.UserBank;
 import main.AppiumMain;
 import operations.AutomationOperations;

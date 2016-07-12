@@ -1,5 +1,7 @@
 package config;
 
+import assertions.AssertionLibrary;
+import assertions.AssertionLibraryIos;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.config.AutomationConfigurationsIos;
 import com.bottlerocket.utils.InputUtils;
@@ -39,5 +41,10 @@ public class IosAutomationComponents implements DeviceAutomationComponents {
     @Override
     public ResourceLocator initResourceLocator() {
         return ResourceLocator.device = new ResourceLocatorIos();
+    }
+
+    @Override
+    public AssertionLibrary getAssertions() {
+        return new AssertionLibraryIos();
     }
 }

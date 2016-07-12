@@ -2,6 +2,7 @@ package smokeTest.generic;
 
 import assertions.AssertionLibrary;
 import assertions.AssertionLogger;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
@@ -38,7 +39,7 @@ public class Featured extends AppiumMain{
      * Test all items of the featured screen.
      */
     @Test (enabled =  false)
-    public void testFeatured(){
+    public void testFeatured() throws WebDriverWrapperException {
         testSearch();
 
         testShowDetails();
@@ -57,16 +58,16 @@ public class Featured extends AppiumMain{
     }
 
     @Test
-    protected void testWebsite() {
+    protected void testWebsite() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.website);
         boolean visible = AutomationOperations.instance().navOp.featured.isWebsiteVisible();
-        assertionLogger.setTestType("Verify that the website is visible.");
+        assertionLogger.setTestType("Verify that the website is visible");
         assertionLogger.assertTrue(visible);
         AutomationOperations.instance().navOp.mainToolbarBack();
     }
 
     @Test
-    protected void testPlay() {
+    protected void testPlay() throws WebDriverWrapperException {
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
         try {
@@ -85,7 +86,7 @@ public class Featured extends AppiumMain{
             ErrorHandler.printErr("error taking screenshot",e);
         }
         //check that video has played
-        AssertionLibrary.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
+        AutomationOperations.instance().assertions.assertVideoRuntimeChanged(assertionLogger, driverWrapper, 10000);
 
         //Get screenshot to compare against before so we know video is playing
         try {
@@ -103,16 +104,15 @@ public class Featured extends AppiumMain{
     }
 
     @Test
-    protected void testWatchlist() {
+    protected void testWatchlist() throws WebDriverWrapperException {
         int watchCount = AutomationOperations.instance().userOp.getDrawerWatchlistCount();
         AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.watchlist);
-        //  Assert.assertTrue(watchCount + 1 == AutomationOperations.instance().userOp.getDrawerWatchlistCount());
         assertionLogger.setTestType("Verify that the watchlist count is the expected count");
         assertionLogger.assertNotEquals(watchCount, AutomationOperations.instance().userOp.getDrawerWatchlistCount());
     }
 
     @Test
-    protected void testSearch() {
+    protected void testSearch() throws WebDriverWrapperException {
         int resultOnPage = AutomationOperations.instance().userOp.search("episode");
         assertionLogger.setTestType("Test that there are more than 0 results");
         assertionLogger.assertNotEquals(resultOnPage, 0);
@@ -120,7 +120,7 @@ public class Featured extends AppiumMain{
     }
 
     @Test
-    protected void testShowDetails() {
+    protected void testShowDetails() throws WebDriverWrapperException {
         String showTitle = AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.details);
         assertionLogger.addMessage("Verify that the show title is what we expect, Expected: " + showTitle + " Actual: " + AutomationOperations.instance().userOp.getShowDetailsShowTitle());
         //assertionLogger.assertTrue(showTitle.equalsIgnoreCase(AutomationOperations.instance().userOp.getShowDetailsShowTitle()));
