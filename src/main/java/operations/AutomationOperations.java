@@ -1,7 +1,7 @@
 package operations;
 
 
-import assertions.AssertionLibrary;
+import automationtests.assertions.AssertionLibrary;
 import com.bottlerocket.config.AutomationConfigurations;
 import config.DeviceAutomationComponents;
 import operations.navops.NavigationOperations;

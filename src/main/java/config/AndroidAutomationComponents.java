@@ -1,7 +1,7 @@
 package config;
 
-import assertions.AssertionLibrary;
-import assertions.AssertionLibraryAndroid;
+import automationtests.assertions.AssertionLibrary;
+import automationtests.assertions.AssertionLibraryAndroid;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.config.AutomationConfigurationsAndroid;
 import com.bottlerocket.utils.InputUtils;

@@ -1,7 +1,7 @@
 package config;
 
-import assertions.AssertionLibrary;
-import assertions.AssertionLibraryIos;
+import automationtests.assertions.AssertionLibrary;
+import automationtests.assertions.AssertionLibraryIos;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.config.AutomationConfigurationsIos;
 import com.bottlerocket.utils.InputUtils;
