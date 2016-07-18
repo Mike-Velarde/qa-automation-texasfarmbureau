@@ -12,7 +12,7 @@ repositories {
 
 /*sourceSets {
     integTest {
-        compileClasspath += test.java.smokeTest
+        compileClasspath += test.java.automationtests.smokeTest
         runtimeClasspath += main.output + test.output
     }
 }*/
