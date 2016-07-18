@@ -9,7 +9,7 @@ public abstract class AssertionLibrary {
     /**
      * Assert that the video runtime has changed
      *
-     * @param wait time to wait for video during play, this should be the difference in between the two observed times
+     * @param waitInMillis time to wait for video during play, this should be the difference in between the two observed times
      */
     public abstract void assertVideoRuntimeChanged(AssertionLogger assertionLogger, WebDriverWrapper driverWrapper, int wait);
 

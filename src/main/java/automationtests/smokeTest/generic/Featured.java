@@ -23,8 +23,13 @@ public abstract class Featured extends AppiumMain{
     public void setup() throws WebDriverWrapperException {
         UserBank user = new UserBank();
 
-        AutomationOperations.instance().userOp.signIn(user.defaultUser, false);
-        AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.featured);
+        try {
+            AutomationOperations.instance().userOp.signIn(user.defaultUser, false);
+            AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.featured);
+        }
+        catch (Exception ex){
+            driverWrapper.takeScreenshotSuppressError(AutomationConfigProperties.screenshotsDirectory, "featured_setup_login_failed" + System.currentTimeMillis());
+        }
     }
 
     protected void testWebsite() throws WebDriverWrapperException {

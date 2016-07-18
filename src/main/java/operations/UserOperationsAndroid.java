@@ -4,6 +4,7 @@ import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import config.ResourceLocator;
 import config.ResourceLocatorAndroid;

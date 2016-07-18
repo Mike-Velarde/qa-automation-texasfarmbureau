@@ -3,6 +3,7 @@ package operations;
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
 import config.ResourceLocator;
 import domod.UserBank;
 import io.appium.java_client.MobileElement;
