@@ -40,6 +40,9 @@ public class NavigationOperationsAndroid extends NavigationOperations {
     }
 
     @Override
+    public NavOpsSchedule createNavOpsSchedule(){ return new NavOpsScheduleAndroid();}
+
+    @Override
     public void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem) {
         if (mainToolbarVisible()) {
             openMainDrawerSafe();

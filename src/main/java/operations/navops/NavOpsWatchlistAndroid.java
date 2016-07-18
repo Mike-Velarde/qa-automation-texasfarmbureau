@@ -12,13 +12,6 @@ import java.util.List;
  * Created by ford.arnett on 11/17/15.
  */
 public class NavOpsWatchlistAndroid extends NavOpsWatchlist {
-    WebDriverWrapper driverWrapper;
-
-    @Override
-    public void init(WebDriverWrapper driverWrapper) {
-        this.driverWrapper = driverWrapper;
-    }
-
     @Override
     public void playQueueShow(int columnIndex, int rowIndex) {
         // TODO add more row and column functionality

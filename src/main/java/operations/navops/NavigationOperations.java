@@ -25,7 +25,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
     public NavOpsChooseFeeds chooseFeeds = new NavOpsChooseFeeds();
     public NavOpsFeatured featured = createNavOpsFeatured();
     public NavOpsShows shows = createNavOpsShows();
-    public NavOpsSchedule schedule = new NavOpsSchedule();
+    public NavOpsSchedule schedule = createNavOpsSchedule();
     public NavOpsSettings settings = createNavOpsSettings();
     public NavOpsWatchlist watchlist = createNavOpsWatchlist();
 
@@ -33,6 +33,7 @@ public abstract class NavigationOperations implements AutomationOperationsListen
     public abstract NavOpsFeatured createNavOpsFeatured();
     public abstract NavOpsShows createNavOpsShows();
     public abstract NavOpsWatchlist createNavOpsWatchlist();
+    public abstract NavOpsSchedule createNavOpsSchedule();
 
     @Override
     public void init(WebDriverWrapper driverWrapper) {

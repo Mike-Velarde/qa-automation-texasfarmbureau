@@ -6,6 +6,8 @@ import com.bottlerocket.webdriverwrapper.WebDriverWrapperIos;
 import config.ResourceLocator;
 import config.ResourceLocatorIos;
 import domod.UserBank;
+import io.appium.java_client.ios.IOSElement;
+import org.apache.commons.lang3.NotImplementedException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -79,6 +81,12 @@ public class UserOperationsIos extends UserOperations {
         return loggedIn;
     }
 
+    @Override
+    public void scrubVideo(double absolutePercent) {
+        IOSElement seekBar = (IOSElement)driverWrapper.getElementById("awe_slidervideotransportcontrols_tint");
+        seekBar.setValue(String.valueOf(absolutePercent));
+    }
+
     /**
      * Not needed for iOS
      *
@@ -101,9 +109,46 @@ public class UserOperationsIos extends UserOperations {
         return -1;
     }
 
+    @Override
+    public void closedCaptionsOn() {
+        throw new NotImplementedException("Not yet implemented on Android");
+    }
+
+    @Override
+    public void closedCaptionsOff() {
+        throw new NotImplementedException("Not yet implemented on Android");
+    }
+
+    @Override
+    public void shareShowFacebook() {
+        driverWrapper.getElementById(ResourceLocatorIos.AWE_SHOWS_SHARE_SHOW_BUTTON).click();
+        driverWrapper.getElementById(ResourceLocatorIos.IOS_SHARE_APPS_FACEBOOK).click();
+        driverWrapper.getElementById(ResourceLocatorIos.FACEBOOK_SHARE_SHOW_POST_BUTTON).click();
+    }
+
     public String getShowDetailsShowTitle() {
-        //Can't do this yet because we don't have labels for the titles yet
-        return "unimplemented";
+        throw new NotImplementedException("this is not yet implemented for iOS");
+    }
+
+    @Override
+    public void pauseVideo() {
+        AutomationOperations.instance().userOp.bringUpVideoUI();
+        driverWrapper.getElementById(ResourceLocatorIos.AWE_VIDEO_PLAYER_PAUSE).click();
+    }
+
+    @Override
+    public void playVideo() {
+        driverWrapper.getElementById(ResourceLocatorIos.AWE_VIDEO_PLAYER_PLAY).click();
+    }
+
+    @Override
+    public boolean isVideoPaused() {
+        return driverWrapper.elementExists(By.id(ResourceLocatorIos.AWE_VIDEO_PLAYER_PLAY));
+    }
+
+    @Override
+    public boolean isVideoPlaying() {
+        return driverWrapper.elementExists(By.id(ResourceLocatorIos.AWE_VIDEO_PLAYER_PAUSE));
     }
 
 }

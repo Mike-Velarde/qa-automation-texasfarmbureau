@@ -10,13 +10,6 @@ import org.openqa.selenium.WebElement;
  * Created by ford.arnett on 11/17/15.
  */
 public class NavOpsWatchlistIos extends NavOpsWatchlist {
-    WebDriverWrapper driverWrapper;
-
-    @Override
-    public void init(WebDriverWrapper driverWrapper) {
-        this.driverWrapper = driverWrapper;
-    }
-
     @Override
     public void playQueueShow(int showIndex, int episodeIndex) throws WebDriverWrapperException {
 

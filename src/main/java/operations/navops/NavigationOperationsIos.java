@@ -29,6 +29,10 @@ public class NavigationOperationsIos extends NavigationOperations {
     public NavOpsWatchlist createNavOpsWatchlist() {
         return new NavOpsWatchlistIos();
     }
+    @Override
+    public NavOpsSchedule createNavOpsSchedule() {
+        return new NavOpsScheduleIos();
+    }
 
     @Override
     public void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem) throws WebDriverWrapperException {

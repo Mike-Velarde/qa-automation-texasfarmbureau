@@ -23,6 +23,9 @@ public class ResourceLocatorIos extends ResourceLocator{
     public static final String AWE_SHOWS_SEASON_SELECT_OPTIONS = "awe_assetfilter_seasonselectorcell";
     public static final String AWE_SHOWS_SEASON_SELECT_HEADER = "Season";
     public static final String AWE_SHOWS_MEDIA_CONTAINER = "AWEMediaContainerDetailViewController";
+    public static final String AWE_SHOWS_SHARE_SHOW_BUTTON = "Share";
+    public static final String IOS_SHARE_APPS_FACEBOOK = "Facebook";
+    public static final String FACEBOOK_SHARE_SHOW_POST_BUTTON = "Post";
 
     /**
      * Show Details, a carousel with show details which pops up after tapping on a show
@@ -37,6 +40,9 @@ public class ResourceLocatorIos extends ResourceLocator{
     public static final String AWE_WATCHLIST_CONTINUE_MAIN_CONTAINER = "AWEWatchlistContinueWatchingViewController";
 
     public static final String AWE_SHOWS_EPISODE_OR_CLIPS_BUTTONS_XPATH = "//UIAApplication[1]/UIAWindow[1]/UIACollectionView[1]/UIAButton";
+
+    public static final String AWE_SCHEDULE_ALL_DAYS_CONTAINER = "AWEScheduleVerticalViewController";
+    public static final String AWE_SCHEDULE_DAYS_XPATH = "//UIAApplication[1]/UIAWindow[1]/UIAElement[2]/UIAElement[1]/UIAElement[1]/UIACollectionView[1]/UIACollectionCell[*]";
 
     /**
      * iOS Classes and Constants
@@ -55,8 +61,11 @@ public class ResourceLocatorIos extends ResourceLocator{
      */
     public static final String AWE_SETTINGS_LOGIN_BUTTON_ID = "Log In To Provider";
     public static final String AWE_SETTINGS_LOGOUT_BUTTON_ID = "Log Out From Provider";
+    public static final String AWE_SETTINGS_EMAIL_FORM_SEND = "Send";
 
     public static final String AWE_VIDEO_PLAYER_PAUSE = "Pause";
+    public static final String AWE_VIDEO_PLAYER_PLAY = "Play";
+    public static final String AWE_SETTINGS_EMAIL_DELETE_DRAFT = "Delete Draft";
 
 
     {
@@ -88,7 +97,7 @@ public class ResourceLocatorIos extends ResourceLocator{
 
         CallsToAction.details.callToAction = "AWECTAIconActionTypeShowDetailIdentifier";
         CallsToAction.watchlist.callToAction = "AWECTAIconActionTypeWatchListAddIdentifier";
-        CallsToAction.play.callToAction = "AWECTAIconActionTypePlayIdentifier";
+        CallsToAction.play.callToAction = "AWECTAIconActionTypeVideoDetailIdentifier";
         CallsToAction.website.callToAction = "AWECTAIconActionTypeWebIdentifier";
 
         AWE_VIDEO_DETAILS_PLAY_BUTTON = "awe_assetdetail_playbutton";
@@ -102,6 +111,8 @@ public class ResourceLocatorIos extends ResourceLocator{
         AWE_SHOW_DETAILS_CONTAINER = "AWEMediaContainersViewController";
         AWE_SHOW_DETAILS_ADD_TO_WATCHLIST = "AWEMediaContainerDetailWatchlistAddImageIdentifier";
         AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST = "AWEMediaContainerDetailWatchlistRemoveImageIdentifier";
+
+        AWE_SETTINGS_FEEDBACK_TITLE_ID = "Feedback";
 
         AWE_MAIN_TOOLBAR_MORE_OPTIONS = "nb grid close";
         AWE_MAIN_TOOLBAR_SHARE_OVERFLOW = "nb share";

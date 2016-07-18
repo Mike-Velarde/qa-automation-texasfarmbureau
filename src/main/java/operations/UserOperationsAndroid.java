@@ -9,7 +9,10 @@ import config.ResourceLocator;
 import config.ResourceLocatorAndroid;
 import domod.UserBank;
 import io.appium.java_client.MobileElement;
+import io.appium.java_client.SwipeElementDirection;
+import org.apache.commons.lang3.NotImplementedException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -127,6 +130,26 @@ public class UserOperationsAndroid extends UserOperations {
         return loggedIn;
     }
 
+    /**
+     * Scrub a percentage of the video from the left of the seek bar. This method has no concept of where the video is currently
+     *
+     * @param percentFromLeft
+     *            a percentage, number from 0 to 1, indicating where to scrub to. Currently seeking to the very end is not reliable. Instead this method will adjust any value higher than .9 to .9. This insures we are not seeking out of bounds.
+     */
+    @Override
+    public void scrubVideo(double percentFromLeft) {
+        // Not sure what the highest index to the right we can go is yet, 90% seems like a good amount
+        if (percentFromLeft > 0.9) {
+            percentFromLeft = 0.9;
+        }
+
+        MobileElement seekBar = (MobileElement) driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_PLAYER_SEEK_BAR);
+        Point seekCoordCenter = seekBar.getCenter();
+        // this is the amount of index we are going to move over from the left
+        int scrubFromLeft = (int) (seekCoordCenter.getX() * 2 * percentFromLeft);
+        seekBar.swipe(SwipeElementDirection.LEFT, 1, scrubFromLeft, 1);
+    }
+
     public void chooseFeedIfNeeded(String aweBrandName, String feedName, String pickFeedServerURLID) throws WebDriverWrapperException {
         //Check if we are on feature screen
         if(AutomationOperations.instance().navOp.featured.isOnPage())
@@ -153,7 +176,43 @@ public class UserOperationsAndroid extends UserOperations {
         return driverWrapper.elements(By.id(ResourceLocator.device.AWE_SEARCH_RESULTS)).size();
     }
 
+    @Override
+    public void closedCaptionsOff() {
+        AutomationOperations.instance().userOp.bringUpVideoUI();
+        driverWrapper.getElementById("Closed Captioning On").click();
+    }
+
+    @Override
+    public void shareShowFacebook() {
+        throw new NotImplementedException("This has not been implemented on Android yet.");
+    }
+
+    @Override
+    public void closedCaptionsOn() {
+        AutomationOperations.instance().userOp.bringUpVideoUI();
+        driverWrapper.getElementById("Closed Captioning Off").click();
+    }
+
     public String getShowDetailsShowTitle() {
         return driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_SHOW_TITLE).getText();
+    }
+
+    @Override
+    public void pauseVideo() {
+        throw new NotImplementedException("This needs to be implemented for Android");
+    }
+
+    @Override
+    public void playVideo() {
+        throw new NotImplementedException("This needs to be implemented for Android");
+    }
+
+    public boolean isVideoPaused() {
+        return driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_PLAYER_PLAY_PAUSE).getText().equals("OFF");
+    }
+
+    @Override
+    public boolean isVideoPlaying() {
+        throw new NotImplementedException("This needs to be implemented for Android");
     }
 }

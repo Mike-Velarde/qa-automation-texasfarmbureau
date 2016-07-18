@@ -4,6 +4,7 @@ import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import config.ResourceLocator;
 import config.ResourceLocatorAndroid;
+import config.ResourceLocatorIos;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.SwipeElementDirection;
 import operations.AutomationOperationsListener;
@@ -158,5 +159,9 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
                 break;
             }
         }
+    }
+
+    public boolean verifyFeedbackScreen() {
+        return driverWrapper.elementExists(By.id(ResourceLocatorIos.AWE_SETTINGS_EMAIL_FORM_SEND));
     }
 }

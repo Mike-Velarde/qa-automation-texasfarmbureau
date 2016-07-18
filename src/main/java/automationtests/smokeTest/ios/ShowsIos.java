@@ -1,7 +1,7 @@
 package automationtests.smokeTest.ios;
 
-import assertions.AssertionLibrary;
-import assertions.AssertionLogger;
+import appium.AppiumMain;
+import automationtests.assertions.AssertionLogger;
 import com.bottlerocket.errorhandling.OperationsException;
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.config.AutomationConfigProperties;
@@ -10,12 +10,11 @@ import operations.AutomationOperations;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import automationtests.smokeTest.generic.Shows;
 
 /**
  * Created by ford.arnett on 2/17/16.
  */
-public class ShowsIos extends Shows {
+public class ShowsIos extends AppiumMain {
 
     AssertionLogger assertionLogger = new AssertionLogger();
 

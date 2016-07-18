@@ -29,28 +29,7 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
         this.driverWrapper = driverWrapper;
     }
 
-    /**
-     * 
-     * @param row
-     * @param column
-     * @throws OperationsException if the row or column provided is outside what is actually on the screen
-     */
-    public void selectShow(int row, int column) throws OperationsException {
-        WebElement webElement = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID);
-        List<WebElement> showsRows = webElement.findElements(By.className(ResourceLocatorAndroid.LINEAR_LAYOUT));
-        if(row >= showsRows.size()){
-            throw new OperationsException("You have selected a row that doesn't exist on screen " + row + ">=" + showsRows.size());
-        }
-        List<WebElement> showsColumns = showsRows.get(row).findElements(By.id(ResourceLocator.device.AWE_SHOWS_VIDEO_THUMBNAILS));
-        if(column >= showsColumns.size()){
-            throw new OperationsException("You have selected a column that doesn't exist on screen " + column + ">=" + showsRows.size());
-        }
-        WebElement show = showsColumns.get(column);
-
-        show.click();
-    }
-
-    public abstract void selectShow(int i);
+    public abstract void selectShow(int row, int column) throws OperationsException;
 
     public abstract boolean showDetailsEpisodesOrClipsSelected();
 

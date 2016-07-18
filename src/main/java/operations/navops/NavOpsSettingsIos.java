@@ -6,6 +6,6 @@ package operations.navops;
 public class NavOpsSettingsIos extends NavOpsSettings{
     @Override
     public void backFromSettingsOption() {
-        //on iOS do nothing
+        throw new UnsupportedOperationException("This does not make sense for iOS");
     }
 }

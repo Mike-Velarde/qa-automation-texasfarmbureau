@@ -113,7 +113,7 @@ public abstract class UserOperations implements AutomationOperationsListener {
      *
      * The only way I have currently found out how to pause the video is to use one thread to long tap, while using another thread to check for the element. Then, I am waiting for the two threads to be done before moving forward
      */
-    private void pauseVideo() {
+    private void pauseVideoOld() {
         // bringUpVideoUI();
         // Wait a short amount of time for the black screen which shows up after hitting play to go away
         waitForVideoLoading(30);
@@ -169,12 +169,16 @@ public abstract class UserOperations implements AutomationOperationsListener {
         driverWrapper.restoreImplicitWait();
     }
 
+    public abstract void pauseVideo();
+
+    public abstract void playVideo();
+
+    public abstract boolean isVideoPaused();
+
+    public abstract boolean isVideoPlaying();
+
     public void playPauseVideo() {
         driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_PLAYER_PLAY_PAUSE).click();
-    }
-
-    public boolean isVideoPaused() {
-        return driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_PLAYER_PLAY_PAUSE).getText().equals("OFF");
     }
 
     /**
@@ -195,26 +199,16 @@ public abstract class UserOperations implements AutomationOperationsListener {
         driverWrapper.getElementByName(ResourceLocator.device.AWE_VIDEO_PLAYER_CLOSED_CAPTION_DESC).click();
     }
 
-    /**
-     * Scrub a percentage of the video from the left of the seek bar. This method has no concept of where the video is currently
-     *
-     * @param percentFromLeft
-     *            a percentage, number from 0 to 1, indicating where to scrub to. Currently seeking to the very end is not reliable. Instead this method will adjust any value higher than .9 to .9. This insures we are not seeking out of bounds.
-     */
-    public void scrubVideo(double percentFromLeft) {
-        // Not sure what the highest index to the right we can go is yet, 90% seems like a good amount
-        if (percentFromLeft > 0.9) {
-            percentFromLeft = 0.9;
-        }
 
-        MobileElement seekBar = (MobileElement) driverWrapper.getElementById(ResourceLocator.device.AWE_VIDEO_PLAYER_SEEK_BAR);
-        Point seekCoordCenter = seekBar.getCenter();
-        // this is the amount of index we are going to move over from the left
-        int scrubFromLeft = (int) (seekCoordCenter.getX() * 2 * percentFromLeft);
-        seekBar.swipe(SwipeElementDirection.LEFT, 1, scrubFromLeft, 1);
-    }
+    public abstract void scrubVideo(double percent);
 
     public abstract int search(String searchTerm) throws WebDriverWrapperException;
+
+    public abstract void closedCaptionsOn();
+
+    public abstract void closedCaptionsOff();
+
+    public abstract void shareShowFacebook();
 
 
     public class LongTapAsynch implements Runnable {

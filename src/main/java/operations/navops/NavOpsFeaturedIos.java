@@ -21,6 +21,6 @@ public class NavOpsFeaturedIos extends NavOpsFeatured{
         //Get the title of the show for the CTA
         //String showTitle = driverWrapper.getElementById(ResourceLocator.device.AWE_FEATURED_CAROUSEL_SHOW_TITLE).getText();
 
-        return "unimplemented";
+        return "retrieving title is currently not possible on iOS";
     }
 }

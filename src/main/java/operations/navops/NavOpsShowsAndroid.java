@@ -1,6 +1,8 @@
 package operations.navops;
 
+import com.bottlerocket.errorhandling.OperationsException;
 import config.ResourceLocator;
+import config.ResourceLocatorAndroid;
 import operations.AutomationOperations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,9 +13,27 @@ import java.util.List;
  * Created by ford.arnett on 2/17/16.
  */
 public class NavOpsShowsAndroid extends NavOpsShows {
+
+    /**
+     *
+     * @param row
+     * @param column
+     * @throws OperationsException if the row or column provided is outside what is actually on the screen
+     */
     @Override
-    public void selectShow(int i) {
-        //Not implemented
+    public void selectShow(int row, int column) throws OperationsException {
+        WebElement webElement = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID);
+        List<WebElement> showsRows = webElement.findElements(By.className(ResourceLocatorAndroid.LINEAR_LAYOUT));
+        if(row >= showsRows.size()){
+            throw new OperationsException("You have selected a row that doesn't exist on screen " + row + ">=" + showsRows.size());
+        }
+        List<WebElement> showsColumns = showsRows.get(row).findElements(By.id(ResourceLocator.device.AWE_SHOWS_VIDEO_THUMBNAILS));
+        if(column >= showsColumns.size()){
+            throw new OperationsException("You have selected a column that doesn't exist on screen " + column + ">=" + showsRows.size());
+        }
+        WebElement show = showsColumns.get(column);
+
+        show.click();
     }
 
     @Override

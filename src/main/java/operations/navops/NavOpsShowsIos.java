@@ -15,8 +15,15 @@ import java.util.List;
  */
 public class NavOpsShowsIos extends NavOpsShows {
 
+    /**
+     * This is a little weird with the unused parameter on iOS, if there is a better way to do this it should be refactored
+     *
+     * @param showNumber
+     * @param unusedOnIos
+     * @throws OperationsException
+     */
     @Override
-    public void selectShow(int showNumber) {
+    public void selectShow(int showNumber, int unusedOnIos) throws OperationsException {
         WebElement element = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_CONTAINER);
         element.findElements(By.className(ResourceLocatorIos.UIA_COLLECTION_CELL)).get(showNumber).click();
     }
@@ -65,7 +72,7 @@ public class NavOpsShowsIos extends NavOpsShows {
         clipOrEpisodes.get(index).click();
 
         List<WebElement> showDeatilContainers = driverWrapper.elements(By.id(ResourceLocatorIos.AWE_SHOW_DETAIL_ASSET_DETAIL_CONTAINER));
-        MobileElement videoThumbnailContainer = (MobileElement) showDeatilContainers.get(index - 1).findElement(By.id(ResourceLocatorIos.AWE_SHOW_DETAIL_ASSET_DETAIL_PLAY_BUTTON));
+        MobileElement videoThumbnailContainer = (MobileElement) showDeatilContainers.get(index).findElement(By.id(ResourceLocatorIos.AWE_SHOW_DETAIL_ASSET_DETAIL_PLAY_BUTTON));
         //Tapping here seems more reliable than click
         videoThumbnailContainer.tap(1, 1000);
     }
