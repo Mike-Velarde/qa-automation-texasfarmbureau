@@ -9,7 +9,7 @@ public class ResourceLocatorIos extends ResourceLocator{
      */
     public static final String AWE_MAIN_DRAWER_CLOSE_STATE = "nb grid close";
     public static final String AWE_MAIN_DRAWER_OPEN_STATE = "nb grid open";
-    public static final String AWE_MAIN_OVERLAY_CLOSE = "awe_gridmenu_itemtint";
+    public static final String AWE_MAIN_OVERLAY_CLOSE = "nb close x";
     public static final String AWE_MAIN_TITLE_XPATH = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]";
 
     //Currently all the buttons share this same name,but the buttons contain an image with a name. This can be used to distinguish them further

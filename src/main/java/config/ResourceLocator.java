@@ -149,6 +149,8 @@ public class ResourceLocator {
     public String AWE_AUTH_PROVIDER_CONTAINER = "awe_auth_pickcontentcontainer";
     public String AWE_SETTINGS_LIST_OPTIONS = "awe_settings_listoptions";
 
+    public String AWE_SETTINGS_DEV_OPS_PROD_ENV_TEXT = "awe_devoptions_toggletext";
+
     public String GMAIL_COMPOSE_TITLE = "action_bar_title";
     public String GMAIL_COMPOSE_TEXT = "Compose";
 
