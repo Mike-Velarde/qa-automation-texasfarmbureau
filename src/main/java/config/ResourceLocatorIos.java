@@ -7,13 +7,15 @@ public class ResourceLocatorIos extends ResourceLocator{
     /**
      * Main
      */
-    public static final String AWE_MAIN_DRAWER_CLOSE_STATE = "nb grid close";
-    public static final String AWE_MAIN_DRAWER_OPEN_STATE = "nb grid open";
+    public static final String AWE_MAIN_DRAWER_CLOSE_STATE = "Grid Menu Button - Closed";
+    public static final String AWE_MAIN_DRAWER_OPEN_STATE = "Grid Menu Button - Open";
     public static final String AWE_MAIN_OVERLAY_CLOSE = "nb close x";
     public static final String AWE_MAIN_TITLE_XPATH = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]";
 
     //Currently all the buttons share this same name,but the buttons contain an image with a name. This can be used to distinguish them further
-    public static final String MAIN_TOOlBAR_GENERIC_NAME = "awe_gridmenu_itemtint";
+    public static final String MAIN_TOOLBAR_GENERIC_NAME = "awe_gridmenu_itemtint";
+
+
 
     /**
      * Shows
@@ -92,8 +94,10 @@ public class ResourceLocatorIos extends ResourceLocator{
         DrawerNavigationItem.movies.navigationItemDesc = "NOT ON IOS";
         DrawerNavigationItem.watchlist.navigationItemDesc = "Watchlist Menu Item";
         DrawerNavigationItem.schedule.navigationItemDesc = "Schedule Menu Item";
+        DrawerNavigationItem.search.navigationItemDesc = "Search Menu Item";
         DrawerNavigationItem.settings.navigationItemDesc = "Settings Menu Item";
         DrawerNavigationItem.feeds.navigationItemDesc = "NOT ON IOS";
+        DrawerNavigationItem.live.navigationItemDesc = "Live Menu Item";
 
         CallsToAction.details.callToAction = "AWECTAIconActionTypeShowDetailIdentifier";
         CallsToAction.watchlist.callToAction = "AWECTAIconActionTypeWatchListAddIdentifier";

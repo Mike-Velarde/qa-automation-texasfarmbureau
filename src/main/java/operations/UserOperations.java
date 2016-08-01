@@ -3,13 +3,9 @@ package operations;
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
 import config.ResourceLocator;
 import domod.UserBank;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.SwipeElementDirection;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
@@ -210,6 +206,8 @@ public abstract class UserOperations implements AutomationOperationsListener {
     public abstract void closedCaptionsOff();
 
     public abstract void shareShowFacebook();
+
+    public abstract void contentDrivenSignIn(UserBank.User user);
 
 
     public class LongTapAsynch implements Runnable {

@@ -37,7 +37,9 @@ public class NavigationOperationsIos extends NavigationOperations {
     @Override
     public void navigateUsingDrawer(ResourceLocator.DrawerNavigationItem navigationItem) throws WebDriverWrapperException {
         //There is no navigating to the featured screen in iOS, no movies or feeds on ios
-        String featured = ResourceLocator.DrawerNavigationItem.featured.toString(); String movies = ResourceLocator.DrawerNavigationItem.movies.toString(); String feeds = ResourceLocator.DrawerNavigationItem.feeds.toString();
+        String featured = ResourceLocator.DrawerNavigationItem.featured.toString();
+        String movies = ResourceLocator.DrawerNavigationItem.movies.toString();
+        String feeds = ResourceLocator.DrawerNavigationItem.feeds.toString();
         if (navigationItem.toString().equals(featured) || navigationItem.toString().equals(movies) || navigationItem.toString().equals(feeds)) {
             return;
         }
@@ -64,8 +66,8 @@ public class NavigationOperationsIos extends NavigationOperations {
     protected boolean mainToolbarClosed(){
         //The name doesn't change anymore with the button, so it seems like we can no longer really tell if it is open or closed.
         //Checking to see if the drawer items are displayed should effectively be the same thing
-        return !driverWrapper.elements(By.name(ResourceLocatorIos.MAIN_TOOlBAR_GENERIC_NAME)).get(0).isDisplayed();
-        //return driverWrapper.elementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE));
+        //return !driverWrapper.elements(By.name(ResourceLocatorIos.MAIN_TOOLBAR_GENERIC_NAME)).get(0).isDisplayed();
+        return driverWrapper.elementExists(By.name(ResourceLocatorIos.AWE_MAIN_DRAWER_CLOSE_STATE));
     }
 
     private boolean mainToolbarOpen(){

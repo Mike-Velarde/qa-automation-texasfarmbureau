@@ -42,6 +42,11 @@ public class ScheduleAndroid extends AppiumMain {
 
     }
 
+    @Test
+    public void testSelectScheduleDate() throws WebDriverWrapperException {
+        AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.schedule);
+    }
+
     @AfterClass
     public void tearDown(){
         assertionLogger.logMessages();

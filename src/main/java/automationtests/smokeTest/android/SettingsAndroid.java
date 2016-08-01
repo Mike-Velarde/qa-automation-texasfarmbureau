@@ -80,6 +80,22 @@ public class SettingsAndroid extends AppiumMain {
         driverWrapper.back();
     }
 
+    @Test
+    public void testDevOpsContent(){
+        AutomationOperations.instance().navOp.settings.launchDevOpts();
+        boolean content = AutomationOperations.instance().navOp.settings.hasDevOpsProdEnvironment();
+        assertionLogger.setTestType("Verifying content inside Dev Ops screen in settings");
+        assertionLogger.assertTrue(content);
+        driverWrapper.back();
+    }
+
+    @Test
+    public void testBottleRocketWebview() throws WebDriverWrapperException {
+        AutomationOperations.instance().navOp.settings.navigateToSettingsOption(ResourceLocator.device.AWE_SETTINGS_ABOUT_BOTTLE_ROCKET_TITLE_ID);
+        assertionLogger.setTestType("Verifying About Bottle Rocket Web View loads: ");
+        assertionLogger.assertTrue(AutomationOperations.instance().navOp.settings.hasWebView());
+    }
+
     @AfterClass
     public void tearDown(){
         assertionLogger.logMessages();

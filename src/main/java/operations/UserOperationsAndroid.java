@@ -1,11 +1,9 @@
 package operations;
 
+import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.InputUtils;
-import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapperException;
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import config.ResourceLocator;
 import config.ResourceLocatorAndroid;
 import domod.UserBank;
@@ -185,6 +183,11 @@ public class UserOperationsAndroid extends UserOperations {
 
     @Override
     public void shareShowFacebook() {
+        throw new NotImplementedException("This has not been implemented on Android yet.");
+    }
+
+    @Override
+    public void contentDrivenSignIn(UserBank.User user) {
         throw new NotImplementedException("This has not been implemented on Android yet.");
     }
 

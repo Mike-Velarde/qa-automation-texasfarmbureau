@@ -121,8 +121,9 @@ public class ResourceLocator {
     public String AWE_SEARCH_RESULTS_CONTAINER = "awe_search_list";
 
     public String AWE_DRAWER_WATCHLIST_COUNT = "awe_navigation_itemcount";
-    
 
+    public String AWE_MVPD_MENU_LOGO = "MVPD Menu Item";
+    public String AWE_FEATURED_BRAND_LOGO = "brand_logo";
     /**
      * Share
      */
@@ -138,6 +139,13 @@ public class ResourceLocator {
     public String AWE_FEATURED_CTA_CONTAINER = "awe_featured_cellactacontainer";
     public String AWE_FEATURED_CAROUSEL_SHOW_TITLE = "awe_featured_cellatitle";
     public String AWE_SHOW_DETAILS_SHOW_TITLE = "awe_showdetail_featuredtitle";
+    public String AWE_PROGRESS_SPINNER = "In progress";
+
+    /**
+     * Chromecast
+     */
+    public String AWE_CAST_HEADER = "awe_cast_headertitlelabel";
+    public String AWE_CAST_DEVICE_TABLE = "AWECastDeviceTableViewController";
 
     /**
      * Awe settings
@@ -163,6 +171,7 @@ public class ResourceLocator {
     public String PROVIDER_SIGN_IN_BUTTON = "signin_button";
     //The id seems to have been removed from this button and getting all the image views has proven to be unreliable
     public String OPTIMUM_SIGN_IN_XPATH = "//android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.webkit.WebView[1]/android.view.View[1]/android.widget.Image[3]";
+    public String AWE_MVPD_INFO_LABEL = "awe_authentication_primarymvpdinfolabel";
 
     /**
      * Video
@@ -277,6 +286,8 @@ public class ResourceLocator {
     public String AWE_VIDEO_DETAILS_PLAY_BUTTON = "awe_videodetail_thumbnailimage";
     public String AWE_VIDEO_DETAILS_TITLE = "awe_videodetail_title";
 
+
+
     /**
      * Cable providers
      */
@@ -305,7 +316,9 @@ public class ResourceLocator {
         movies("Movies"),
         watchlist("Watchlist"),
         schedule("Schedule"),
+        search("Search"),
         settings("Settings"),
+        live("Live"),
         feeds("Feeds");
 
         String navigationItemDesc;
