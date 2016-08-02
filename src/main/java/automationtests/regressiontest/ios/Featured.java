@@ -49,23 +49,8 @@ public class Featured extends AppiumMain {
     }
 
     /**
-     * Opens the nav drawer and verifies all icons are present
-     *
-     * @throws WebDriverWrapperException
+     * Verifies Chromecast icon is present and functions correctly 
      */
-    @Test
-    public void testNavBarIcons() throws WebDriverWrapperException {
-        AutomationOperations.instance().navOp.openMainDrawerSafe();
-
-        String[] navMenuIcons = {"Settings Menu Item", "Schedule Menu Item", "Search Menu Item", "Watchlist Menu Item",
-                "Shows Menu Item", "Live Menu Item"};
-
-        for (String item : navMenuIcons) {
-            assertionLogger.setTestType("Verify " + item);
-            assertionLogger.assertTrue(driverWrapper.elementExists(By.name(item)));
-        }
-    }
-
     @Test
     public void testChromecastIcon() {
         assertionLogger.setTestType("Check Chromecast icon");
@@ -89,18 +74,24 @@ public class Featured extends AppiumMain {
 
         // Test all screens inside nav menu except live
         for (ResourceLocator.DrawerNavigationItem item : ResourceLocator.DrawerNavigationItem.values()) {
-            if (!item.toString().equals("NOT ON IOS")) {
-                if (!item.toString().equals("Live Menu Item")) {
-                    AutomationOperations.instance().navOp.navigateUsingDrawer(item);
-                    navItem = driverWrapper.getElementById(String.valueOf(item));
-                    assertionLogger.addMessage("Verifying " + item);
-                    assertionLogger.setTestType("Testing value");
-                    assertionLogger.assertEquals(driverWrapper.getElementValue(navItem), "1");
-                }
+            if ((!item.toString().equals("NOT ON IOS")) && (!item.toString().equals("Live Menu Item"))) {
+                AutomationOperations.instance().navOp.navigateUsingDrawer(item);
+
+                // Check that icons are present
+                assertionLogger.setTestType("Verify " + item + " is present");
+                assertionLogger.assertTrue(driverWrapper.elementExists(By.name(item.toString())));
+
+                // Verify functionality of nav items
+                navItem = driverWrapper.getElementByName(item.toString());
+                assertionLogger.addMessage("Verifying " + item);
+                assertionLogger.setTestType("Testing value");
+                assertionLogger.assertEquals(driverWrapper.getElementValue(navItem), "1");
             }
         }
 
         // Test live
+        assertionLogger.setTestType("Verify " + live + " icon is present");
+        assertionLogger.assertTrue(driverWrapper.elementExists(By.name(live.toString())));
         AutomationOperations.instance().navOp.navigateUsingDrawer(live);
         assertionLogger.setTestType("Testing Live player nav button");
         if(driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MVPD_INFO_LABEL))){
@@ -118,7 +109,7 @@ public class Featured extends AppiumMain {
     @Test
     public void testPlayCTA() throws WebDriverWrapperException {
 
-        AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocatorIos.CallsToAction.play);
+        AutomationOperations.instance().navOp.featured.selectCallToAction(ResourceLocator.CallsToAction.play);
         AutomationOperations.instance().userOp.playVideo();
         assertionLogger.setTestType("Testing play CTA to open video player");
         if(driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MVPD_INFO_LABEL))){
