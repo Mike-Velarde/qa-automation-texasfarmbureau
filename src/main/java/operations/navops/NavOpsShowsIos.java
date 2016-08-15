@@ -76,4 +76,12 @@ public class NavOpsShowsIos extends NavOpsShows {
         //Tapping here seems more reliable than click
         videoThumbnailContainer.tap(1, 1000);
     }
+
+    @Override
+    public void selectEpisode(int episodeIndex) {
+        List<WebElement> clipOrEpisodes = driverWrapper.getElementById(ResourceLocatorIos.AWE_SHOWS_MEDIA_CONTAINER).findElements(By.className(ResourceLocatorIos.UIA_COLLECTION_CELL));
+        //first UIACollectionCell is not a show but the shows toolbar, so remove it to leave only shows
+        clipOrEpisodes.remove(0);
+        clipOrEpisodes.get(episodeIndex).click();
+    }
 }

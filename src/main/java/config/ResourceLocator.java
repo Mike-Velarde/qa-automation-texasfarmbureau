@@ -193,6 +193,8 @@ public class ResourceLocator {
     public String AWE_SHOWS_EPISODES_CLIPS_MAIN_CONTAINER = "awe_showdetail_viewpager";
     public String AWE_SHOWS_VIDEO_THUMBNAILS = "awe_shows_itemimage";
 
+    public static final String AWE_MOVIES_SEGMENTED_CONTROL = "MOVIES";
+
     /**
      * Show details
      */
@@ -217,6 +219,9 @@ public class ResourceLocator {
     public String AWE_SHOW_DETAILS_CONTAINER = "awe_showdetail_topcontainer";
     public String AWE_SHOW_DETAILS_FEATURED_INFO = "awe_showdetail_featuredinfo";
     public String AWE_SHOW_DETAILS_FOREGROUND_CONTAINER = "awe_foregroundoverlay_container";
+    public String AWE_SHOW_DETAILS_BACK_BUTTON = "awe_global_backbuttontint";
+    public String AWE_SHOW_DETAILS_TITLE = "awe_mediacontainerdetail_titlelabel";
+    public String AWE_SHOW_DETAILS_SUBTITLE = "awe_mediacontainerdetail_subtitlelabel";
 
     /**
      * Schedule
@@ -332,9 +337,9 @@ public class ResourceLocator {
     }
 
     public enum CallsToAction {
+        play("PLAY"),
         details("DETAILS"),
         watchlist("WATCHLIST"),
-        play("PLAY"),
         website("WEBSITE");
 
         String callToAction;

@@ -3,7 +3,9 @@ package automationtests.smokeTest.ios;
 import automationtests.assertions.AssertionLogger;
 import automationtests.smokeTest.generic.Featured;
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
+import com.gargoylesoftware.htmlunit.javascript.host.ScreenOrientation;
 import config.ResourceLocator;
+
 import operations.AutomationOperations;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -47,7 +49,6 @@ public class FeaturedIos extends Featured {
     protected void testWebsite() throws WebDriverWrapperException {
         super.testWebsite();
     }
-
 
     @AfterClass
     public void tearDown(){

@@ -80,5 +80,13 @@ public class NavOpsShowsAndroid extends NavOpsShows {
         AutomationOperations.instance().userOp.videoDetailsPlayVideo();
     }
 
+    @Override
+    public void selectEpisode(int episodeIndex) {
+        //TODO flesh out the Android side of this method
+
+        List<WebElement> clipOrEpisodes = driverWrapper.getElementById(ResourceLocator.device.AWE_SHOW_DETAILS_CONTAINER).findElements(By.className(ResourceLocator.device.AWE_SHOWS_CONTAINER_GRID));
+        clipOrEpisodes.get(episodeIndex).click();
+    }
+
 
 }

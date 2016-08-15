@@ -24,6 +24,7 @@ public class ResourceLocatorIos extends ResourceLocator{
     public static final String AWE_SHOWS_SEASONS_TABLE_VIEW = "Empty list";
     public static final String AWE_SHOWS_SEASON_SELECT_OPTIONS = "awe_assetfilter_seasonselectorcell";
     public static final String AWE_SHOWS_SEASON_SELECT_HEADER = "Season";
+    public static final String AWE_SHOWS_LISTING_CONTAINER = "AWEMediaViewController";
     public static final String AWE_SHOWS_MEDIA_CONTAINER = "AWEMediaContainerDetailViewController";
     public static final String AWE_SHOWS_SHARE_SHOW_BUTTON = "Share";
     public static final String IOS_SHARE_APPS_FACEBOOK = "Facebook";
@@ -34,7 +35,13 @@ public class ResourceLocatorIos extends ResourceLocator{
      */
     public static final String AWE_SHOW_DETAILS_NAV_BACK_FEATURED = "awe_global_backbuttontint";
     public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_CONTAINER = "awe_assetdetail_showtitlelabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_TITLE = "awe_assetdetail_titlelabel";
     public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_PLAY_BUTTON = "awe_assetdetail_playbutton";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_SEASON_INFO = "awe_assetdetail_seasoninfolabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_AIRING_INFO = "awe_assetdetail_airinginfolabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_DESCRIPTION = "awe_assetdetail_descriptionlabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_EXPIRATION = "awe_assetdetail_availableuntillabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_THUMBNAIL = "Video thumbnail";
 
     public static final String AWE_WATCHLIST_QUEUE_MAIN_CONTAINER_IPAD = "AWEWatchlistQueueViewController_iPad";
     public static final String AWE_WATCHLIST_MAIN_CONTAINER_TO_SHOW_CELLS_XPATH = "//UIACollectionView[1]/UIACollectionCell";
