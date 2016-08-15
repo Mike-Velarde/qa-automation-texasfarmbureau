@@ -146,6 +146,7 @@ public class ResourceLocator {
      */
     public String AWE_CAST_HEADER = "awe_cast_headertitlelabel";
     public String AWE_CAST_DEVICE_TABLE = "AWECastDeviceTableViewController";
+    public String AWE_CAST_MENU_ITEM = "Cast Menu Item";
 
     /**
      * Awe settings

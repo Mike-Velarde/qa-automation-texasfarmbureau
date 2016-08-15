@@ -58,9 +58,9 @@ public class Featured extends AppiumMain {
     @Test
     public void testChromecastIcon() {
         assertionLogger.setTestType("Check Chromecast icon");
-        assertionLogger.assertTrue(driverWrapper.elementExists(By.name("Cast Menu Item")));
+        assertionLogger.assertTrue(driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_CAST_MENU_ITEM)));
 
-        driverWrapper.getElementByName("Cast Menu Item").click();
+        driverWrapper.getElementById(ResourceLocator.device.AWE_CAST_MENU_ITEM).click();
         assertionLogger.setTestType("Testing Chromecast button");
         assertionLogger.assertTrue(driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_CAST_HEADER)));
     }
