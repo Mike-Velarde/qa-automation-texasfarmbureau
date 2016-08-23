@@ -41,6 +41,7 @@ public class NavigationOperationsIos extends NavigationOperations {
         if (navigationItem.toString().equals(featured) || navigationItem.toString().equals(movies) || navigationItem.toString().equals(feeds)) {
             return;
         }
+        //TODO why am I commented out?
         //if (mainToolbarVisible()) {
 
             if (mainToolbarClosed()) {

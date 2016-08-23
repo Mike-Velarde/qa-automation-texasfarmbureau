@@ -1,8 +1,5 @@
 package operations.navops;
 
-/**
- * Created by ford.arnett on 10/2/15.
- */
 
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
