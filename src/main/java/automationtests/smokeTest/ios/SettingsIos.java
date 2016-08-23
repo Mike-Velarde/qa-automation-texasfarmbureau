@@ -14,6 +14,8 @@ import config.ResourceLocatorIos;
 import automationtests.dataproviders.Endpoints;
 import appium.AppiumMain;
 import operations.AutomationOperations;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -30,6 +32,7 @@ public class SettingsIos extends AppiumMain {
     public void setup() throws WebDriverWrapperException {
         //Wait for tool bar to show up, need to fix the is toolbar visible method
         driverWrapper.waitLogErr(7000);
+        AutomationOperations.instance().navOp.openMainDrawerSafe();
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.settings);
     }
 
@@ -70,9 +73,32 @@ public class SettingsIos extends AppiumMain {
         assertionLogger.setTestType("Verify that the email feedback form is displayed");
         //Verify email form is displayed
         assertionLogger.assertTrue(AutomationOperations.instance().navOp.settings.verifyFeedbackScreen());
+
+        // Verify form contains brand name
+        assertionLogger.setTestType("Verify Header contains brand name");
+        assertionLogger.assertTrue(driverWrapper.elementExists(By.id(ResourceLocatorIos.AWE_SETTINGS_EMAIL_HEADER)));
+
+        // Verify subject field contains brand name
+        assertionLogger.setTestType("Verify email subject contains brand name");
+        WebElement emailSubject = driverWrapper.getElementById(ResourceLocatorIos.AWE_SETTINGS_EMAIL_SUBJECT.toString());
+        assertionLogger.assertEquals(driverWrapper.getElementValue(emailSubject), "USA Now App Feedback");
+
         ((WebDriverWrapperIos)driverWrapper).cancel();
 
         driverWrapper.getElementById(ResourceLocatorIos.AWE_SETTINGS_EMAIL_DELETE_DRAFT).click();
+    }
+
+    /**
+     * Checks the version number at the bottom of settings screen.
+     * This may need to be changed depending on what the label should read for different build types.
+     *
+     * @throws WebDriverWrapperException
+     */
+    @Test
+    public void testVersionNumber() throws WebDriverWrapperException {
+        assertionLogger.setTestType("Testing version number is correct: ");
+        WebElement version = driverWrapper.getElementByName(ResourceLocator.device.AWE_SETTINGS_VERSION_LABEL);
+        assertionLogger.assertEquals(driverWrapper.getElementValue(version), "Version 2016.1.+2016.1");
     }
 
     @AfterClass

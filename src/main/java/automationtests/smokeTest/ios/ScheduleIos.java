@@ -17,14 +17,16 @@ public class ScheduleIos extends AppiumMain {
     AssertionLogger assertionLogger = new AssertionLogger();
 
     @BeforeClass
-    public void setup() {
-
+    public void setup() throws WebDriverWrapperException {
+        AutomationOperations.instance().navOp.openMainDrawerSafe();
+        AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
     }
 
     @Test
     public void testSchedule() throws WebDriverWrapperException {
         assertionLogger.setTestType("Screenshot: verify schedule body has been swiped");
         driverWrapper.takeScreenshotSuppressError("verify_schedule_body_swiped_before_" + System.currentTimeMillis());
+        //TODO need to re-evaulate this swipe left. It opens the iOS slide over panel
         AutomationOperations.instance().navOp.schedule.swipeScheduleBody(SwipeElementDirection.LEFT);
         driverWrapper.takeScreenshotSuppressError("verify_schedule_body_swiped_after_" + System.currentTimeMillis());
 

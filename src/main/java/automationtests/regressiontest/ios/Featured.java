@@ -32,17 +32,6 @@ public class Featured extends AppiumMain {
     }
 
     /**
-     * Tests if the user is logged in, then the MVPD logo should appear next to nav bar
-     */
-    @Test
-    public void testMVPDLogo() {
-        assertionLogger.setTestType("Testing if MVPD is visible next to nav bar");
-        if (AutomationOperations.instance().userOp.isUserLoggedIn()){
-            assertionLogger.assertTrue(driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MVPD_MENU_LOGO)));
-        }
-    }
-
-    /**
      * Tests if brand logo is present on screen
      */
     @Test
@@ -52,8 +41,7 @@ public class Featured extends AppiumMain {
     }
 
     /**
-     * Verifies Chromecast icon is present and functions correctly. If functioning correctly
-     * the Chromecast overlay screen should appear along with the AWE_CAST_HEADER
+     * Verifies Chromecast icon is present and functions correctly on tap
      */
     @Test
     public void testChromecastIcon() {
@@ -62,12 +50,12 @@ public class Featured extends AppiumMain {
 
         driverWrapper.getElementById(ResourceLocator.device.AWE_CAST_MENU_ITEM).click();
         assertionLogger.setTestType("Testing Chromecast button");
+        //Once the icon is clicked, the Chromecast overlay screen should appear along with the AWE_CAST_HEADER
         assertionLogger.assertTrue(driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_CAST_HEADER)));
     }
 
     /**
      * Tests the nav menu items are present and the functionality of navigating through the menu items.
-     * It checks the element value of the nav menu icon (if it's 1 then the icon is selected)
      *
      * @throws WebDriverWrapperException
      */
@@ -91,6 +79,7 @@ public class Featured extends AppiumMain {
                 navItem = driverWrapper.getElementByName(item.toString());
                 assertionLogger.addMessage("Verifying " + item);
                 assertionLogger.setTestType("Testing value");
+                // This checks the element value of the nav menu icon (if it's 1 then the icon is selected)
                 assertionLogger.assertEquals(driverWrapper.getElementValue(navItem), "1");
             }
         }
@@ -142,8 +131,6 @@ public class Featured extends AppiumMain {
     @Test
     public void backgroundApp(){
         driverWrapper.runAppInBackground(5);
-
-
     }
 
     /**
@@ -152,7 +139,7 @@ public class Featured extends AppiumMain {
      */
     @Test
     public void testSpinner() {
-        WebElement spinner = driverWrapper.getElementByName("In progress");
+        WebElement spinner = driverWrapper.getElementByName(ResourceLocator.device.AWE_PROGRESS_SPINNER);
         assertionLogger.setTestType("Testing spinner is present if content has not loaded");
         assertionLogger.assertEquals(driverWrapper.getElementValue(spinner), "1");
     }

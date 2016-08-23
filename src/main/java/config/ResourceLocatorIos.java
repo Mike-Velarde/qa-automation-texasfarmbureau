@@ -75,6 +75,8 @@ public class ResourceLocatorIos extends ResourceLocator{
     public static final String AWE_VIDEO_PLAYER_PAUSE = "Pause";
     public static final String AWE_VIDEO_PLAYER_PLAY = "Play";
     public static final String AWE_SETTINGS_EMAIL_DELETE_DRAFT = "Delete Draft";
+    public static final String AWE_SETTINGS_EMAIL_HEADER = "USA Now App Feedback";
+    public static final String AWE_SETTINGS_EMAIL_SUBJECT = "subjectField";
 
 
     {

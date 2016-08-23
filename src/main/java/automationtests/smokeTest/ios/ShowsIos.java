@@ -84,6 +84,7 @@ public class ShowsIos extends AppiumMain {
         assertionLogger.assertTrue(assetContainer.size() >= 1);
 
         if (driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_MOVIES_SEGMENTED_CONTROL))) {
+            //TODO get rid of these coordinates
             driverWrapper.swipe(800, 400, 200, 400, 500);
             assetContainer = driverWrapper.getElementById(ResourceLocatorIos.AWE_SHOWS_LISTING_CONTAINER).findElements(By.className(ResourceLocatorIos.UIA_COLLECTION_CELL));
             assertionLogger.setTestType("Verifying the movies listing is not empty");
@@ -100,15 +101,16 @@ public class ShowsIos extends AppiumMain {
      */
     @Test
     public void testVideoDetails() throws WebDriverWrapperException, OperationsException {
-        VideoDetailItems[] videoDetailItems = new VideoDetailItems[8];
-        videoDetailItems[0] = new VideoDetailItems("Show Title", "awe_assetdetail_showtitlelabel");
-        videoDetailItems[1] = new VideoDetailItems("Episode Title", "awe_assetdetail_titlelabel");
-        videoDetailItems[2] = new VideoDetailItems("Play Button", "awe_assetdetail_playbutton");
-        videoDetailItems[3] = new VideoDetailItems("Season Info", "awe_assetdetail_seasoninfolabel");
-        videoDetailItems[4] = new VideoDetailItems("Airing Info", "awe_assetdetail_airinginfolabel");
-        videoDetailItems[5] = new VideoDetailItems("Description", "awe_assetdetail_descriptionlabel");
-        videoDetailItems[6] = new VideoDetailItems("Expiration Date", "awe_assetdetail_availableuntillabel");
-        videoDetailItems[7] = new VideoDetailItems("Video Thumbnail", "Video thumbnail");
+        VideoDetailItems[] videoDetailItems = new VideoDetailItems[] {
+            new VideoDetailItems("Show Title", "awe_assetdetail_showtitlelabel"),
+            new VideoDetailItems("Episode Title", "awe_assetdetail_titlelabel"),
+            new VideoDetailItems("Play Button", "awe_assetdetail_playbutton"),
+            new VideoDetailItems("Season Info", "awe_assetdetail_seasoninfolabel"),
+            new VideoDetailItems("Airing Info", "awe_assetdetail_airinginfolabel"),
+            new VideoDetailItems("Description", "awe_assetdetail_descriptionlabel"),
+            new VideoDetailItems("Expiration Date", "awe_assetdetail_availableuntillabel"),
+            new VideoDetailItems("Video Thumbnail", "Video thumbnail"),
+        };
 
         AutomationOperations.instance().navOp.openMainDrawerSafe();
         AutomationOperations.instance().navOp.navigateUsingDrawer(ResourceLocator.DrawerNavigationItem.shows);
