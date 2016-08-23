@@ -12,7 +12,7 @@ repositories {
 
 /*sourceSets {
     integTest {
-        compileClasspath += test.java.automationtests.smokeTest
+        compileClasspath += test.java.automationtests.smoketest
         runtimeClasspath += main.output + test.output
     }
 }*/
@@ -21,10 +21,15 @@ test {
     String uniqueFolder = "../automation_test_results/awe_framework/" + getFilterFolderName() + "/" + getDate() + "_" + project.gradle.startParameter.taskNames
 
     useTestNG {
-        //suites 'src/test/java/smokeTest/awe_smoke_test.xml'
+        //suites 'src/test/java/smoketest/awe_smoke_test.xml'
         useDefaultListeners = true
         //Use the unique name and the task name to create the folder
         reports.html.destination = file(uniqueFolder)
+    }
+
+    filter {
+        includeTestsMatching "automationtests.smoketest.android.*"
+        includeTestsMatching "automationtests.smoketest.general.*"
     }
 
     //Set these properties if they exist
