@@ -187,6 +187,11 @@ public class UserOperationsAndroid extends UserOperations {
     }
 
     @Override
+    public void contentDrivenSignIn(UserBank.User user) {
+        throw new NotImplementedException("This has not been implemented on Android yet.");
+    }
+
+    @Override
     public void closedCaptionsOn() {
         AutomationOperations.instance().userOp.bringUpVideoUI();
         driverWrapper.getElementById("Closed Captioning Off").click();

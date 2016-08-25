@@ -7,13 +7,15 @@ public class ResourceLocatorIos extends ResourceLocator{
     /**
      * Main
      */
-    public static final String AWE_MAIN_DRAWER_CLOSE_STATE = "nb grid close";
-    public static final String AWE_MAIN_DRAWER_OPEN_STATE = "nb grid open";
+    public static final String AWE_MAIN_DRAWER_CLOSE_STATE = "Grid Menu Button - Closed";
+    public static final String AWE_MAIN_DRAWER_OPEN_STATE = "Grid Menu Button - Open";
     public static final String AWE_MAIN_OVERLAY_CLOSE = "nb close x";
     public static final String AWE_MAIN_TITLE_XPATH = "//UIAApplication[1]/UIAWindow[1]/UIAStaticText[1]";
 
     //Currently all the buttons share this same name,but the buttons contain an image with a name. This can be used to distinguish them further
-    public static final String MAIN_TOOlBAR_GENERIC_NAME = "awe_gridmenu_itemtint";
+    public static final String MAIN_TOOLBAR_GENERIC_NAME = "awe_gridmenu_itemtint";
+
+
 
     /**
      * Shows
@@ -22,6 +24,7 @@ public class ResourceLocatorIos extends ResourceLocator{
     public static final String AWE_SHOWS_SEASONS_TABLE_VIEW = "Empty list";
     public static final String AWE_SHOWS_SEASON_SELECT_OPTIONS = "awe_assetfilter_seasonselectorcell";
     public static final String AWE_SHOWS_SEASON_SELECT_HEADER = "Season";
+    public static final String AWE_SHOWS_LISTING_CONTAINER = "AWEMediaViewController";
     public static final String AWE_SHOWS_MEDIA_CONTAINER = "AWEMediaContainerDetailViewController";
     public static final String AWE_SHOWS_SHARE_SHOW_BUTTON = "Share";
     public static final String IOS_SHARE_APPS_FACEBOOK = "Facebook";
@@ -32,7 +35,13 @@ public class ResourceLocatorIos extends ResourceLocator{
      */
     public static final String AWE_SHOW_DETAILS_NAV_BACK_FEATURED = "awe_global_backbuttontint";
     public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_CONTAINER = "awe_assetdetail_showtitlelabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_TITLE = "awe_assetdetail_titlelabel";
     public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_PLAY_BUTTON = "awe_assetdetail_playbutton";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_SEASON_INFO = "awe_assetdetail_seasoninfolabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_AIRING_INFO = "awe_assetdetail_airinginfolabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_DESCRIPTION = "awe_assetdetail_descriptionlabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_EXPIRATION = "awe_assetdetail_availableuntillabel";
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_THUMBNAIL = "Video thumbnail";
 
     public static final String AWE_WATCHLIST_QUEUE_MAIN_CONTAINER_IPAD = "AWEWatchlistQueueViewController_iPad";
     public static final String AWE_WATCHLIST_MAIN_CONTAINER_TO_SHOW_CELLS_XPATH = "//UIACollectionView[1]/UIACollectionCell";
@@ -66,6 +75,8 @@ public class ResourceLocatorIos extends ResourceLocator{
     public static final String AWE_VIDEO_PLAYER_PAUSE = "Pause";
     public static final String AWE_VIDEO_PLAYER_PLAY = "Play";
     public static final String AWE_SETTINGS_EMAIL_DELETE_DRAFT = "Delete Draft";
+    public static final String AWE_SETTINGS_EMAIL_HEADER = "USA Now App Feedback";
+    public static final String AWE_SETTINGS_EMAIL_SUBJECT = "subjectField";
 
 
     {
@@ -92,8 +103,10 @@ public class ResourceLocatorIos extends ResourceLocator{
         DrawerNavigationItem.movies.navigationItemDesc = "NOT ON IOS";
         DrawerNavigationItem.watchlist.navigationItemDesc = "Watchlist Menu Item";
         DrawerNavigationItem.schedule.navigationItemDesc = "Schedule Menu Item";
+        DrawerNavigationItem.search.navigationItemDesc = "Search Menu Item";
         DrawerNavigationItem.settings.navigationItemDesc = "Settings Menu Item";
         DrawerNavigationItem.feeds.navigationItemDesc = "NOT ON IOS";
+        DrawerNavigationItem.live.navigationItemDesc = "Live Menu Item";
 
         CallsToAction.details.callToAction = "AWECTAIconActionTypeShowDetailIdentifier";
         CallsToAction.watchlist.callToAction = "AWECTAIconActionTypeWatchListAddIdentifier";
