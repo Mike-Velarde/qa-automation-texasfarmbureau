@@ -30,7 +30,7 @@ public class UserOperationsIos extends UserOperations {
             }
         }
         driverWrapper.getElementById(ResourceLocatorIos.AWE_SETTINGS_LOGIN_BUTTON_ID).click();
-        driverWrapper.getElementBy(By.id(ResourceLocator.device.OPTIMUM), 60000).click();
+        driverWrapper.getElementBy(By.id(ResourceLocator.device.OPTIMUM), 60).click();
 
         InputUtils utils = AutomationOperations.instance().deviceAutomationComponents.createInputUtils(driverWrapper);
 
