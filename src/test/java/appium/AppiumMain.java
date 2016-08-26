@@ -62,6 +62,7 @@ public class AppiumMain{
         DesiredCapabilities capabilities = AutomationOperations.instance().config.setCapabilities();
 
         URL serverAddress = new URL(AutomationConfigProperties.appiumURL);
+        Logger.log("Appium URL is " + serverAddress);
         if (AutomationConfigurations.isAndroid()) {
             driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities, AutomationConfigProperties.globalWait);
         } else if (AutomationConfigurations.isIos()){
@@ -74,8 +75,6 @@ public class AppiumMain{
         //this must be after driver wrapper is initialized
         initAutomationOperations();
 
-        //TODO refactor to get rid of this uglyness and move to config,see todo in method
-        AutomationConfigProperties.screenshotsDirectory = setScreenshotConfigValue();
 
         //Normally no operations should be done in this class, however, if the app ever launches with the picker
         //then this needs to be run to get to the home page. Since it is possible at anytime to launch with picker,
@@ -118,43 +117,10 @@ public class AppiumMain{
 
         // I tried adding this functionality through changing the output directory in custom reporters
         // but I could never get all of the reports to go to the new folder. This may not be the best solution but it works for now
-        FileUtils.copyDirectory(new File("test-output"), new File(AutomationConfigProperties.testNGOutputDirectory + defaultUniqueFolderOffset()));
+        FileUtils.copyDirectory(new File("test-output"), new File(AutomationConfigProperties.testNGOutputDirectory + AutomationConfigProperties.uniqueFolderOffset));
 
         if (driverWrapper.notNull())
             driverWrapper.quit();
-    }
-
-    /**
-     *  Create a directory offset to store reports and screenshots in the same folder structure.
-     *  Subsequent calls get the same timestamp.
-     *
-     *  The offset is suite name + current date
-     */
-    private String defaultUniqueFolderOffset(){
-        if(uniqueFolderOffset == null || uniqueFolderOffset.equals("")) {
-            DateFormat dateFormat = new SimpleDateFormat("MM_dd_yyyy hh_mm_ss a");
-            Calendar cal = Calendar.getInstance();
-            uniqueFolderOffset =  dateFormat.format(cal.getTime()) + " " + suiteName + " build_" + AutomationConfigProperties.buildNumber;
-        }
-        return uniqueFolderOffset;
-    }
-
-    private String setScreenshotConfigValue(){
-        String gradleValue = System.getProperty("UNIQUE_FOLDER") + "/mobile_screenshots/";
-        //TODO look into if this can be cleaned up, only use one config file
-        //Check if this program run from gradle task. If so we would like to use values from the gradle build file. If this property does
-        //not exist or if it is not true, values will instead be taken from the appconfig file. Note this only applies to values
-        //which are both in the gradle folder and the appconfig file. This was originally created because the gradle output folder must be given
-        //to gradle and it cannot cleanly come from the appconfig files. Because of this, values are coming from two different places.
-        boolean useGradleValues = Boolean.getBoolean("USE_GRADLE_VALUES");
-
-        if(useGradleValues){
-            Logger.log("Using gradle property for screenshot folder " + gradleValue);
-            return gradleValue;
-        }
-        else{
-            return defaultUniqueFolderOffset() + "/mobile_screenshots/";
-        }
     }
 
 }
