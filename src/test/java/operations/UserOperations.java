@@ -207,6 +207,8 @@ public abstract class UserOperations implements AutomationOperationsListener {
 
     public abstract void shareShowFacebook();
 
+    public abstract void contentDrivenSignIn(UserBank.User user);
+
 
     public class LongTapAsynch implements Runnable {
 

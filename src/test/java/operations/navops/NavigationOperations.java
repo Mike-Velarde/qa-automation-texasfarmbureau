@@ -265,5 +265,10 @@ public abstract class NavigationOperations implements AutomationOperationsListen
     public abstract void closeVideoPlayer();
 
     public abstract void returnFromVideoPlayer() throws WebDriverWrapperException;
+
+
+    public boolean closeButtonExists() {
+        return driverWrapper.elementExists(By.id("awe_gridmenu_itemtint"));
+    }
 }
 

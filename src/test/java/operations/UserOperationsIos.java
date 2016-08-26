@@ -45,6 +45,31 @@ public class UserOperationsIos extends UserOperations {
     }
 
     /**
+     * Used to log user in when the screen hits content driven sign in auth flow.
+     * This can be revisited if necessary, it just disregards the need to navigate
+     * to settings and check if user is signed in
+     *
+     * @param user
+     * @throws WebDriverWrapperException
+     */
+    @Override
+    public void contentDrivenSignIn(UserBank.User user) {
+
+        driverWrapper.getElementBy(By.id(ResourceLocator.device.OPTIMUM), 60000).click();
+
+        InputUtils utils = AutomationOperations.instance().deviceAutomationComponents.createInputUtils(driverWrapper);
+
+        WebElement userName = driverWrapper.getElementByClassName(ResourceLocatorIos.UIA_TEXT_FIELD);
+        WebElement password = driverWrapper.getElementByClassName(ResourceLocatorIos.UIA_SECURE_TEXT_FIELD);
+
+        //Set username and password
+        utils.sendKeysHideKeyboard(userName, user.username);
+        utils.sendKeysSafe(password, user.password);
+
+        utils.submitForm();
+    }
+
+    /**
      * This method is not as forgiving as it's Android counterpart, for example it does not check that it's on the settings page and then navigate if not.
      *
      * @throws WebDriverWrapperException

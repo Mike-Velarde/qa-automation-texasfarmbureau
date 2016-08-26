@@ -86,6 +86,8 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
 
     public abstract void playFromActiveSeason(int index) throws OperationsException;
 
+    public abstract void selectEpisode(int episodeIndex);
+
     /**
      * It will return the season title
      * 
