@@ -3,12 +3,12 @@ package utils;
 /**
  * Created by stephen.farmer on 8/15/16.
  */
-public class VideoDetailItems {
+public class VideoItems {
 
     public String name;
     public String value;
 
-    public VideoDetailItems(String name, String value) {
+    public VideoItems(String name, String value) {
         this.name = name;
         this.value = value;
     }

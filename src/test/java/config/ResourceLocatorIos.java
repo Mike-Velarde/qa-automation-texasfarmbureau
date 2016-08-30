@@ -43,6 +43,10 @@ public class ResourceLocatorIos extends ResourceLocator{
     public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_EXPIRATION = "awe_assetdetail_availableuntillabel";
     public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_THUMBNAIL = "Video thumbnail";
 
+    //CV = Collection View
+    public static final String AWE_SHOW_DETAIL_ASSET_DETAIL_CV_PARENT = "AWEAssetDetailCollectionViewController";
+
+
     public static final String AWE_WATCHLIST_QUEUE_MAIN_CONTAINER_IPAD = "AWEWatchlistQueueViewController_iPad";
     public static final String AWE_WATCHLIST_MAIN_CONTAINER_TO_SHOW_CELLS_XPATH = "//UIACollectionView[1]/UIACollectionCell";
     public static final String AWE_WATCHLIST_EPISODE_CONTAINERS = "awe_watchlist_assetcelltitlelabel";

@@ -17,6 +17,10 @@ repositories {
             //java.srcDir file('src/test/automationtests/smokeTest/android/')
         java.srcDirs 'src/integration-test/java'
     }
+    integTest {
+        compileClasspath += test.java.automationtests.smoketest
+        runtimeClasspath += main.output + test.output
+    }
 *//*    smokeTestGeneral {
         srcDir testRoot + '/smoketest/general'
     }
@@ -40,6 +44,11 @@ test {
     }
 
     String deviceID = project.project.ext.properties.deviceid
+
+    filter {
+        includeTestsMatching "automationtests.smoketest.android.*"
+        includeTestsMatching "automationtests.smoketest.general.*"
+    }
 
     //Set these properties if they exist
     if(deviceID != null){
