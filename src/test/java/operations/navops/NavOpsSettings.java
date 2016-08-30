@@ -90,6 +90,15 @@ public abstract class NavOpsSettings implements AutomationOperationsListener {
     }
 
     /**
+     *  This is used to verify dev ops content
+     *
+     * @return
+     */
+    public boolean hasDevOpsProdEnvironment() {
+        return driverWrapper.elementExists(By.id(ResourceLocator.device.AWE_SETTINGS_DEV_OPS_PROD_ENV_TEXT));
+    }
+
+    /**
      * It will launch the developer options
      */
     public void launchDevOpts() {

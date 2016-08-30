@@ -2,9 +2,9 @@ package config;
 
 /**
  * Probably needs a more accurate name
- *
+ * <p>
  * This class keeps all constants (names, key values, resource locations, etc.) which Appium needs either to find a resource or send a command to the device
- *
+ * <p>
  * Created by ford.arnett on 8/31/15.
  */
 public class ResourceLocator {
@@ -15,8 +15,8 @@ public class ResourceLocator {
     public static final int AWE_INITIAL_ADS_WAIT_TIME = 120000;
 
     /**
-    * AWE brands
-    */
+     * AWE brands
+     */
     public String AWE_BRAND_NAMES_AWE_AUTOMATION = "awe_automation";
     public String AWE_BRAND_NAMES_AWE_BET = "bet";
     public String AWE_BRAND_NAMES_AWE_BRAVO = "bravo";
@@ -82,7 +82,7 @@ public class ResourceLocator {
     public String AWE_PICKFEED_SERVERURL_ID = "com.bottlerocketapps.awe.watcher:id/awe_pickfeed_serverurl";
 
     public String ANDROID_FRAMEWORK_DEV_LIVE_FEED = "http://andfw.dev.bottlerocketservices.com/live/5/usa/config";
-    
+
     public String AWE_FEED_PICK_LIST = "awe_pickfeed_list";
 
     /**
@@ -118,8 +118,9 @@ public class ResourceLocator {
     public String AWE_SEARCH_RESULTS_CONTAINER = "awe_search_list";
 
     public String AWE_DRAWER_WATCHLIST_COUNT = "awe_navigation_itemcount";
-    
 
+    public String AWE_MVPD_MENU_LOGO = "MVPD Menu Item";
+    public String AWE_FEATURED_BRAND_LOGO = "brand_logo";
     /**
      * Share
      */
@@ -135,6 +136,15 @@ public class ResourceLocator {
     public String AWE_FEATURED_CTA_CONTAINER = "awe_featured_cellactacontainer";
     public String AWE_FEATURED_CAROUSEL_SHOW_TITLE = "awe_featured_cellatitle";
     public String AWE_SHOW_DETAILS_SHOW_TITLE = "awe_showdetail_featuredtitle";
+    public String AWE_PROGRESS_SPINNER = "In progress";
+    public String AWE_FEATURED_SPONSOR_TEXT ="awe_featured_sponsortextlabel";
+
+    /**
+     * Chromecast
+     */
+    public String AWE_CAST_HEADER = "awe_cast_headertitlelabel";
+    public String AWE_CAST_DEVICE_TABLE = "AWECastDeviceTableViewController";
+    public String AWE_CAST_MENU_ITEM = "Cast Menu Item";
 
     /**
      * Awe settings
@@ -145,6 +155,7 @@ public class ResourceLocator {
     public String AWE_LOGIN_PROVIDER_NOT_LISTED = "awe_auth_picknotlisted";
     public String AWE_AUTH_PROVIDER_CONTAINER = "awe_auth_pickcontentcontainer";
     public String AWE_SETTINGS_LIST_OPTIONS = "awe_settings_listoptions";
+    public String AWE_SETTINGS_VERSION_LABEL = "awe_settings_versionlabel";
 
     public String AWE_SETTINGS_DEV_OPS_PROD_ENV_TEXT = "awe_devoptions_toggletext";
 
@@ -160,6 +171,7 @@ public class ResourceLocator {
     public String PROVIDER_SIGN_IN_BUTTON = "signin_button";
     //The id seems to have been removed from this button and getting all the image views has proven to be unreliable
     public String OPTIMUM_SIGN_IN_XPATH = "//android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.webkit.WebView[1]/android.view.View[1]/android.widget.Image[3]";
+    public String AWE_MVPD_INFO_LABEL = "awe_authentication_primarymvpdinfolabel";
 
     /**
      * Video
@@ -181,6 +193,8 @@ public class ResourceLocator {
     public String AWE_SHOWS_EPISODES_CLIPS_MAIN_CONTAINER = "awe_showdetail_viewpager";
     public String AWE_SHOWS_VIDEO_THUMBNAILS = "awe_shows_itemimage";
 
+    public static final String AWE_MOVIES_SEGMENTED_CONTROL = "MOVIES";
+
     /**
      * Show details
      */
@@ -195,9 +209,9 @@ public class ResourceLocator {
     public String AWE_SHOW_DETAILS_SEASON_TITLE = "awe_seasondropdownlistspinner_title";
     public String AWE_SHOW_DETAILS_ADD_TO_WATCHLIST = "Add To Watchlist"; //legacy menu_add_to_watchlist
     public String AWE_SHOW_DETAILS_REMOVE_FROM_WATCHLIST = "Remove from Watchlist"; //legacy menu_remove_from_watchlist
-    public String AWE_SHOW_DETAILS_CLIP_LIST="awe_showdetail_cliplist";
-    public String AWE_SHOW_DETAILS_EPISODE_DURATION="awe_videodetail_seasonepisodeduration";
-    public String AWE_SHOW_DETAILS_MORE_LINK="awe_showdetail_infotoggle";
+    public String AWE_SHOW_DETAILS_CLIP_LIST = "awe_showdetail_cliplist";
+    public String AWE_SHOW_DETAILS_EPISODE_DURATION = "awe_videodetail_seasonepisodeduration";
+    public String AWE_SHOW_DETAILS_MORE_LINK = "awe_showdetail_infotoggle";
     public String AWE_SHOW_DETAILS_MORE_CONTENT_DESCRIPTION = "awe_showdetail_contentdescription";
     public String AWE_SHOW_DETAILS_SEASON_STATIC_TEXT = "awe_showdetail_filterstatictext";
     public String AWE_SHOW_DETAILS_VIDEO_PARENT_TITLE = "awe_videodetail_parenttitle";
@@ -205,6 +219,10 @@ public class ResourceLocator {
     public String AWE_SHOW_DETAILS_CONTAINER = "awe_showdetail_topcontainer";
     public String AWE_SHOW_DETAILS_FEATURED_INFO = "awe_showdetail_featuredinfo";
     public String AWE_SHOW_DETAILS_FOREGROUND_CONTAINER = "awe_foregroundoverlay_container";
+    public String AWE_SHOW_DETAILS_BACK_BUTTON = "awe_global_backbuttontint";
+    public String AWE_SHOW_DETAILS_TITLE = "awe_mediacontainerdetail_titlelabel";
+    public String AWE_SHOW_DETAILS_SUBTITLE = "awe_mediacontainerdetail_subtitlelabel";
+    public String AWE_SHOW_DETAILS_SPONSOR_LABEL = "awe_mediacontainerdetail_sponsoredlabel";
 
     /**
      * Schedule
@@ -227,7 +245,7 @@ public class ResourceLocator {
     public String AWE_SETTINGS_VERSION_INFO = "awe_settings_txtversionname";
     public String AWE_SETTINGS_FEEDBACK_MORE_SCREEN = "resolver_list";
     public String AWE_SETTINGS_FEEDBACK_MORE_SCREEN_OPTIONS = "text1";
-    
+
 
     public String AWE_SETTINGS_DEV_OPTIONS_TITLE = "Developer Options";
     public String AWE_SETTINGS_ABOUT_BRAND_TITLE = "About Brand";
@@ -240,8 +258,6 @@ public class ResourceLocator {
     public String AWE_SETTINGS_VIDEO_OVER_WIFI_STATUS_YES = "ON";
     public String AWE_SETTINGS_BUILD_INFO = "awe_settings_hiddentext";
     public String AWE_SETTINGS_FEEDBACK_EMAIL = "email|compose";
-    
-
 
 
     /**
@@ -266,20 +282,18 @@ public class ResourceLocator {
     public String AWE_WATCHLIST_SELECTION_COUNT = "awe_watchlist_selectioncount";
 
 
-
-
     /**
      * Video details page, this page has the details of the video on the side and is shown before the video is played
      */
     public String AWE_VIDEO_DETAILS_PLAY_BUTTON = "awe_videodetail_thumbnailimage";
     public String AWE_VIDEO_DETAILS_TITLE = "awe_videodetail_title";
 
+
     /**
      * Cable providers
      */
     public String OPTIMUM_CONTENT_DESC = "Cablevision";
     public String OPTIMUM = "Optimum";
-
 
 
     /**
@@ -302,29 +316,37 @@ public class ResourceLocator {
         movies("Movies"),
         watchlist("Watchlist"),
         schedule("Schedule"),
+        search("Search"),
         settings("Settings"),
+        live("Live"),
         feeds("Feeds");
 
         String navigationItemDesc;
-        DrawerNavigationItem(String s){
+
+        DrawerNavigationItem(String s) {
             navigationItemDesc = s;
         }
 
-        public String toString(){
+        public String toString() {
             return navigationItemDesc;
         }
     }
 
     public enum CallsToAction {
+        play("PLAY"),
         details("DETAILS"),
         watchlist("WATCHLIST"),
-        play("PLAY"),
         website("WEBSITE");
 
         String callToAction;
-        CallsToAction(String s) { callToAction = s; }
 
-        public String toString() { return callToAction; }
+        CallsToAction(String s) {
+            callToAction = s;
+        }
+
+        public String toString() {
+            return callToAction;
+        }
     }
 
 
