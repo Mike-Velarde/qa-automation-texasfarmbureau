@@ -1,6 +1,6 @@
 package automationtests.smoketest.android;
 
-import automationtests.smoketest.general.Featured;
+import automationtests.smokeTest.general.Featured;
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import operations.AutomationOperations;

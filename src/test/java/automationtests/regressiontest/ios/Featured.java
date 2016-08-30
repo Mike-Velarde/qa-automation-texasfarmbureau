@@ -7,18 +7,13 @@ import appium.AppiumMain;
 import automationtests.assertions.AssertionLogger;
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
-import config.ResourceLocatorIos;
 import domod.UserBank;
 import operations.AutomationOperations;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.internal.MultiAction;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 import static config.ResourceLocator.DrawerNavigationItem.*;
 

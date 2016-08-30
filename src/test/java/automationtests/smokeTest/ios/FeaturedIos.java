@@ -1,13 +1,14 @@
-package automationtests.smoketest.ios;
+package automationtests.smokeTest.ios;
 
 import automationtests.assertions.AssertionLogger;
-import automationtests.smoketest.general.Featured;
+
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import domod.UserBank;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
+import automationtests.smokeTest.general.Featured;
 
 import operations.AutomationOperations;
 import org.openqa.selenium.WebElement;

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.bottlerocket.errorhandling.OperationsException;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -62,6 +63,8 @@ public abstract class NavOpsShows implements AutomationOperationsListener {
      * @return number of seasons in the list
      */
     public abstract String showDetailSelectSeason(int seasonIndex);
+
+    public abstract void clickShowDetailsActivePlayButton() throws WebDriverWrapperException;
 
     /**
      * This implementation is somewhat nieve but it should work in most cases

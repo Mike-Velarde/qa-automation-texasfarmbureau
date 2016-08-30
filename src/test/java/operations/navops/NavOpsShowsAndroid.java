@@ -1,9 +1,11 @@
 package operations.navops;
 
 import com.bottlerocket.errorhandling.OperationsException;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import config.ResourceLocator;
 import config.ResourceLocatorAndroid;
 import operations.AutomationOperations;
+import org.apache.commons.lang3.NotImplementedException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -59,6 +61,12 @@ public class NavOpsShowsAndroid extends NavOpsShows {
         //can't change seasons so return empty string
         return "";
     }
+
+    @Override
+    public void clickShowDetailsActivePlayButton() throws WebDriverWrapperException {
+        throw new NotImplementedException("This does not make sense for Android.");
+    }
+
 
     @Override
     public void playFromActiveSeason(int index) {

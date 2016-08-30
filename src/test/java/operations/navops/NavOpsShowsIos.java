@@ -1,6 +1,7 @@
 package operations.navops;
 
 import com.bottlerocket.errorhandling.OperationsException;
+import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.utils.ErrorHandler;
 import config.ResourceLocator;
 import config.ResourceLocatorIos;
@@ -57,6 +58,28 @@ public class NavOpsShowsIos extends NavOpsShows {
 
         return selectedSeason.getText();
     }
+
+    /**
+     * Find the show details play button that is actively on screen and then click it. All of the video detail cells appear as visible to Appium,
+     * so this looks at the active page number given by the collection view itself.
+     *
+     * @throws WebDriverWrapperException
+     */
+    public void clickShowDetailsActivePlayButton() throws WebDriverWrapperException {
+        WebElement detailCollectionViewController = driverWrapper.element(By.id(ResourceLocatorIos.AWE_SHOW_DETAIL_ASSET_DETAIL_CV_PARENT));
+        WebElement showDetailsCollectionView = detailCollectionViewController.findElement(By.className(ResourceLocatorIos.UIA_COLLECTION_VIEW));
+
+        //Will get the active page collection cell which will be something like page x out of y
+        String activePageCollectionCell = driverWrapper.getElementValue(showDetailsCollectionView);
+        //Find the page number after the string "page "
+        int pageNumberStartIndex = 5, pageNumberEndIndex = 6;
+        int activeShowDetailPanelNumber = Integer.parseInt(activePageCollectionCell.substring(pageNumberStartIndex, pageNumberEndIndex));
+        //Get the active show detail collection cell on the show details screen
+        MobileElement activeShowDetailPanel = (MobileElement) showDetailsCollectionView.findElements(By.className(ResourceLocatorIos.UIA_COLLECTION_CELL)).get(activeShowDetailPanelNumber - 1);
+        MobileElement detailPanelPlayButton = activeShowDetailPanel.findElement(By.id(ResourceLocator.device.AWE_VIDEO_DETAILS_PLAY_BUTTON));
+        detailPanelPlayButton.click();
+    }
+
 
     @Override
     public void playFromActiveSeason(int index) throws OperationsException {

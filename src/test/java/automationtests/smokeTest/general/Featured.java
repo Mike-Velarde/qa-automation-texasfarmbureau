@@ -1,4 +1,4 @@
-package automationtests.smoketest.general;
+package automationtests.smokeTest.general;
 
 import appium.AppiumMain;
 import automationtests.assertions.AssertionLogger;
