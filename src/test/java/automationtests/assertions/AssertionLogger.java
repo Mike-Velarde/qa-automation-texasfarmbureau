@@ -1,10 +1,10 @@
 package automationtests.assertions;
 
 import com.bottlerocket.utils.Logger;
-import com.google.common.collect.Lists;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.IAssert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by ford.arnett on 11/20/15.
  */
 public class AssertionLogger extends Assertion {
-    private List<String> assertionMessages = Lists.newArrayList();
+    private List<String> assertionMessages = new ArrayList<>();
     private String testType;
 
     @Override

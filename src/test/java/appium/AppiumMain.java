@@ -27,10 +27,6 @@ import java.util.Calendar;
  */
 public class AppiumMain{
     protected WebDriverWrapper driverWrapper;
-    private String suiteName;
-    //This is the offset to store files for this run of the suite
-    private String uniqueFolderOffset;
-    private Calendar startTime = Calendar.getInstance();
 
     /**
      * This seems to run after the other setup
@@ -38,7 +34,7 @@ public class AppiumMain{
      */
     @BeforeClass
     public void setUpMain(ITestContext ctx){
-        suiteName = ctx.getCurrentXmlTest().getSuite().getName();
+
     }
 
 
@@ -74,20 +70,6 @@ public class AppiumMain{
 
         //this must be after driver wrapper is initialized
         initAutomationOperations();
-
-
-        //Normally no operations should be done in this class, however, if the app ever launches with the picker
-        //then this needs to be run to get to the home page. Since it is possible at anytime to launch with picker,
-        //this must be run at each launch.
-
-        try {
-            AutomationOperations.instance().userOp.chooseFeedIfNeeded(ResourceLocator.device.AWE_BRAND_NAMES_USA, ResourceLocator.device.AWE_RC_LIVE, ResourceLocator.device.AWE_PICKFEED_SERVERURL_ID);
-        }
-        catch (Exception ex) {
-            Logger.log("feed picker failed");
-            String fileName = "failure_feed_picker_" + System.currentTimeMillis();
-            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, fileName);
-        }
 
     }
 

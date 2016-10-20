@@ -12,29 +12,12 @@ repositories {
     mavenCentral()
 }
 
-/*sourceSets {
-    smokeTestAndroid {
-            //java.srcDir file('src/test/automationtests/smokeTest/android/')
-        java.srcDirs 'src/integration-test/java'
-    }
-    integTest {
-        compileClasspath += test.java.automationtests.smoketest
-        runtimeClasspath += main.output + test.output
-    }
-*//*    smokeTestGeneral {
-        srcDir testRoot + '/smoketest/general'
-    }
-    smokeTestIos {
-        java.srcDir file(testRoot + '/smoketest/ios')
-    }*//*
-}*/
-
 ext{
-    aweFlavor = "framework"
+    projectName = "DEFINE_PROJECT_NAME_HERE"
 }
 
 test {
-    String uniqueFolder = "../automation_test_results/awe_framework/" + getFilterFolderName() + "/" + getDate() + "_" + project.gradle.startParameter.taskNames
+    String uniqueFolder = "../automation_test_results/" + (String)projectName + "/" + getFilterFolderName() + "/" + getTime() + "_" + project.gradle.startParameter.taskNames
 
     useTestNG {
         //suites 'src/test/java/smoketest/awe_smoke_test.xml'
@@ -52,18 +35,18 @@ test {
 
     //Set these properties if they exist
     if(deviceID != null){
-        systemProperty "automation." + (String)aweFlavor + ".deviceid", project.getProperty("deviceid")
+        systemProperty "automation." + (String)projectName + ".deviceid", project.getProperty("deviceid")
         println("There was a device ID passed to gradle with the value: " + deviceID)
     }
 
     String port = project.project.project.ext.properties.port
     if(port != null){
-        systemProperty "automation." + (String)aweFlavor + ".port", project.getProperty("port")
+        systemProperty "automation." + (String)projectName + ".port", project.getProperty("port")
         println("There was a port passed to gradle with the value: " + port)
     }
 
-    systemProperty "automation." + (String)aweFlavor + ".uniquefolder", uniqueFolder
-    systemProperty "automation." + (String)aweFlavor + ".usegradlevalues","true"
+    systemProperty "automation." + (String)projectName + ".uniquefolder", uniqueFolder
+    systemProperty "automation." + (String)projectName + ".usegradlevalues","true"
 
     // listen to events in the test execution lifecycle
     beforeTest { descriptor ->
@@ -76,39 +59,18 @@ test {
     }
 }
 
-/*task smokeTestIos (type : Test) {
-    println "Test dir before: " + getTestClassesDir()
-    println "Classpath " + sourceSets.smokeTestIos.runtimeClasspath
-    println "Out dir" + sourceSets.smokeTestIos.output.classesDir
-    testClassesDir = sourceSets.smokeTestIos.output.classesDir
-    println "Test dir after: " + getTestClassesDir()
-}*/
-
-/*task smokeTestAndroid (type : Test) {
-    println "Looking for tests in : " + sourceSets.smokeTestAndroid.output.classesDir
-    testClassesDir = sourceSets.smokeTestAndroid.output.classesDir
-    classpath = sourceSets.smokeTestAndroid.runtimeClasspath
-}*/
-
-static def getDate() {
+static def getTime() {
     def date = new Date()
-    def formattedDate = date.format('MM_dd_yyyy HH_mm_ss a')
+    def formattedDate = date.format('HH_mm_ss_a')
     return formattedDate
 }
 
 static def getFilterFolderName() {
     def date = new Date()
     def month = date.format('MMMM_yy')
-    return month
+    def day = date.format('d')
+    return month + "/" + day
 }
-
-/* For later research
-task testReport(type: TestReport) {
-    destinationDir = file("$buildDir/reports/allTests")
-    // Include the results from the `test` task in all subprojects
-    reportOn subprojects*.test
-}
-*/
 
 
 dependencies {
@@ -116,4 +78,6 @@ dependencies {
     compile group: 'io.appium', name: 'java-client', version:'3.4.0'
     //This isn't necessary since it comes included in Intellij, but unfortunately every time you synchronize the build.gradle you must tell it to add to the classpath again and it gets annoying
     compile group: 'org.testng', name: 'testng', version:'6.8.8'
+    // https://mvnrepository.com/artifact/com.relevantcodes/extentreports
+    compile group: 'com.relevantcodes', name: 'extentreports', version: '2.41.1'
 }
