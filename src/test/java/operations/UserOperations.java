@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Operations which are performed on a screen, often what a user themselves would do 
- * //TODO consider moving all the video operations to it's own video operations class
  *
  * Created by ford.arnett on 9/3/15.
  */

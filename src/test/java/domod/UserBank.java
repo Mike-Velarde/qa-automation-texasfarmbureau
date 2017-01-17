@@ -7,21 +7,21 @@ import java.util.ArrayList;
  */
 public class UserBank {
 
-    private static final String DEFAULT_CABLE_PROVIDER = "optimum";
-    //Authorized is 40 unauthorized is 50
-    private static final String DEFAULT_USER_NAME = "research40";
-    private static final String DEFAULT_USER_PASSWORD = "support40";
+    private static final String DEFAULT_USER_NAME = "br.automation@gmail.com";
+    private static final String DEFAULT_USER_PASSWORD = "BRautomation123";
 
-    public final User defaultUser = new User(DEFAULT_USER_NAME, DEFAULT_USER_PASSWORD);
+    public static final User defaultUser = new User(DEFAULT_USER_NAME, DEFAULT_USER_PASSWORD);
     public ArrayList<User> users = new ArrayList<User>();
 
-    public class User{
-        public String username;
-        public String password;
+    public User addUser(String username, String password) {
+        User newUser = new User(username, password);
+        users.add(newUser);
 
-        public User(String username, String password){
-            this.username = username;
-            this.password = password;
-        }
+        return newUser;
     }
+
+    public User getUser(int index){
+        return users.get(index);
+    }
+
 }
