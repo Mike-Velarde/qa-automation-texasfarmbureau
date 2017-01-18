@@ -1,25 +1,17 @@
 package appium;
 
 import com.bottlerocket.config.AutomationConfigProperties;
-import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.utils.Logger;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapperAndroid;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapperIos;
-import config.*;
+import com.relevantcodes.extentreports.LogStatus;
 import operations.AutomationOperations;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.lang.reflect.Method;
 
 
 /**
@@ -27,6 +19,7 @@ import java.util.Calendar;
  */
 public class AppiumMain{
     protected WebDriverWrapper driverWrapper;
+    private String suiteName;
 
     /**
      * This seems to run after the other setup
@@ -34,58 +27,39 @@ public class AppiumMain{
      */
     @BeforeClass
     public void setUpMain(ITestContext ctx){
-
+        suiteName = ctx.getCurrentXmlTest().getSuite().getName();
     }
 
+    @BeforeMethod
+    public void setupEvery(Method method) {
+        AutomationOperations.instance().reporter.startTest(method.getName());
+    }
 
-    /** Run before all tests **/
+    /** Run before each class **/
     @BeforeClass
     public void setUpMain() throws Exception {
-        DeviceAutomationComponents device;
+        driverWrapper = AutomationOperations.initializeAutomationSystem();
 
-        AutomationConfigurations.loadConfig();
-        //Set iOS or Android here
-        if(AutomationConfigurations.isAndroid()){
-            device = new AndroidAutomationComponents();
-        }
-        else{
-            device = new IosAutomationComponents();
-        }
-
-        AutomationOperations.instance().initOperations(device);
-        AutomationOperations.instance().config.loadConfigVariables();
-        //Set configurations
-        DesiredCapabilities capabilities = AutomationOperations.instance().config.setCapabilities();
-
-        URL serverAddress = new URL(AutomationConfigProperties.appiumURL);
-        Logger.log("Appium URL is " + serverAddress);
-        if (AutomationConfigurations.isAndroid()) {
-            driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities, AutomationConfigProperties.globalWait);
-        } else if (AutomationConfigurations.isIos()){
-            driverWrapper = new WebDriverWrapperIos(serverAddress, capabilities, AutomationConfigProperties.globalWait);
-        }
-        else {
-            throw new Error("Operating system not recognized, check config files");
-        }
-
-        //this must be after driver wrapper is initialized
-        initAutomationOperations();
-
-    }
-
-    private void initAutomationOperations() {
-        AutomationOperations automationOperations = AutomationOperations.instance();
-        automationOperations.userOp.init(driverWrapper);
-        automationOperations.navOp.init(driverWrapper);
     }
 
     @AfterMethod(alwaysRun = true)
-    public void takeScreenShotOnFailure(ITestResult testResult) throws IOException {
+    public void takeScreenShotOnFailure(ITestResult testResult) {
         if (testResult.getStatus() == ITestResult.FAILURE) {
+            AutomationOperations.instance().reporter.logTest(LogStatus.FAIL, testResult.getThrowable());
             Logger.log(testResult.getMethod().getMethodName());
             String fileName = "failure_" + testResult.getMethod().getMethodName() + "_" + System.currentTimeMillis();
-            driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, fileName);
+            try {
+                driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, fileName);
+            } catch (Exception ex) {
+                Logger.log("Error occurred when taking screenshot. Attempted to save screenshot to " + AutomationConfigProperties.screenshotsDirectory + fileName);
+            }
+        } else if (testResult.getStatus() == ITestResult.SKIP) {
+            AutomationOperations.instance().reporter.logTest(LogStatus.SKIP, "Test skipped " + testResult.getThrowable());
+        } else {
+            AutomationOperations.instance().reporter.logTest(LogStatus.PASS, "Test passed");
         }
+
+        AutomationOperations.instance().reporter.endTest();
 
     }
 
@@ -97,12 +71,21 @@ public class AppiumMain{
             return;
         }
 
+        AutomationOperations.instance().reporter.write();
+
         // I tried adding this functionality through changing the output directory in custom reporters
         // but I could never get all of the reports to go to the new folder. This may not be the best solution but it works for now
-        FileUtils.copyDirectory(new File("test-output"), new File(AutomationConfigProperties.testNGOutputDirectory + AutomationConfigProperties.uniqueFolderOffset));
+        if (!AutomationConfigProperties.useGradleValues && AutomationConfigProperties.reporter.equalsIgnoreCase("default")) {
+            FileUtils.copyDirectory(new File("test-output"), new File(AutomationConfigProperties.reportOutputDirectory));
+        }
 
         if (driverWrapper.notNull())
             driverWrapper.quit();
+    }
+
+    @AfterSuite
+    public void tearDownFinal() {
+        AutomationOperations.instance().reporter.close();
     }
 
 }
