@@ -8,8 +8,39 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+def getArtifactoryIdentityField(field, index) {
+    //Default to global setting
+    if (project.hasProperty(field)) {
+        return project.ext[field]
+    }
+
+    //Use environment secure credential variable on Jenkins
+    def split_values = project.ext.artifactory_credentials.split(':')
+    if (split_values.size() > index && split_values[index] != null) {
+        return split_values[index]
+    }
+    logger.log(LogLevel.WARN, "Could not find artifactory identity field " + field)
+    return ''
+}
+
+def getArtifactoryUser() {
+    return getArtifactoryIdentityField('artifatory.username', 0)
+}
+
+def getArtifactoryPassword() {
+    return getArtifactoryIdentityField('artifactory.password', 1)
+}
+
 repositories {
     mavenCentral()
+
+    maven {
+        url "https://artifacts.bottlerocketservices.com/repository/qa"
+        credentials {
+            username getArtifactoryUser()
+            password getArtifactoryPassword()
+        }
+    }
 }
 
 ext{
@@ -74,7 +105,7 @@ static def getFilterFolderName() {
 
 
 dependencies {
-    compile project(':automation_library')
+    compile group: 'com.bottlerocketstudios.automation', name: 'Automation_Library', version: '1.0-SNAPSHOT'
     compile group: 'io.appium', name: 'java-client', version:'3.4.0'
     //This isn't necessary since it comes included in Intellij, but unfortunately every time you synchronize the build.gradle you must tell it to add to the classpath again and it gets annoying
     compile group: 'org.testng', name: 'testng', version:'6.8.8'
