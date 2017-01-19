@@ -1,2 +1,2 @@
-rootProject.name = 'awe_framework'
-include ':automation_library'
+rootProject.name = 'automation_project_template'
+

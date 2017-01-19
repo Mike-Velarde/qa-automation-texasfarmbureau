@@ -10,6 +10,7 @@ targetCompatibility = 1.8
 
 def getArtifactoryIdentityField(field, index) {
     //Default to global setting
+    printf("THIS SHOULD BE TRUE" + project.hasProperty(field))
     if (project.hasProperty(field)) {
         return project.ext[field]
     }
@@ -24,7 +25,7 @@ def getArtifactoryIdentityField(field, index) {
 }
 
 def getArtifactoryUser() {
-    return getArtifactoryIdentityField('artifatory.username', 0)
+    return getArtifactoryIdentityField('artifactory.username', 0)
 }
 
 def getArtifactoryPassword() {
@@ -51,7 +52,6 @@ test {
     String uniqueFolder = "../automation_test_results/" + (String)projectName + "/" + getFilterFolderName() + "/" + getTime() + "_" + project.gradle.startParameter.taskNames
 
     useTestNG {
-        //suites 'src/test/java/smoketest/awe_smoke_test.xml'
         useDefaultListeners = true
         //Use the unique name and the task name to create the folder
         reports.html.destination = file(uniqueFolder)

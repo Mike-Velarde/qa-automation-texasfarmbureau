@@ -1,13 +1,8 @@
 package operations.navops;
 
 
-import com.bottlerocket.errorhandling.WebDriverWrapperException;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
-import config.ResourceLocator;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.SwipeElementDirection;
 import operations.AutomationOperationsListener;
-import org.openqa.selenium.By;
 
 
 /**

@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 public class UserBank {
 
-    private static final String DEFAULT_USER_NAME = "br.automation@gmail.com";
-    private static final String DEFAULT_USER_PASSWORD = "BRautomation123";
+    private static final String DEFAULT_USER_NAME = "";
+    private static final String DEFAULT_USER_PASSWORD = "";
 
     public static final User defaultUser = new User(DEFAULT_USER_NAME, DEFAULT_USER_PASSWORD);
     public ArrayList<User> users = new ArrayList<User>();
