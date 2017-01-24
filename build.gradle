@@ -10,7 +10,7 @@ targetCompatibility = 1.8
 
 def getArtifactoryIdentityField(field, index) {
     //Default to global setting
-    printf("THIS SHOULD BE TRUE" + project.hasProperty(field))
+    printf(field)
     if (project.hasProperty(field)) {
         return project.ext[field]
     }
@@ -49,20 +49,38 @@ ext{
 }
 
 test {
-    String uniqueFolder = "../automation_test_results/" + (String)projectName + "/" + getFilterFolderName() + "/" + getTime() + "_" + project.gradle.startParameter.taskNames
+    String operatingSystem = project.project.ext.properties.operatingsystem
+
+    if(operatingSystem != null){
+        systemProperty "automation." + (String)projectName + ".operatingsystem", project.getProperty("operatingsystem")
+        println("There was an OS passed to gradle with the value: " + operatingSystem)
+    }
+    else {
+        Properties props = new Properties()
+        props.load(new FileInputStream("src/main/resources/appconfig.properties"))
+        operatingSystem = props.get("PLATFORM_NAME")
+        println("No operating system passed through gradle. Previously set operating system will be used.")
+    }
+
+    String date = project.project.ext.properties.date
+
+    if(date != null){
+        println("Using passed in gradle date for report location with the value: " + date)
+    }
+    else {
+        date = getDate() + "/" + getTimeOfDay()
+    }
+
+    String folderBase = "../automation_test_results/" + (String)projectName + "_" + operatingSystem + "/"
+    String uniqueFolder = folderBase + date //+ "_" + project.gradle.startParameter.taskNames
 
     useTestNG {
         useDefaultListeners = true
         //Use the unique name and the task name to create the folder
-        reports.html.destination = file(uniqueFolder)
+        //reports.html.destination = file(uniqueFolder)
     }
 
     String deviceID = project.project.ext.properties.deviceid
-
-    filter {
-        includeTestsMatching "automationtests.smoketest.android.*"
-        includeTestsMatching "automationtests.smoketest.general.*"
-    }
 
     //Set these properties if they exist
     if(deviceID != null){
@@ -90,13 +108,13 @@ test {
     }
 }
 
-static def getTime() {
+static def getTimeOfDay() {
     def date = new Date()
     def formattedDate = date.format('HH_mm_ss_a')
     return formattedDate
 }
 
-static def getFilterFolderName() {
+static def getDate() {
     def date = new Date()
     def month = date.format('MMMM_yy')
     def day = date.format('d')
