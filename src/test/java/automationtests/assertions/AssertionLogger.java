@@ -62,17 +62,20 @@ public class AssertionLogger extends Assertion {
         return "Test: " + type;
     }
 
-    private String param1(IAssert assertion){
-        return " " +assertion.getActual().toString();
-    }
-
-    private String param2(IAssert assertion) {
+    private String param1(IAssert assertion) {
         //don't want to show null, empty, or true/false because these are almost always single param cases. May need to review if this causes unwanted behavior
-        if(assertion.getExpected() == null || assertion.getExpected().toString().equals("") || assertion.getExpected().toString().equals("true") || assertion.getExpected().toString().equals("false") )
+        if(assertion.getActual() == null || assertion.getActual().toString().equals("") || assertion.getActual().toString().equals("true") || assertion.getActual().toString().equals("false"))
             return "";
         else{
-            return ", " + assertion.getExpected();
+            return " Actual Value: " + assertion.getActual().toString();
         }
+    }
+
+    private String param2(IAssert assertion){
+        //don't want to show "expected" on single param cases
+        if(assertion.getExpected() == null || assertion.getExpected().toString().equals("") || assertion.getExpected().toString().equals("true") || assertion.getExpected().toString().equals("false"))
+            return " ";
+        return " Expected Value: " + assertion.getExpected().toString();
     }
 
     private String errorMessage(IAssert assertion){
