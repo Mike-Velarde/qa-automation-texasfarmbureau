@@ -37,6 +37,7 @@ public class AutomationOperations {
     public AutomationConfigurations config;
     public AssertionLibrary assertions;
     public AutomationReporter reporter;
+
     /**
      * Starts up all components of the automation system and gets them ready for use. This must be done before any of the system objects are to be used.
      *
@@ -59,6 +60,7 @@ public class AutomationOperations {
         setupLast(driverWrapper);
         return driverWrapper;
     }
+
     /**
      * Setup methods that must be run first before other setup methods can take place.
      *
@@ -79,6 +81,7 @@ public class AutomationOperations {
         //Set configurations
         return AutomationOperations.instance().config.setCapabilities();
     }
+
     /**
      * These must be run last since they need an initialized driver wrapper and that is one of the last things ready.
      *
@@ -90,6 +93,7 @@ public class AutomationOperations {
         automationOperations.navOp.init(driverWrapper);
         AutomationOperations.instance().selectReporter(driverWrapper);
     }
+
     public void initOperations(DeviceAutomationComponents deviceAutomationComponents){
         this.deviceAutomationComponents = deviceAutomationComponents;
         deviceAutomationComponents.initResourceLocator();
@@ -98,17 +102,19 @@ public class AutomationOperations {
         userOp = deviceAutomationComponents.getUserOperations();
         assertions = deviceAutomationComponents.getAssertions();
     }
+
+    /**
+     * Select the reporter to be used in the system. Currently there's only one we would want to use, however we can just use an if statement looking at {@link #reporter} to support selecting one at runtime.
+     *
+     * @param driverWrapper
+     */
     private void selectReporter(WebDriverWrapper driverWrapper) {
-        if (AutomationConfigProperties.reporter.equalsIgnoreCase("extent")) {
-            String fileName = AutomationConfigProperties.reportOutputDirectory + "report";
-            AutomationOperations.instance().reporter = new ExtentReporter(fileName);
-            Logger.log("Reports are being logged with the Extent reporter at " + fileName);
-        }
-        else if(AutomationConfigProperties.reporter.equalsIgnoreCase("default")) {
-            //not yet sure what it will look like to use the regular reporter. May just be an empty implementation that does nothing
-            AutomationOperations.instance().reporter = null;
-        }
+        String fileName = AutomationConfigProperties.reportOutputDirectory + "/report";
+        AutomationOperations.instance().reporter = new ExtentReporter(fileName);
+        Logger.log("Reports are being logged with the Extent reporter at " + fileName);
+
         AutomationOperations.instance().reporter.initializeReporter();
         driverWrapper.setAutomationReporter(reporter);
+
     }
 }
