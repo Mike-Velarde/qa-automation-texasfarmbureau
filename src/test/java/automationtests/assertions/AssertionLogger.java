@@ -1,6 +1,8 @@
 package automationtests.assertions;
 
 import com.bottlerocket.utils.Logger;
+import com.relevantcodes.extentreports.LogStatus;
+import operations.AutomationOperations;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.IAssert;
 
@@ -13,6 +15,7 @@ import java.util.List;
  * Created by ford.arnett on 11/20/15.
  */
 public class AssertionLogger extends Assertion {
+    private String testNumber;
     private List<String> assertionMessages = new ArrayList<>();
     private String testType;
 
@@ -26,35 +29,45 @@ public class AssertionLogger extends Assertion {
     }
 
     @Override
-    public void onAssertSuccess(IAssert assertion){
+    public void onAssertSuccess(IAssert assertion) {
         int mostRecentIndex = assertionMessages.size() - 1;
         String message = assertionMessages.get(mostRecentIndex);
         message = "Passed " + message;
         assertionMessages.set(mostRecentIndex, message);
+
+        AutomationOperations.instance().reporter.logTest(LogStatus.PASS, message);
     }
 
     @Override
-    public void onAssertFailure(IAssert assertion, AssertionError ex){
+    public void onAssertFailure(IAssert assertion, AssertionError ex) {
         int mostRecentIndex = assertionMessages.size() - 1;
         String message = assertionMessages.get(mostRecentIndex);
         message = "Failed " + message + errorMessage(assertion);
         assertionMessages.set(mostRecentIndex, message);
+
+        AutomationOperations.instance().reporter.logTest(LogStatus.FAIL, message);
     }
 
     /**
      * Set a message to print after the test has run about what the point of the test was
+     *
      * @param s
      */
-    public void setTestType(String s){
+    public void setTestType(String s) {
         testType = s;
     }
 
-    private String test(){
+    public void setTestType(String testNumber, String testType) {
+        this.testNumber = testNumber;
+        this.testType = testType;
+    }
+
+    private String test() {
         String type;
-        if(testType == null)
+        if (testType == null)
             type = "";
         else
-          type = testType;
+            type = testType;
 
         //reset testtype in case it is not set again before next test.
         testType = "";
@@ -64,25 +77,24 @@ public class AssertionLogger extends Assertion {
 
     private String param1(IAssert assertion) {
         //don't want to show null, empty, or true/false because these are almost always single param cases. May need to review if this causes unwanted behavior
-        if(assertion.getActual() == null || assertion.getActual().toString().equals("") || assertion.getActual().toString().equals("true") || assertion.getActual().toString().equals("false"))
+        if (assertion.getActual() == null || assertion.getActual().toString().equals("") || assertion.getActual().toString().equals("true") || assertion.getActual().toString().equals("false"))
             return "";
-        else{
+        else {
             return " Actual Value: " + assertion.getActual().toString();
         }
     }
 
-    private String param2(IAssert assertion){
+    private String param2(IAssert assertion) {
         //don't want to show "expected" on single param cases
-        if(assertion.getExpected() == null || assertion.getExpected().toString().equals("") || assertion.getExpected().toString().equals("true") || assertion.getExpected().toString().equals("false"))
+        if (assertion.getExpected() == null || assertion.getExpected().toString().equals("") || assertion.getExpected().toString().equals("true") || assertion.getExpected().toString().equals("false"))
             return " ";
         return " Expected Value: " + assertion.getExpected().toString();
     }
 
-    private String errorMessage(IAssert assertion){
-        if(assertion.getMessage() == null || assertion.getMessage().equals("")){
+    private String errorMessage(IAssert assertion) {
+        if (assertion.getMessage() == null || assertion.getMessage().equals("")) {
             return "";
-        }
-        else {
+        } else {
             return ", Error message: " + assertion.getMessage();
         }
 
@@ -93,7 +105,7 @@ public class AssertionLogger extends Assertion {
     }
 
     public void logMessages() {
-        for(String s : assertionMessages){
+        for (String s : assertionMessages) {
             Logger.log(s);
         }
     }
