@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 public class AppiumMain{
     protected WebDriverWrapper driverWrapper;
     private String suiteName;
+    protected AutomationOperations ops = AutomationOperations.instance();
 
     /**
      * This seems to run after the other setup
