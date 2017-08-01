@@ -13,5 +13,14 @@ public abstract class UserOperations implements AutomationOperationsListener {
     public void init(WebDriverWrapper driverWrapper) {
         this.driverWrapper = driverWrapper;
     }
+
+    public void takeScreenshot(String fileName) {
+        //A lot of these screenshots take really quickly, so allow some time
+        driverWrapper.takeScreenshotSuppressError(fileName + "_" + System.currentTimeMillis());
+    }
+
+    public void waitLogErr(int millis) {
+        driverWrapper.waitLogErr(millis);
+    }
     
 }

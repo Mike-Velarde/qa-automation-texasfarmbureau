@@ -1,16 +1,19 @@
 package appium;
 
+import bash.FlickVideoRunner;
 import com.bottlerocket.config.AutomationConfigProperties;
+import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.utils.Logger;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import com.relevantcodes.extentreports.LogStatus;
+import domod.User;
 import operations.AutomationOperations;
-import org.apache.commons.io.FileUtils;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 
@@ -18,9 +21,10 @@ import java.lang.reflect.Method;
  * Created by ford.arnett on 10/2/15.
  */
 public class AppiumMain{
-    protected WebDriverWrapper driverWrapper;
+    private WebDriverWrapper driverWrapper;
     private String suiteName;
     protected AutomationOperations ops = AutomationOperations.instance();
+    private FlickVideoRunner runner;
 
     /**
      * This seems to run after the other setup
@@ -31,7 +35,7 @@ public class AppiumMain{
         suiteName = ctx.getCurrentXmlTest().getSuite().getName();
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setupEvery(Method method) {
         AutomationOperations.instance().reporter.startTest(method.getName());
     }
@@ -40,6 +44,15 @@ public class AppiumMain{
     @BeforeClass
     public void setUpMain() throws Exception {
         driverWrapper = AutomationOperations.initializeAutomationSystem();
+
+        if(AutomationConfigProperties.screenRecord) {
+            runner = new FlickVideoRunner(new File(AutomationConfigProperties.reportOutputDirectory));
+            try {
+                runner.startVideo();
+            } catch (IOException e) {
+                ErrorHandler.printErr("error occurred when attempting to start video. ", e);
+            }
+        }
 
     }
 
@@ -56,8 +69,6 @@ public class AppiumMain{
             }
         } else if (testResult.getStatus() == ITestResult.SKIP) {
             AutomationOperations.instance().reporter.logTest(LogStatus.SKIP, "Test skipped " + testResult.getThrowable());
-        } else {
-            AutomationOperations.instance().reporter.logTest(LogStatus.PASS, "Test passed");
         }
 
         AutomationOperations.instance().reporter.endTest();
@@ -74,18 +85,25 @@ public class AppiumMain{
 
         AutomationOperations.instance().reporter.write();
 
-        // I tried adding this functionality through changing the output directory in custom reporters
-        // but I could never get all of the reports to go to the new folder. This may not be the best solution but it works for now
-        if (!AutomationConfigProperties.useGradleValues && AutomationConfigProperties.reporter.equalsIgnoreCase("default")) {
-            FileUtils.copyDirectory(new File("test-output"), new File(AutomationConfigProperties.reportOutputDirectory));
-        }
-
-        if (driverWrapper.notNull())
+        if (driverWrapper.notNull()) {
+            Logger.log("Shutting down driver wrapper.");
             driverWrapper.quit();
+        }
+        if(AutomationOperations.instance().appiumService != null && AutomationOperations.instance().appiumService.isRunning()) {
+            AutomationOperations.instance().appiumService.stop();
+        }
     }
 
     @AfterSuite
     public void tearDownFinal() {
+        if(AutomationConfigProperties.screenRecord) {
+            try {
+                runner.stopVideo();
+            } catch (IOException e) {
+                ErrorHandler.printErr("error occured when attempted to stop video ", e);
+            }
+        }
+
         AutomationOperations.instance().reporter.close();
     }
 
