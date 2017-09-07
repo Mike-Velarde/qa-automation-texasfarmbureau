@@ -1,6 +1,6 @@
 package appium;
 
-import bash.FlickVideoRunner;
+import com.bottlerocket.bash.FlickVideoRunner;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.utils.Logger;
