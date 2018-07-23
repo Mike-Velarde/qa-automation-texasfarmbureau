@@ -124,6 +124,7 @@ static def getDate() {
 
 dependencies {
     compile group: 'com.bottlerocketstudios.automation', name: 'Automation_Library', version: '1.0-SNAPSHOT'
+    compile group: 'com.bottlerocketstudios.automation', name: 'Automation_Library', version: '1.0-SNAPSHOT-sources'
     compile group: 'io.appium', name: 'java-client', version:'4.1.2'
     //This isn't necessary since it comes included in Intellij, but unfortunately every time you synchronize the build.gradle you must tell it to add to the classpath again and it gets annoying
     compile group: 'org.testng', name: 'testng', version:'6.8.8'
