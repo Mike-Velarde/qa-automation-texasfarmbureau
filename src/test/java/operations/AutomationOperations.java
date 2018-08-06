@@ -7,9 +7,9 @@ import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.reporters.AutomationReporter;
 import com.bottlerocket.reporters.ExtentReporter;
 import com.bottlerocket.utils.Logger;
+import com.bottlerocket.webdriverwrapper.AppiumDriverWrapperAndroid;
+import com.bottlerocket.webdriverwrapper.AppiumDriverWrapperIos;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapperAndroid;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapperIos;
 import config.AndroidAutomationComponents;
 import config.DeviceAutomationComponents;
 import config.IosAutomationComponents;
@@ -69,9 +69,9 @@ public class AutomationOperations {
 
         Logger.log("Appium URL is " + serverAddress);
         if (AutomationConfigurations.isAndroid()) {
-            driverWrapper = new WebDriverWrapperAndroid(serverAddress, capabilities, AutomationConfigProperties.globalWait);
+            driverWrapper = new AppiumDriverWrapperAndroid(serverAddress, capabilities, AutomationConfigProperties.globalWait);
         } else if (AutomationConfigurations.isIos()) {
-            driverWrapper = new WebDriverWrapperIos(serverAddress, capabilities, AutomationConfigProperties.globalWait);
+            driverWrapper = new AppiumDriverWrapperIos(serverAddress, capabilities, AutomationConfigProperties.globalWait);
         } else {
             throw new Error("Operating system not recognized, check config files");
         }

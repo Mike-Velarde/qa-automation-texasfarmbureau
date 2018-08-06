@@ -1,10 +1,11 @@
-package utilites;
-
-import domod.PhoneNumber;
+package utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+* Utilities to generate information for user data. 
+*/
 public class UserUtilities {
     public static final String UK_AREA_CODE = "201";
 

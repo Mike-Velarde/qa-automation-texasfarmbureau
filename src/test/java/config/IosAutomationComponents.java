@@ -6,6 +6,7 @@ import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.config.AutomationConfigurationsIos;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.utils.InputUtilsIos;
+import com.bottlerocket.webdriverwrapper.AppiumDriverWrapper;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import operations.UserOperations;
 import operations.navops.NavigationOperations;
@@ -34,7 +35,7 @@ public class IosAutomationComponents implements DeviceAutomationComponents {
     }
 
     @Override
-    public InputUtils createInputUtils(WebDriverWrapper driverWrapper) {
+    public InputUtils createInputUtils(AppiumDriverWrapper driverWrapper) {
         return new InputUtilsIos(driverWrapper);
     }
 

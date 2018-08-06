@@ -6,6 +6,7 @@ import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.config.AutomationConfigurationsAndroid;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.utils.InputUtilsAndroid;
+import com.bottlerocket.webdriverwrapper.AppiumDriverWrapper;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import operations.UserOperations;
 import operations.UserOperationsAndroid;
@@ -34,7 +35,7 @@ public class AndroidAutomationComponents implements DeviceAutomationComponents {
     }
 
     @Override
-    public InputUtils createInputUtils(WebDriverWrapper driverWrapper) {
+    public InputUtils createInputUtils(AppiumDriverWrapper driverWrapper) {
         return new InputUtilsAndroid(driverWrapper);
     }
 

@@ -95,7 +95,7 @@ public class AppiumMain{
     }
 
     @AfterSuite
-    public void tearDownFinal() {
+    public void tearDownFinal() throws InterruptedException {
         if(AutomationConfigProperties.screenRecord) {
             try {
                 runner.stopVideo();

@@ -3,6 +3,7 @@ package config;
 import automationtests.assertions.AssertionLibrary;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.utils.InputUtils;
+import com.bottlerocket.webdriverwrapper.AppiumDriverWrapper;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import operations.UserOperations;
 import operations.navops.NavigationOperations;
@@ -19,7 +20,7 @@ public interface DeviceAutomationComponents {
 
     ResourceLocator initResourceLocator();
 
-    InputUtils createInputUtils(WebDriverWrapper driverWrapper);
+    InputUtils createInputUtils(AppiumDriverWrapper driverWrapper);
 
     AssertionLibrary getAssertions();
 }
