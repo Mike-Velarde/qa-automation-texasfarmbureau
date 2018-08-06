@@ -10,7 +10,6 @@ targetCompatibility = 1.8
 
 def getArtifactoryIdentityField(field, index) {
     //Default to global setting
-    printf(field)
     if (project.hasProperty(field)) {
         return project.ext[field]
     }
