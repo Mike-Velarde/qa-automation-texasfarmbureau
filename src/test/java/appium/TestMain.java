@@ -6,7 +6,6 @@ import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.utils.Logger;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import com.relevantcodes.extentreports.LogStatus;
-import domod.User;
 import operations.AutomationOperations;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -20,7 +19,7 @@ import java.lang.reflect.Method;
 /**
  * Created by ford.arnett on 10/2/15.
  */
-public class AppiumMain{
+public class TestMain {
     private WebDriverWrapper driverWrapper;
     private String suiteName;
     protected AutomationOperations ops = AutomationOperations.instance();

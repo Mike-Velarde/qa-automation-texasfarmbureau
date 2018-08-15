@@ -3,13 +3,13 @@ package automationtests.testingautomationtests;
  * Created by ford.arnett on 4/1/16.
  */
 
-import appium.AppiumMain;
+import appium.TestMain;
 import automationtests.assertions.AssertionPayload;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
-public class QuickTest extends AppiumMain {
+public class QuickTest extends TestMain {
 
     @BeforeClass
     public void setup() {

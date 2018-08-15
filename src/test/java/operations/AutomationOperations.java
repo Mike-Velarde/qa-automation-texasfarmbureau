@@ -10,9 +10,11 @@ import com.bottlerocket.utils.Logger;
 import com.bottlerocket.webdriverwrapper.AppiumDriverWrapperAndroid;
 import com.bottlerocket.webdriverwrapper.AppiumDriverWrapperIos;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperGeneric;
 import config.AndroidAutomationComponents;
 import config.DeviceAutomationComponents;
 import config.IosAutomationComponents;
+import config.WebAutomationComponents;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import operations.navops.NavigationOperations;
@@ -72,9 +74,12 @@ public class AutomationOperations {
             driverWrapper = new AppiumDriverWrapperAndroid(serverAddress, capabilities, AutomationConfigProperties.globalWait);
         } else if (AutomationConfigurations.isIos()) {
             driverWrapper = new AppiumDriverWrapperIos(serverAddress, capabilities, AutomationConfigProperties.globalWait);
+        } else if(AutomationConfigurations.isWeb()) {
+            driverWrapper = new WebDriverWrapperGeneric(capabilities, AutomationConfigProperties.globalWait, AutomationConfigProperties.browserName);
         } else {
             throw new Error("Operating system not recognized, check config files");
         }
+
         setupLast(driverWrapper);
         return driverWrapper;
     }
@@ -130,9 +135,14 @@ public class AutomationOperations {
         //Set iOS or Android here
         if (AutomationConfigurations.isAndroid()) {
             device = new AndroidAutomationComponents();
-        } else {
+        } else if(AutomationConfigurations.isIos()){
             device = new IosAutomationComponents();
+        } else if(AutomationConfigurations.isWeb()) {
+            device = new WebAutomationComponents();
+        } else {
+            throw new Exception("Platform not recognized");
         }
+
         AutomationOperations.instance().initOperations(device);
         AutomationOperations.instance().config.loadConfigVariables();
         //Set configurations
