@@ -4,8 +4,8 @@ package automationtests.assertions;
  * Created by ford.arnett on 8/30/18
  */
 public enum AssertionCategories {
-    Home("Home"),
-    Offers("Offers");
+    CategoryOne("CatOne"),
+    CategoryTwo("CatTwo");
 
 
     private String category;

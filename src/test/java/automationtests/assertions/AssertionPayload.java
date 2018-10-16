@@ -17,6 +17,8 @@ public class AssertionPayload {
     public String screenShotFailFilename = "";
     public boolean takeScreenshotSuccess = false;
     public String screenShotSuccessFilename = "";
+    AssertionCategories category;
+    String testDescription;
 
     public AssertionPayload(boolean assertSuccessful, String successMessage, String failureMessage) {
         this.assertSuccessful = assertSuccessful;
@@ -45,5 +47,42 @@ public class AssertionPayload {
         this.screenShotFailFilename = screenShotFailFilename;
         this.screenShotSuccessFilename = screenShotSuccessFilename;
         this.takeScreenshotSuccess = true;
+    }
+
+    public AssertionPayload(boolean assertSuccessful, String successMessage, String failureMessage, String screenShotSuccessFilename, String screenShotFailFilename, AssertionCategories category, String testDescription) {
+        this.assertSuccessful = assertSuccessful;
+        this.successMessage = successMessage;
+        this.failureMessage = failureMessage;
+        this.screenShotFailFilename = screenShotFailFilename;
+        this.screenShotSuccessFilename = screenShotSuccessFilename;
+        this.category = category;
+        this.testDescription = testDescription;
+        this.takeScreenshotSuccess = true;
+    }
+
+    public AssertionPayload setScreenShotSuccessFilename(String screenShotSuccessFilename) {
+        this.screenShotSuccessFilename = screenShotSuccessFilename;
+        return this;
+    }
+
+    public AssertionPayload setScreenShotFailFilename(String screenShotFailFilename) {
+        this.screenShotFailFilename = screenShotFailFilename;
+        return this;
+    }
+
+    public AssertionPayload setTakeScreenshotSuccess(boolean takeScreenshotSuccess) {
+        this.takeScreenshotSuccess = takeScreenshotSuccess;
+        return this;
+    }
+
+    public AssertionPayload setTakeScreenshotFailure(boolean takeScreenshotFailure) {
+        this.takeScreenshotFailure = takeScreenshotFailure;
+        return this;
+    }
+
+    public AssertionPayload setTestDescription(AssertionCategories category, String testDescription) {
+        this.category = category;
+        this.testDescription = testDescription;
+        return this;
     }
 }

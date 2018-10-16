@@ -1,7 +1,9 @@
 package automationtests.assertions;
 
+import com.bottlerocket.errorhandling.AssertionLibraryException;
 import com.relevantcodes.extentreports.LogStatus;
 import operations.AutomationOperations;
+import org.testng.Reporter;
 
 /**
  * Created by ford.arnett on 4/11/16.
@@ -9,6 +11,9 @@ import operations.AutomationOperations;
 public abstract class AssertionLibrary {
 
     public void generalAssertion(AssertionPayload payload) {
+        if(payload.category != null) {
+            AutomationOperations.instance().reporter.addToTestCoverageList(payload.category.toString(), payload.testDescription);
+        }
         if(payload.assertSuccessful) {
             AutomationOperations.instance().reporter.logTest(LogStatus.PASS, payload.successMessage);
             if(payload.takeScreenshotSuccess) {
@@ -16,6 +21,11 @@ public abstract class AssertionLibrary {
                 AutomationOperations.instance().userOp.takeScreenshot(screenshotName);
             }
         } else {
+            //Let testNG know we have a fail during this test.
+            AssertionLibraryException assertionLibraryException = new AssertionLibraryException("One or more tests in this group has failed");
+            assertionLibraryException.setStackTrace(new StackTraceElement[0]);
+            Reporter.getCurrentTestResult().setThrowable(assertionLibraryException);
+
             AutomationOperations.instance().reporter.logTest(LogStatus.FAIL, new Throwable(payload.failureMessage));
             if(payload.takeScreenshotFailure) {
                 String screenshotName = !payload.screenShotFailFilename.equals("") ? payload.screenShotFailFilename : "assertion_failed_" +  + System.currentTimeMillis();

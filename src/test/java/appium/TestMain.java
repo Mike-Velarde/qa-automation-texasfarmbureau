@@ -56,7 +56,7 @@ public class TestMain {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void takeScreenShotOnFailure(ITestResult testResult) {
+    public void afterTest(ITestResult testResult) {
         if (testResult.getStatus() == ITestResult.FAILURE) {
             AutomationOperations.instance().reporter.logTest(LogStatus.FAIL, testResult.getThrowable());
             Logger.log(testResult.getMethod().getMethodName());
@@ -66,8 +66,12 @@ public class TestMain {
             } catch (Exception ex) {
                 Logger.log("Error occurred when taking screenshot. Attempted to save screenshot to " + AutomationConfigProperties.screenshotsDirectory + fileName);
             }
+            Logger.log("Failed test " + testResult.getName());
         } else if (testResult.getStatus() == ITestResult.SKIP) {
             AutomationOperations.instance().reporter.logTest(LogStatus.SKIP, "Test skipped " + testResult.getThrowable());
+            Logger.log("Skipped test " + testResult.getName());
+        } else {
+            Logger.log("Passed test " + testResult.getName());
         }
 
         AutomationOperations.instance().reporter.endTest();
@@ -76,12 +80,13 @@ public class TestMain {
 
     /** Run after each suite **/
     @AfterClass(alwaysRun = true)
-    public void tearDownMain(ITestContext ctx) throws Exception{
+    public void tearDownMain(ITestContext ctx) {
         //If driverWrapper is never initialized Appium most likely never started so we don't want to keep records
         if(driverWrapper == null) {
             return;
         }
 
+        AutomationOperations.instance().reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
         AutomationOperations.instance().reporter.write();
 
         if (driverWrapper.notNull()) {
