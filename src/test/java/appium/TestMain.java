@@ -68,7 +68,11 @@ public class TestMain {
             }
             Logger.log("Failed test " + testResult.getName());
         } else if (testResult.getStatus() == ITestResult.SKIP) {
-            AutomationOperations.instance().reporter.logTest(LogStatus.SKIP, "Test skipped " + testResult.getThrowable());
+            String throwable = testResult.getThrowable() == null ? "" : testResult.getThrowable().getMessage();
+            if(AutomationOperations.instance().reporter.getTest() == null) {
+                AutomationOperations.instance().reporter.startTest(testResult.getInstanceName());
+            }
+            AutomationOperations.instance().reporter.logTest(LogStatus.SKIP, "Skipped test " + testResult.getMethod().getMethodName() + " " + throwable);
             Logger.log("Skipped test " + testResult.getName());
         } else {
             Logger.log("Passed test " + testResult.getName());
