@@ -68,10 +68,17 @@ public class TestMain {
             }
             Logger.log("Failed test " + testResult.getName());
         } else if (testResult.getStatus() == ITestResult.SKIP) {
-            String throwable = testResult.getThrowable() == null ? "" : testResult.getThrowable().getMessage();
             if(AutomationOperations.instance().reporter.getTest() == null) {
                 AutomationOperations.instance().reporter.startTest(testResult.getInstanceName());
             }
+            String fileName = "test_skipped" + testResult.getMethod().getMethodName() + "_" + System.currentTimeMillis();
+            try {
+                driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, fileName);
+            } catch (Exception ex) {
+                Logger.log("Error occurred when taking screenshot. Attempted to save screenshot to " + AutomationConfigProperties.screenshotsDirectory + fileName);
+            }
+
+            String throwable = testResult.getThrowable() == null ? "" : testResult.getThrowable().getMessage();
             AutomationOperations.instance().reporter.logTest(LogStatus.SKIP, "Skipped test " + testResult.getMethod().getMethodName() + " " + throwable);
             Logger.log("Skipped test " + testResult.getName());
         } else {
