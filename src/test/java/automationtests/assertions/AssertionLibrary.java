@@ -17,7 +17,7 @@ public abstract class AssertionLibrary {
         if(payload.assertSuccessful) {
             AutomationOperations.instance().reporter.logTest(LogStatus.PASS, payload.successMessage);
             if(payload.takeScreenshotSuccess) {
-                String screenshotName = !payload.screenShotSuccessFilename.equals("") ? payload.screenShotSuccessFilename : "assertion_failed_" + System.currentTimeMillis();
+                String screenshotName = !payload.screenShotSuccessFilename.equals("") ? payload.screenShotSuccessFilename : "assertion_success_" + System.currentTimeMillis();
                 AutomationOperations.instance().userOp.takeScreenshot(screenshotName);
             }
         } else {

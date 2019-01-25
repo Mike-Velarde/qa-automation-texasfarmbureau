@@ -1,4 +1,4 @@
-package appium;
+package testmain;
 
 import com.bottlerocket.bash.FlickVideoRunner;
 import com.bottlerocket.config.AutomationConfigProperties;

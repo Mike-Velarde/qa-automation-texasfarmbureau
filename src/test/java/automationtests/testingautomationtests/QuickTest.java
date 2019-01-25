@@ -3,7 +3,7 @@ package automationtests.testingautomationtests;
  * Created by ford.arnett on 4/1/16.
  */
 
-import appium.TestMain;
+import testmain.TestMain;
 import automationtests.assertions.AssertionPayload;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
