@@ -187,7 +187,7 @@ public class AutomationOperations {
     }
 
     private void setSystemInfo(AutomationReporter reporter) {
-        reporter.addSystemInfo("Project Name", AutomationConfigProperties.PROJECT_NAME);
+        reporter.addSystemInfo("Project Name", AutomationConfigProperties.projectName);
         reporter.addSystemInfo("Device Name", AutomationConfigProperties.deviceName);
         reporter.addSystemInfo("Udid", AutomationConfigProperties.udid);
         reporter.addSystemInfo("Device Version", AutomationConfigProperties.platformVersion);
