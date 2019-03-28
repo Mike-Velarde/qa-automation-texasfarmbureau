@@ -15,7 +15,7 @@ public class AssertionPayload {
     public String successMessage;
     public boolean takeScreenshotFailure = true;
     public String screenShotFailFilename = "";
-    public boolean takeScreenshotSuccess = false;
+    public boolean takeScreenshotSuccess = true;
     public String screenShotSuccessFilename = "";
     AssertionCategories category;
     String testDescription;
