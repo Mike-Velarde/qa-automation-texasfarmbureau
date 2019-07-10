@@ -1,11 +1,11 @@
 package testmain;
 
+import com.aventstack.extentreports.Status;
 import com.bottlerocket.bash.FlickVideoRunner;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.utils.Logger;
 import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
-import com.relevantcodes.extentreports.LogStatus;
 import operations.AutomationOperations;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -58,7 +58,7 @@ public class TestMain {
     @AfterMethod(alwaysRun = true)
     public void afterTest(ITestResult testResult) {
         if (testResult.getStatus() == ITestResult.FAILURE) {
-            AutomationOperations.instance().reporter.logTest(LogStatus.FAIL, testResult.getThrowable());
+            AutomationOperations.instance().reporter.logTest(Status.FAIL, testResult.getThrowable());
             Logger.log(testResult.getMethod().getMethodName());
             String fileName = "failure_" + testResult.getMethod().getMethodName() + "_" + System.currentTimeMillis();
             try {
@@ -79,7 +79,7 @@ public class TestMain {
             }
 
             String throwable = testResult.getThrowable() == null ? "" : testResult.getThrowable().getMessage();
-            AutomationOperations.instance().reporter.logTest(LogStatus.SKIP, "Skipped test " + testResult.getMethod().getMethodName() + " " + throwable);
+            AutomationOperations.instance().reporter.logTest(Status.SKIP, "Skipped test " + testResult.getMethod().getMethodName() + " " + throwable);
             Logger.log("Skipped test " + testResult.getName());
         } else {
             Logger.log("Passed test " + testResult.getName());
