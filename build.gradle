@@ -5,8 +5,8 @@ def testRoot = "src/test/automationtests"
 group = 'bottlerocketstuidos.automation'
 version = '0.0.1-SNAPSHOT'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 def getArtifactoryIdentityField(field, index) {
     //Default to global setting
