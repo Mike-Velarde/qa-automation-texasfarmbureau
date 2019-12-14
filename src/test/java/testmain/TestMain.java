@@ -9,7 +9,10 @@ import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import operations.AutomationOperations;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,24 +30,24 @@ public class TestMain {
 
     /**
      * This seems to run after the other setup
-     * @param ctx
+     *
+     * @param ctx the test context
      */
     @BeforeClass
-    public void setUpMain(ITestContext ctx){
+    public void setUpMain(ITestContext ctx) {
         suiteName = ctx.getCurrentXmlTest().getSuite().getName();
     }
 
     @BeforeMethod(alwaysRun = true)
     public void setupEvery(Method method) {
-        AutomationOperations.instance().reporter.startTest(method.getName());
+        ops.reporter.startTest(method.getName());
     }
 
     /** Run before each class **/
     @BeforeClass
     public void setUpMain() throws Exception {
         driverWrapper = AutomationOperations.initializeAutomationSystem();
-
-        if(AutomationConfigProperties.screenRecord) {
+        if (AutomationConfigProperties.screenRecord) {
             runner = new FlickVideoRunner(new File(AutomationConfigProperties.reportOutputDirectory));
             try {
                 runner.startVideo();
@@ -52,74 +55,73 @@ public class TestMain {
                 ErrorHandler.printErr("error occurred when attempting to start video. ", e);
             }
         }
-
     }
 
     @AfterMethod(alwaysRun = true)
     public void afterTest(ITestResult testResult) {
         if (testResult.getStatus() == ITestResult.FAILURE) {
-            AutomationOperations.instance().reporter.logTest(Status.FAIL, testResult.getThrowable());
             Logger.log(testResult.getMethod().getMethodName());
             String fileName = "failure_" + testResult.getMethod().getMethodName() + "_" + System.currentTimeMillis();
             try {
-                driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, fileName);
+                ops.userOp.takeScreenshot(fileName);
             } catch (Exception ex) {
                 Logger.log("Error occurred when taking screenshot. Attempted to save screenshot to " + AutomationConfigProperties.screenshotsDirectory + fileName);
             }
+            try {
+                ops.reporter.logTest(Status.FAIL, testResult.getThrowable(), fileName);
+            } catch (IOException ex) {
+                ErrorHandler.printErr("Error attaching screenshot to report", ex);
+            }
             Logger.log("Failed test " + testResult.getName());
         } else if (testResult.getStatus() == ITestResult.SKIP) {
-            if(AutomationOperations.instance().reporter.getTest() == null) {
-                AutomationOperations.instance().reporter.startTest(testResult.getInstanceName());
+            //I'm not sure if this still happens. Do we still have cases where test is null on skip?
+            if(ops.reporter.getTest() == null) {
+                ops.reporter.startTest(testResult.getName());
             }
-            String fileName = "test_skipped" + testResult.getMethod().getMethodName() + "_" + System.currentTimeMillis();
+
+            String fileName = "test_skipped_" + testResult.getMethod().getMethodName() + "_" + System.currentTimeMillis();
             try {
-                driverWrapper.takeScreenshot(AutomationConfigProperties.screenshotsDirectory, fileName);
+                ops.userOp.takeScreenshot(fileName);
+
             } catch (Exception ex) {
                 Logger.log("Error occurred when taking screenshot. Attempted to save screenshot to " + AutomationConfigProperties.screenshotsDirectory + fileName);
             }
 
             String throwable = testResult.getThrowable() == null ? "" : testResult.getThrowable().getMessage();
-            AutomationOperations.instance().reporter.logTest(Status.SKIP, "Skipped test " + testResult.getMethod().getMethodName() + " " + throwable);
+            ops.reporter.logTest(Status.SKIP, "Skipped test " + testResult.getMethod().getMethodName() + " " + throwable);
             Logger.log("Skipped test " + testResult.getName());
+            ops.reporter.getTest().skip("Test Skipped " + testResult.getName());
         } else {
             Logger.log("Passed test " + testResult.getName());
+            ops.reporter.getTest().pass("Test Passed " + testResult.getName());
         }
 
-        AutomationOperations.instance().reporter.endTest();
-
-    }
-
-    /** Run after each suite **/
-    @AfterClass(alwaysRun = true)
-    public void tearDownMain(ITestContext ctx) {
         //If driverWrapper is never initialized Appium most likely never started so we don't want to keep records
-        if(driverWrapper == null) {
+        if (driverWrapper == null) {
             return;
         }
 
-        AutomationOperations.instance().reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
-        AutomationOperations.instance().reporter.write();
+        ops.reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
+        ops.reporter.write();
 
         if (driverWrapper.notNull()) {
             Logger.log("Shutting down driver wrapper.");
             driverWrapper.quit();
         }
-        if(AutomationOperations.instance().appiumService != null && AutomationOperations.instance().appiumService.isRunning()) {
-            AutomationOperations.instance().appiumService.stop();
+        if (ops.appiumService != null && ops.appiumService.isRunning()) {
+            ops.appiumService.stop();
         }
     }
 
     @AfterSuite
     public void tearDownFinal() throws InterruptedException {
-        if(AutomationConfigProperties.screenRecord) {
+        if (AutomationConfigProperties.screenRecord) {
             try {
                 runner.stopVideo();
             } catch (IOException e) {
-                ErrorHandler.printErr("error occured when attempted to stop video ", e);
+                ErrorHandler.printErr("error occurred when attempted to stop video ", e);
             }
         }
-
-        AutomationOperations.instance().reporter.close();
+        ops.reporter.close();
     }
-
 }
