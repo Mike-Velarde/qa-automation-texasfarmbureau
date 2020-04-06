@@ -3,6 +3,7 @@ package automationtests.assertions;
 import com.aventstack.extentreports.Status;
 import com.bottlerocket.errorhandling.AssertionLibraryException;
 import operations.AutomationOperations;
+import org.testng.ITestResult;
 import org.testng.Reporter;
 
 /**
@@ -25,6 +26,7 @@ public abstract class AssertionLibrary {
             AssertionLibraryException assertionLibraryException = new AssertionLibraryException("One or more tests in this group has failed");
             assertionLibraryException.setStackTrace(new StackTraceElement[0]);
             Reporter.getCurrentTestResult().setThrowable(assertionLibraryException);
+            Reporter.getCurrentTestResult().setStatus(ITestResult.FAILURE);
 
             AutomationOperations.instance().reporter.logTest(Status.FAIL, new Throwable(payload.failureMessage));
             if(payload.takeScreenshotFailure) {
