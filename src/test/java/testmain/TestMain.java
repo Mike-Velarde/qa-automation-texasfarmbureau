@@ -9,10 +9,7 @@ import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import operations.AutomationOperations;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -103,7 +100,11 @@ public class TestMain {
 
         ops.reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
         ops.reporter.write();
+    }
 
+
+    @AfterClass
+    public void after() {
         if (driverWrapper.notNull()) {
             Logger.log("Shutting down driver wrapper.");
             driverWrapper.quit();
