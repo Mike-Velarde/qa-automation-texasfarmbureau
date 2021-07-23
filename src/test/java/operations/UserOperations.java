@@ -1,16 +1,16 @@
 package operations;
 
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.driverwrapper.DriverWrapper;
 
 /**
  *
  * Created by ford.arnett on 9/3/15.
  */
 public abstract class UserOperations implements AutomationOperationsListener {
-    WebDriverWrapper driverWrapper;
+    DriverWrapper driverWrapper;
 
     @Override
-    public void init(WebDriverWrapper driverWrapper) {
+    public void init(DriverWrapper driverWrapper) {
         this.driverWrapper = driverWrapper;
     }
 

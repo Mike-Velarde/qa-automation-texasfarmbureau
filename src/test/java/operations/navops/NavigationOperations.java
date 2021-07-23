@@ -1,7 +1,7 @@
 package operations.navops;
 
 
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.driverwrapper.DriverWrapper;
 import operations.AutomationOperationsListener;
 
 
@@ -11,12 +11,12 @@ import operations.AutomationOperationsListener;
  * Created by ford.arnett on 9/3/15.
  */
 public abstract class NavigationOperations implements AutomationOperationsListener {
-    WebDriverWrapper driverWrapper;
+    DriverWrapper driverWrapper;
 
     //NavOps classes here
 
     @Override
-    public void init(WebDriverWrapper driverWrapper) {
+    public void init(DriverWrapper driverWrapper) {
         this.driverWrapper = driverWrapper;
 
         //init nav classes here

@@ -1,47 +1,29 @@
-apply plugin: 'java'
+plugins {
+    // id "org.gradle.test-retry" version "1.1.5"
+    id "java"
+    // id "io.qameta.allure" version "2.8.1"
+}
 
 def testRoot = "src/test/automationtests"
 
 group = 'bottlerocketstuidos.automation'
 version = '0.0.1-SNAPSHOT'
 
-sourceCompatibility = 11
-targetCompatibility = 11
-
-def getArtifactoryIdentityField(field, index) {
-    //Default to global setting
-    if (project.hasProperty(field)) {
-        return project.ext[field]
-    }
-
-    //Use environment secure credential variable on Jenkins
-    def split_values = project.ext.artifactory_credentials.split(':')
-    if (split_values.size() > index && split_values[index] != null) {
-        return split_values[index]
-    }
-    logger.log(LogLevel.WARN, "Could not find artifactory identity field " + field)
-    return ''
-}
-
-def getArtifactoryUser() {
-    return getArtifactoryIdentityField('artifactory.username', 0)
-}
-
-def getArtifactoryPassword() {
-    return getArtifactoryIdentityField('artifactory.password', 1)
-}
+sourceCompatibility = 15
+targetCompatibility = 15
 
 repositories {
-    mavenCentral()
 
+    mavenCentral()
+    mavenCentral()
     maven {
-        url "https://artifacts.bottlerocketservices.com/repository/qa"
-        credentials {
-            username getArtifactoryUser()
-            password getArtifactoryPassword()
-        }
+        url "file://Volumes/Builds/qa/automation/maven-repository/snapshots"
+    }
+    maven {
+        url "file://Volumes/Builds/qa/automation/maven-repository/releases"
     }
 }
+
 
 ext{
     projectName = "DEFINE_PROJECT_NAME_HERE"
@@ -122,8 +104,14 @@ static def getDate() {
 
 
 dependencies {
-    compile group: 'com.bottlerocketstudios.automation', name: 'Automation_Library', version: '2.0-SNAPSHOT'
-    compile group: 'com.bottlerocketstudios.automation', name: 'Automation_Library', version: '2.0-SNAPSHOT-sources'
+    //active development framework
+    compile group: 'com.bottlerocket.automation', name: 'automation_library', version: '2.2.1-SNAPSHOT'
+    compile group: 'com.bottlerocket.automation', name: 'automation_library', version: '2.2.1-SNAPSHOT-sources'
+
+    //stable release framework
+    //compile group: 'com.bottlerocket.automation', name: 'automation_library', version: '2.2-RELEASE'
+    //compile group: 'com.bottlerocket.automation', name: 'automation_library', version: '2.2-RELEASE-sources'
+
     compile group: 'io.appium', name: 'java-client', version:'6.1.0'
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.14.0'
     //This isn't necessary since it comes included in Intellij, but unfortunately every time you synchronize the build.gradle you must tell it to add to the classpath again and it gets annoying

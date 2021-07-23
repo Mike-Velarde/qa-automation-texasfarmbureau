@@ -4,13 +4,13 @@ package operations;
 import automationtests.assertions.AssertionLibrary;
 import com.bottlerocket.config.AutomationConfigProperties;
 import com.bottlerocket.config.AutomationConfigurations;
+import com.bottlerocket.driverwrapper.AppiumDriverWrapperAndroid;
+import com.bottlerocket.driverwrapper.AppiumDriverWrapperIos;
+import com.bottlerocket.driverwrapper.DriverWrapper;
+import com.bottlerocket.driverwrapper.WebDriverWrapperGeneric;
 import com.bottlerocket.reporters.AutomationReporter;
 import com.bottlerocket.reporters.ExtentReporter;
 import com.bottlerocket.utils.Logger;
-import com.bottlerocket.webdriverwrapper.AppiumDriverWrapperAndroid;
-import com.bottlerocket.webdriverwrapper.AppiumDriverWrapperIos;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapperGeneric;
 import config.AndroidAutomationComponents;
 import config.DeviceAutomationComponents;
 import config.IosAutomationComponents;
@@ -58,8 +58,8 @@ public class AutomationOperations {
      * @return the newly created WebDriverWrapper
      * @throws Exception if an error occurred
      */
-    public static WebDriverWrapper initializeAutomationSystem() throws Exception {
-        WebDriverWrapper driverWrapper;
+    public static DriverWrapper initializeAutomationSystem() throws Exception {
+        DriverWrapper driverWrapper;
         DesiredCapabilities capabilities = setupFirst();
 
         URL serverAddress;
@@ -154,7 +154,7 @@ public class AutomationOperations {
      *
      * @param driverWrapper
      */
-    private static void setupLast(WebDriverWrapper driverWrapper) {
+    private static void setupLast(DriverWrapper driverWrapper) {
         AutomationOperations automationOperations = AutomationOperations.instance();
         automationOperations.userOp.init(driverWrapper);
         automationOperations.navOp.init(driverWrapper);
@@ -175,7 +175,7 @@ public class AutomationOperations {
      *
      * @param driverWrapper
      */
-    private void selectReporter(WebDriverWrapper driverWrapper) {
+    private void selectReporter(DriverWrapper driverWrapper) {
         String fileName = AutomationConfigProperties.reportOutputDirectory + "/report";
         AutomationOperations.instance().reporter = new ExtentReporter(fileName);
         Logger.log("Reports are being logged with the Extent reporter at " + fileName + ".html");

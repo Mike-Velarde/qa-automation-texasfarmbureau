@@ -5,7 +5,7 @@ import automationtests.assertions.AssertionLibraryWeb;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.config.AutomationConfigurationsWeb;
 import com.bottlerocket.utils.InputUtils;
-import com.bottlerocket.webdriverwrapper.AppiumDriverWrapper;
+import com.bottlerocket.driverwrapper.AppiumDriverWrapper;
 import operations.UserOperations;
 import operations.UserOperationsWeb;
 import operations.navops.NavigationOperations;

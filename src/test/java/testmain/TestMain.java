@@ -1,11 +1,11 @@
 package testmain;
 
 import com.aventstack.extentreports.Status;
-import com.bottlerocket.bash.FlickVideoRunner;
 import com.bottlerocket.config.AutomationConfigProperties;
+import com.bottlerocket.driverwrapper.DriverWrapper;
 import com.bottlerocket.utils.ErrorHandler;
 import com.bottlerocket.utils.Logger;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import config.TestDataManager;
 import operations.AutomationOperations;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
@@ -20,10 +20,10 @@ import java.lang.reflect.Method;
  * Created by ford.arnett on 10/2/15.
  */
 public class TestMain {
-    private WebDriverWrapper driverWrapper;
+    private DriverWrapper driverWrapper;
     private String suiteName;
     protected AutomationOperations ops = AutomationOperations.instance();
-    private FlickVideoRunner runner;
+    TestDataManager testDataManager;
 
     /**
      * This seems to run after the other setup
@@ -40,22 +40,18 @@ public class TestMain {
         ops.reporter.startTest(method.getName());
     }
 
-    /** Run before each class **/
+    /**
+     * Run before each class
+     **/
     @BeforeClass
     public void setUpMain() throws Exception {
+        testDataManager = new TestDataManager(TestDataManager.DEV_ENV, TestDataManager.US_LOCALE);
         driverWrapper = AutomationOperations.initializeAutomationSystem();
-        if (AutomationConfigProperties.screenRecord) {
-            runner = new FlickVideoRunner(new File(AutomationConfigProperties.reportOutputDirectory));
-            try {
-                runner.startVideo();
-            } catch (IOException e) {
-                ErrorHandler.printErr("error occurred when attempting to start video. ", e);
-            }
-        }
     }
 
+
     @AfterMethod(alwaysRun = true)
-    public void afterTest(ITestResult testResult) {
+    public void afterTest(ITestResult testResult) throws IOException {
         if (testResult.getStatus() == ITestResult.FAILURE) {
             Logger.log(testResult.getMethod().getMethodName());
             String fileName = "failure_" + testResult.getMethod().getMethodName() + "_" + System.currentTimeMillis();
@@ -96,12 +92,15 @@ public class TestMain {
         //If driverWrapper is never initialized Appium most likely never started so we don't want to keep records
         if (driverWrapper == null) {
             return;
+        } else {
+            if (AutomationConfigProperties.screenRecord) {
+                driverWrapper.stopScreenRecording(testResult.getMethod().getMethodName());
+            }
         }
 
         ops.reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
         ops.reporter.write();
     }
-
 
     @AfterClass
     public void after() {
@@ -115,14 +114,7 @@ public class TestMain {
     }
 
     @AfterSuite
-    public void tearDownFinal() throws InterruptedException {
-        if (AutomationConfigProperties.screenRecord) {
-            try {
-                runner.stopVideo();
-            } catch (IOException e) {
-                ErrorHandler.printErr("error occurred when attempted to stop video ", e);
-            }
-        }
+    public void tearDownFinal(){
         ops.reporter.close();
     }
 }

@@ -3,8 +3,8 @@ package config;
 import automationtests.assertions.AssertionLibrary;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.utils.InputUtils;
-import com.bottlerocket.webdriverwrapper.AppiumDriverWrapper;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.driverwrapper.AppiumDriverWrapper;
+import com.bottlerocket.driverwrapper.DriverWrapper;
 import operations.UserOperations;
 import operations.navops.NavigationOperations;
 

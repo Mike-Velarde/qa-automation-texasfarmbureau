@@ -1,11 +1,11 @@
 package operations;
 
 
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
+import com.bottlerocket.driverwrapper.DriverWrapper;
 
 /**
  * Created by ford.arnett on 9/10/15.
  */
 public interface AutomationOperationsListener {
-    void init(WebDriverWrapper driverWrapper);
+    void init(DriverWrapper driverWrapper);
 }
