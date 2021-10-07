@@ -13,6 +13,8 @@ import org.testng.ITestResult;
 import org.testng.annotations.*;
 import retryutils.RetryAnalyzer;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 
 
@@ -63,7 +65,7 @@ public class TestMain {
     }
 
     @AfterMethod(alwaysRun = true)
-    public void afterTest(ITestResult testResult) {
+    public void afterTest(ITestResult testResult) throws IOException {
         IRetryAnalyzer retryAnalyzer = testResult.getMethod().getRetryAnalyzer(testResult);
         int retryCount = ((RetryAnalyzer) retryAnalyzer).getRetryCount();
 
@@ -81,19 +83,19 @@ public class TestMain {
 
         //If driverWrapper is never initialized Appium most likely never started so we don't want to keep records
         if (am.driverWrapper == null) {
+            Logger.log("something really went wrong, the driverWrapper is not set");
             return;
-            khj
         } else {
             if (AutomationConfigProperties.screenRecord) {
-                driverWrapper.stopScreenRecording(testResult.getMethod().getMethodName());
+                am.driverWrapper.stopScreenRecording(testResult.getMethod().getMethodName());
             }
         }
 
         String screenshotName = "After Method_" + System.currentTimeMillis();
         am.userOp.takeScreenshot(screenshotName);
 
-        ops.reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
-        ops.reporter.write();
+        am.reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
+        am.reporter.write();
 
     }
 
