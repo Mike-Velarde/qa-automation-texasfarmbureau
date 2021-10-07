@@ -52,7 +52,9 @@ public class TestMain {
         }
     }
 
-    /** Run before each class **/
+    /**
+     * Run before each class
+     **/
     @BeforeClass
     public void setUpMain() throws Exception {
         testDataManager = new TestDataManager(TestDataManager.CLIENT_ENV, TestDataManager.LOCALE_US);
@@ -77,8 +79,21 @@ public class TestMain {
             am.reporter.getTest().pass(testResult.getMethod().getMethodName());
         }
 
+        //If driverWrapper is never initialized Appium most likely never started so we don't want to keep records
+        if (am.driverWrapper == null) {
+            return;
+            khj
+        } else {
+            if (AutomationConfigProperties.screenRecord) {
+                driverWrapper.stopScreenRecording(testResult.getMethod().getMethodName());
+            }
+        }
+
         String screenshotName = "After Method_" + System.currentTimeMillis();
         am.userOp.takeScreenshot(screenshotName);
+
+        ops.reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
+        ops.reporter.write();
 
     }
 

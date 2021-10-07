@@ -30,6 +30,7 @@ public abstract class AssertionLibrary {
             AssertionLibraryException assertionLibraryException = new AssertionLibraryException("One or more tests in this group has failed");
             assertionLibraryException.setStackTrace(new StackTraceElement[0]);
             Reporter.getCurrentTestResult().setThrowable(assertionLibraryException);
+            Reporter.getCurrentTestResult().setStatus(ITestResult.FAILURE);
 
             testManager.reporter.logTest(Status.FAIL, new Throwable(payload.failureMessage));
             if(payload.takeScreenshotFailure) {
