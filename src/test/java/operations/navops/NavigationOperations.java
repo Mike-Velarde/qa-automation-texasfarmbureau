@@ -1,8 +1,8 @@
 package operations.navops;
 
 
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
-import operations.AutomationOperationsListener;
+import automationtestinstance.AutomationTestManager;
+import operations.TestInitializerListener;
 
 
 /**
@@ -10,14 +10,14 @@ import operations.AutomationOperationsListener;
  *
  * Created by ford.arnett on 9/3/15.
  */
-public abstract class NavigationOperations implements AutomationOperationsListener {
-    WebDriverWrapper driverWrapper;
+public abstract class NavigationOperations implements TestInitializerListener {
+    AutomationTestManager am;
 
     //NavOps classes here
 
     @Override
-    public void init(WebDriverWrapper driverWrapper) {
-        this.driverWrapper = driverWrapper;
+    public void init(AutomationTestManager am) {
+        this.am = am;
 
         //init nav classes here
 

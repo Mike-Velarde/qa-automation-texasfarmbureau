@@ -4,8 +4,8 @@ import automationtests.assertions.AssertionLibrary;
 import automationtests.assertions.AssertionLibraryWeb;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.config.AutomationConfigurationsWeb;
+import com.bottlerocket.driverwrapper.DriverWrapper;
 import com.bottlerocket.utils.InputUtils;
-import com.bottlerocket.webdriverwrapper.AppiumDriverWrapper;
 import operations.UserOperations;
 import operations.UserOperationsWeb;
 import operations.navops.NavigationOperations;
@@ -36,7 +36,7 @@ public class WebAutomationComponents implements DeviceAutomationComponents {
     }
 
     @Override
-    public InputUtils createInputUtils(AppiumDriverWrapper driverWrapper) {
+    public InputUtils createInputUtils(DriverWrapper driverWrapper) {
         return null;
     }
 

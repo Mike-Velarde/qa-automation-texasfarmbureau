@@ -4,10 +4,10 @@ import automationtests.assertions.AssertionLibrary;
 import automationtests.assertions.AssertionLibraryAndroid;
 import com.bottlerocket.config.AutomationConfigurations;
 import com.bottlerocket.config.AutomationConfigurationsAndroid;
+import com.bottlerocket.driverwrapper.AppiumDriverWrapper;
+import com.bottlerocket.driverwrapper.DriverWrapper;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.utils.InputUtilsAndroid;
-import com.bottlerocket.webdriverwrapper.AppiumDriverWrapper;
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 import operations.UserOperations;
 import operations.UserOperationsAndroid;
 import operations.navops.NavigationOperations;
@@ -35,8 +35,8 @@ public class AndroidAutomationComponents implements DeviceAutomationComponents {
     }
 
     @Override
-    public InputUtils createInputUtils(AppiumDriverWrapper driverWrapper) {
-        return new InputUtilsAndroid(driverWrapper);
+    public InputUtils createInputUtils(DriverWrapper driverWrapper) {
+        return new InputUtilsAndroid((AppiumDriverWrapper) driverWrapper);
     }
 
     @Override

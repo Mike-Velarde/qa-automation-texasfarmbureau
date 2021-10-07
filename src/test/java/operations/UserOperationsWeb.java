@@ -1,6 +1,5 @@
 package operations;
 
-import com.bottlerocket.webdriverwrapper.WebDriverWrapper;
 
 /**
  *

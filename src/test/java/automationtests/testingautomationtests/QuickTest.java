@@ -1,6 +1,6 @@
 package automationtests.testingautomationtests;
-/**
- * Created by ford.arnett on 4/1/16.
+/*
+  Created by ford.arnett on 4/1/16.
  */
 
 import testmain.TestMain;
@@ -28,16 +28,16 @@ public class QuickTest extends TestMain {
 
     @Test
     public void quickTestAssertionsFail(){
-        ops.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
-        ops.assertions.generalAssertion(new AssertionPayload(false, "", "This is a test using the frameworks general assertions to verify behavior, testing fail"));
-        ops.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
+        am.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
+        am.assertions.generalAssertion(new AssertionPayload(false, "", "This is a test using the frameworks general assertions to verify behavior, testing fail"));
+        am.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
     }
 
     @Test
     public void quickTestAssertionsPass(){
-        ops.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
-        ops.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
-        ops.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
+        am.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
+        am.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
+        am.assertions.generalAssertion(new AssertionPayload(true, "This is a test using the frameworks general assertions to verify behavior.", ""));
 
 
     }
@@ -49,6 +49,6 @@ public class QuickTest extends TestMain {
 
 
     @AfterClass
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 }
