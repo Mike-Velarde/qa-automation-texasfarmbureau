@@ -2,10 +2,8 @@ package config;
 
 import automationtests.assertions.AssertionLibrary;
 import automationtests.assertions.AssertionLibraryIos;
-import com.bottlerocket.config.AutomationConfigurations;
-import com.bottlerocket.config.AutomationConfigurationsIos;
-import com.bottlerocket.driverwrapper.AppiumDriverWrapper;
-import com.bottlerocket.driverwrapper.DriverWrapper;
+import com.bottlerocket.config.*;
+import com.bottlerocket.webdriverwrapper.*;
 import com.bottlerocket.utils.InputUtils;
 import com.bottlerocket.utils.InputUtilsIos;
 import operations.UserOperations;
@@ -20,11 +18,6 @@ import operations.UserOperationsIos;
  */
 public class IosAutomationComponents implements DeviceAutomationComponents {
     @Override
-    public AutomationConfigurations getAutomationConfigurations() {
-        return new AutomationConfigurationsIos();
-    }
-
-    @Override
     public NavigationOperations getNavigationOperations() {
         return new NavigationOperationsIos();
     }
@@ -35,13 +28,15 @@ public class IosAutomationComponents implements DeviceAutomationComponents {
     }
 
     @Override
-    public InputUtils createInputUtils(DriverWrapper driverWrapper) {
-        return new InputUtilsIos((AppiumDriverWrapper) driverWrapper);
+    public InputUtils createInputUtils(AppiumDriverWrapper driverWrapper) {
+        return new InputUtilsIos(driverWrapper);
     }
 
     @Override
-    public ResourceLocator initResourceLocator() {
-        return ResourceLocator.device = new ResourceLocatorIos();
+    public void initResourceLocator() {
+        ResourceLocator.device = new ResourceLocatorIos();
+        ResourceLocatorBundle.runtimePlatform = "ios";
+        return;
     }
 
     @Override

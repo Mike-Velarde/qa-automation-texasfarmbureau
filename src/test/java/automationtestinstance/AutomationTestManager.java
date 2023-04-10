@@ -5,7 +5,7 @@ package automationtestinstance;
 
 import automationtests.assertions.*;
 import com.bottlerocket.config.*;
-import com.bottlerocket.driverwrapper.DriverWrapper;
+import com.bottlerocket.webdriverwrapper.*;
 import com.bottlerocket.reporters.*;
 import config.*;
 import io.appium.java_client.service.local.*;
@@ -17,11 +17,11 @@ public class AutomationTestManager {
 
     public UserOperations userOp;
     public NavigationOperations navOp;
-    public AutomationConfigurations config;
+    public AutomationConfigProperties config;
     public AssertionLibrary assertions;
     public AutomationReporter reporter;
     public AppiumDriverLocalService appiumService;
-    public DriverWrapper driverWrapper;
+    public WebDriverWrapper driverWrapper;
 
 
     /**

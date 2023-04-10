@@ -5,11 +5,12 @@ package automationtestinstance;
  */
 
 import com.bottlerocket.config.*;
-import com.bottlerocket.driverwrapper.AppiumDriverWrapperAndroid;
-import com.bottlerocket.driverwrapper.AppiumDriverWrapperIos;
-import com.bottlerocket.driverwrapper.WebDriverWrapperGeneric;
+import com.bottlerocket.webdriverwrapper.AppiumDriverWrapperAndroid;
+import com.bottlerocket.webdriverwrapper.AppiumDriverWrapperIos;
+import com.bottlerocket.webdriverwrapper.WebDriverWrapperGeneric;
 import com.bottlerocket.reporters.*;
 import com.bottlerocket.utils.*;
+import com.bottlerocket.webdriverwrapper.uiElementLocator.*;
 import config.*;
 import io.appium.java_client.service.local.*;
 import org.apache.commons.lang3.*;
@@ -27,7 +28,7 @@ import java.util.*;
  */
 public class AutomationTestInitializer {
     public DeviceAutomationComponents deviceAutomationComponents;
-    AutomationTestManager am;
+    private AutomationConfigProperties config;
 
     /**
      * Starts up all components of the automation system and gets them ready for use. This must be done before any of the system objects are to be used.
@@ -36,22 +37,24 @@ public class AutomationTestInitializer {
      * @return the newly created WebDriverWrapper
      * @throws Exception if an error occurred
      */
-    public AutomationTestManager initializeAutomationSystem(TestDataManager testDataManager) throws Exception{
-//        DeviceAutomationComponents device;
-        AutomationConfigurations.loadConfig();
-
-
+    public AutomationTestManager initializeAutomationSystem() throws Exception{
         AutomationTestManager am = new AutomationTestManager();
-        DesiredCapabilities capabilities = setupFirst(am);
+        AutomationConfigPropertiesLoader loader = new AutomationConfigPropertiesLoader();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        config = am.config = loader.loadAutomationConfigurations(capabilities);
+
+
+        setupFirst(am);
+        UIElementLocator.setTestPlatformForCurrentTestRun(config.platformName);
         //Example to set a capability based on parameters used to start the test
         //testDataManager.setEnvCapabilities(capabilities, testDataManager.getCurrentEnvType(), testDataManager.getCurrentLocale());
 
-        if (AutomationConfigurations.isAndroid()) {
-            initializeAndroidSystem(am, capabilities);
-        } else if (AutomationConfigurations.isIos()) {
-            initializeIosSystem(am, capabilities);
-        } else if (AutomationConfigurations.isWeb()) {
-            initializeSeleniumSystem(am, capabilities);
+        if (config.isAndroid()) {
+            initializeAndroidSystem(am);
+        } else if (config.isIos()) {
+            initializeIosSystem(am);
+        } else if (config.isWeb()) {
+            initializeSeleniumSystem(am);
         } else {
             throw new Error("Operating system not recognized, check config files");
         }
@@ -62,36 +65,36 @@ public class AutomationTestInitializer {
         return am;
     }
 
-    private AutomationTestManager initializeAndroidSystem(AutomationTestManager testManager, DesiredCapabilities capabilities) throws Exception {
+    private void initializeAndroidSystem(AutomationTestManager am) throws Exception {
         URL serverAddress;
-        if (AutomationConfigProperties.customAppiumInstance) {
+        if (config.customAppiumInstance) {
             serverAddress = createAppiumSession();
-        } else {
-            serverAddress = new URL(AutomationConfigProperties.appiumURL);
+        } else if (config.remote) {
+            serverAddress = new URL(config.seleniumRemoteDriverHub);
+        }
+        else {
+            serverAddress = new URL(config.appiumURL);
         }
 
-        testManager.driverWrapper = new AppiumDriverWrapperAndroid(serverAddress, capabilities, AutomationConfigProperties.globalWait);
-
-        return testManager;
-
+        am.driverWrapper = new AppiumDriverWrapperAndroid(serverAddress, config, config.globalWait);
     }
 
-    private void initializeIosSystem(AutomationTestManager am, DesiredCapabilities capabilities) throws Exception{
+    private void initializeIosSystem(AutomationTestManager am) throws Exception{
         URL serverAddress;
-        if (AutomationConfigProperties.customAppiumInstance) {
+        if (config.customAppiumInstance) {
             serverAddress = createAppiumSession();
-        } else {
-            serverAddress = new URL(AutomationConfigProperties.appiumURL);
+        } else if (config.remote) {
+            serverAddress = new URL(config.seleniumRemoteDriverHub);
+        }
+        else {
+            serverAddress = new URL(config.appiumURL);
         }
 
-        am.driverWrapper = new AppiumDriverWrapperIos(serverAddress, capabilities, AutomationConfigProperties.globalWait);
+        am.driverWrapper = new AppiumDriverWrapperIos(serverAddress, am.config, config.globalWait);
     }
 
-    private AutomationTestManager initializeSeleniumSystem(AutomationTestManager am, DesiredCapabilities capabilities) throws Exception {
-        am.driverWrapper = new WebDriverWrapperGeneric(capabilities, AutomationConfigProperties.globalWait, AutomationConfigProperties.browserName);
-
-
-        return am;
+    private void initializeSeleniumSystem(AutomationTestManager am) throws Exception {
+        am.driverWrapper = new WebDriverWrapperGeneric(am.config, am.config.globalWait, am.config.browserName);
     }
 
     public AutomationTestManager initializeAPITestingSuite() {
@@ -99,19 +102,19 @@ public class AutomationTestInitializer {
     }
 
     private URL createAppiumSession() {
-        File logPathDir = new File(AutomationConfigProperties.reportOutputDirectory);
+        File logPathDir = new File(config.reportOutputDirectory);
         //noinspection ResultOfMethodCallIgnored
         logPathDir.mkdirs();
         File logPathFile = new File(logPathDir + "/appium_out.txt");
         Logger.log("Appium logs file " + logPathFile.getAbsolutePath());
 
         AppiumServiceBuilder builder = new AppiumServiceBuilder().usingAnyFreePort().withLogFile(logPathFile);
-        am.appiumService = AppiumDriverLocalService.buildService(builder);
-        am.appiumService.start();
+        AppiumDriverLocalService appiumService = AppiumDriverLocalService.buildService(builder);
+        appiumService.start();
 
-        silenceAppiumConsoleLogging();
+        silenceAppiumConsoleLogging(appiumService);
 
-        return am.appiumService.getUrl();
+        return appiumService.getUrl();
     }
 
     /**
@@ -119,7 +122,7 @@ public class AutomationTestInitializer {
      * I would love to get rid of this entire method once the default behavior changes.
      * https://github.com/appium/java-client/pull/483
      */
-    private void silenceAppiumConsoleLogging() {
+    private void silenceAppiumConsoleLogging(AppiumDriverLocalService appiumService) {
         Field streamField = null;
         Field streamsField = null;
         try {
@@ -132,7 +135,7 @@ public class AutomationTestInitializer {
             e.printStackTrace();
         }
         try {
-            ((ArrayList<OutputStream>) streamsField.get(streamField.get(am.appiumService))).clear(); // remove System.out logging
+            ((ArrayList<OutputStream>) streamsField.get(streamField.get(appiumService))).clear(); // remove System.out logging
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -142,27 +145,27 @@ public class AutomationTestInitializer {
      * Setup methods that must be run first before other setup methods can take place.
      *
      */
-    private DesiredCapabilities setupFirst(AutomationTestManager testManager) throws Exception {
+    private void setupFirst(AutomationTestManager testManager) throws Exception {
         DeviceAutomationComponents device;
         //Set iOS or Android here
-        if (AutomationConfigurations.isAndroid()) {
+        if (testManager.config.isAndroid()) {
             device = new AndroidAutomationComponents();
-        } else if (AutomationConfigurations.isIos()) {
+        } else if (testManager.config.isIos()) {
             device = new IosAutomationComponents();
+        } else if (testManager.config.isWeb()) {
+            device = new WebAutomationComponents();
         } else {
             throw new Exception("Platform not recognized");
         }
         //Set configurations
         setComponentsInManager(device, testManager);
-        testManager.config.loadConfigVariables();
-
-        return testManager.config.setCapabilities();
+//        testManager.config.loadConfigVariables();
+        return;
     }
 
     public void setComponentsInManager(DeviceAutomationComponents deviceAutomationComponents, AutomationTestManager automationTestManager) {
         this.deviceAutomationComponents = deviceAutomationComponents;
         deviceAutomationComponents.initResourceLocator();
-        automationTestManager.config = deviceAutomationComponents.getAutomationConfigurations();
         automationTestManager.navOp = deviceAutomationComponents.getNavigationOperations();
         automationTestManager.userOp = deviceAutomationComponents.getUserOperations();
         automationTestManager.assertions = deviceAutomationComponents.getAssertions();
@@ -174,26 +177,33 @@ public class AutomationTestInitializer {
      * @param automationTestManager The test manager to set the reporter of
      */
     private void selectReporter(AutomationTestManager automationTestManager) {
-        String fileName = AutomationConfigProperties.reportOutputDirectory + "/report";
+        String fileName = "";
         if (automationTestManager.reporter == null) {
+            if(automationTestManager.config.remote == true){
+//            if(automationTestManager.config.reportOutputDirectory.contains("null")) {
+//                fileName = System.getProperty("user.dir") + "/extent_reports/" + automationTestManager.config.reportOutputDirectory.substring(4)  + "/report";
+                fileName = System.getProperty("user.dir") + "/extent_reports/index";
+            } else {
+                fileName = automationTestManager.config.reportOutputDirectory + "/report";
+            }
             automationTestManager.reporter = new ExtentReporter(fileName);
         }
         Logger.log("Reports are being logged with the Extent reporter at " + fileName + ".html");
 
         automationTestManager.reporter.initializeReporter(false);
         automationTestManager.driverWrapper.setAutomationReporter(automationTestManager.reporter);
-        setSystemInfo(automationTestManager.reporter);
+        setSystemInfo(automationTestManager.reporter, automationTestManager.config);
     }
 
 
-    private static void setSystemInfo(AutomationReporter reporter) {
+    private static void setSystemInfo(AutomationReporter reporter, AutomationConfigProperties config) {
         if (reporter.getTest() == null) {
-            reporter.addSystemInfo("Project Name", AutomationConfigProperties.projectName);
-            reporter.addSystemInfo("Device Name", AutomationConfigProperties.deviceName);
-            reporter.addSystemInfo("Udid", AutomationConfigProperties.udid);
-            reporter.addSystemInfo("Device Version", AutomationConfigProperties.platformVersion);
-            reporter.addSystemInfo("Build Number", AutomationConfigProperties.buildNumber);
-            reporter.addSystemInfo("Global Wait", String.valueOf(AutomationConfigProperties.globalWait));
+            reporter.addSystemInfo("Project Name", config.projectName);
+            reporter.addSystemInfo("Device Name", config.deviceName);
+            reporter.addSystemInfo("Udid", config.udid);
+            reporter.addSystemInfo("Device Version", config.platformVersion);
+            reporter.addSystemInfo("Build Number", config.buildNumber);
+            reporter.addSystemInfo("Global Wait", String.valueOf(config.globalWait));
         }
     }
 

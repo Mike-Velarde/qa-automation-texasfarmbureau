@@ -2,10 +2,9 @@ package config;
 
 import automationtests.assertions.AssertionLibrary;
 import automationtests.assertions.AssertionLibraryWeb;
-import com.bottlerocket.config.AutomationConfigurations;
-import com.bottlerocket.config.AutomationConfigurationsWeb;
-import com.bottlerocket.driverwrapper.DriverWrapper;
+import com.bottlerocket.config.*;
 import com.bottlerocket.utils.InputUtils;
+import com.bottlerocket.webdriverwrapper.*;
 import operations.UserOperations;
 import operations.UserOperationsWeb;
 import operations.navops.NavigationOperations;
@@ -15,10 +14,6 @@ import operations.navops.NavigationOperationsWeb;
  * Created by ford.arnett on 8/10/18
  */
 public class WebAutomationComponents implements DeviceAutomationComponents {
-    @Override
-    public AutomationConfigurations getAutomationConfigurations() {
-        return new AutomationConfigurationsWeb();
-    }
 
     @Override
     public NavigationOperations getNavigationOperations() {
@@ -31,12 +26,13 @@ public class WebAutomationComponents implements DeviceAutomationComponents {
     }
 
     @Override
-    public ResourceLocator initResourceLocator() {
-        return ResourceLocator.device = new ResourceLocatorWeb();
+    public void initResourceLocator() {
+        ResourceLocatorBundle.runtimePlatform = "web";
+        ResourceLocator.device = new ResourceLocatorWeb();
     }
 
     @Override
-    public InputUtils createInputUtils(DriverWrapper driverWrapper) {
+    public InputUtils createInputUtils(AppiumDriverWrapper driverWrapper) {
         return null;
     }
 

@@ -3,8 +3,10 @@ package testmain;
 import automationtestinstance.AutomationTestInitializer;
 import automationtestinstance.AutomationTestManager;
 import com.aventstack.extentreports.Status;
+import com.bottlerocket.bash.*;
 import com.bottlerocket.config.AutomationConfigProperties;
-import com.bottlerocket.utils.Logger;
+import com.bottlerocket.remote.*;
+import com.bottlerocket.utils.*;
 import config.TestDataManager;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestContext;
@@ -16,6 +18,9 @@ import retryutils.RetryAnalyzer;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 
 /**
@@ -26,6 +31,8 @@ public class TestMain {
     String suiteName;
     //Note: Store run data in TDM that you can pass to your tests(Users, search params, orders, etc.). This makes it easy to manage, switch with params, and manage state.
     protected TestDataManager testDataManager;
+
+    private FlickVideoRunner flickVideoRunner;
 
 
     @BeforeSuite(alwaysRun = true)
@@ -43,14 +50,28 @@ public class TestMain {
      */
     @BeforeClass
     public void setUpMain(ITestContext ctx) {
+
         suiteName = ctx.getCurrentXmlTest().getSuite().getName();
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void setupEvery(Method method) {
-        am.reporter.startTest(method.getName());
-        if (AutomationConfigProperties.screenRecord) {
-            am.driverWrapper.startScreenRecording();
+    public void setupEvery(Method method, Object[] testData) {
+        try {
+            AutomationTestInitializer initializer = new AutomationTestInitializer();
+            am = initializer.initializeAutomationSystem();
+
+            //sets test name to include data-provider data if available
+            startTest(method, testData);
+            //adds any Groups and Description to top of report if available
+            updateReportedGroupsAndDescription(method);
+            SauceExecutor sauceExecutor = new SauceExecutor(am.config.remote);
+            sauceExecutor.setJobName(am.driverWrapper, method.getName());
+
+            Logger.log(method.getName() + " <-- Method Name***");
+        } catch (Exception e) {
+            String message = "***FAILED IN @BEFOREMethod*** in **TEST MAIN** Exception == " + e;
+            Logger.log(method.getName() + message + " - Exception e is: " + e);
+            Logger.log(method.getName() + message + " - Exception e is: " + e);
         }
     }
 
@@ -59,13 +80,10 @@ public class TestMain {
      **/
     @BeforeClass
     public void setUpMain() throws Exception {
-        testDataManager = new TestDataManager(TestDataManager.CLIENT_ENV, TestDataManager.LOCALE_US);
-        AutomationTestInitializer initializer = new AutomationTestInitializer();
-        am = initializer.initializeAutomationSystem(testDataManager);
     }
 
     @AfterMethod(alwaysRun = true)
-    public void afterTest(ITestResult testResult) throws IOException {
+    public void afterTest(ITestResult testResult) throws InterruptedException {
         IRetryAnalyzer retryAnalyzer = testResult.getMethod().getRetryAnalyzer(testResult);
         int retryCount = ((RetryAnalyzer) retryAnalyzer).getRetryCount();
 
@@ -86,8 +104,14 @@ public class TestMain {
             Logger.log("something really went wrong, the driverWrapper is not set");
             return;
         } else {
-            if (AutomationConfigProperties.screenRecord) {
-                am.driverWrapper.stopScreenRecording(testResult.getMethod().getMethodName());
+            if (am.config.screenRecord) {
+                try {
+                    flickVideoRunner.stopVideo(am.config);
+                }catch (IOException e) {
+                    ErrorHandler.printErr("error occurred when attempted to stop video ", e);
+                }
+//                am.driverWrapper.stopScreenRecording(testResult.getMethod().getMethodName());
+
             }
         }
 
@@ -96,6 +120,11 @@ public class TestMain {
 
         am.reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
         am.reporter.write();
+
+        if (am.driverWrapper.notNull()) {
+            Logger.log("Shutting down driver wrapper.");
+            am.driverWrapper.quit();
+        }
 
     }
 
@@ -113,5 +142,30 @@ public class TestMain {
     @AfterSuite
     public void tearDownFinal(){
         am.reporter.close();
+    }
+
+    //Gets all Groups and Description that belong to this method and add them to top of Extent Report
+    private void updateReportedGroupsAndDescription(Method method) {
+        String BOLD_TEXT = "<b>%s</b>";
+        String TEST_DESCRIPTION = "<b>DESCRIPTION: </b>";
+        String testDescription = method.getAnnotation((Test.class)).description();
+        List<String> groups = asList(method.getAnnotation((Test.class)).groups());
+        if(!groups.isEmpty()) {
+            for ( String group : groups ) {
+                am.reporter.addInfoToReport(String.format(BOLD_TEXT, group));
+            }
+        }
+        if(!testDescription.isEmpty()) {
+            am.reporter.addInfoToReport(TEST_DESCRIPTION + testDescription);
+        }
+    }
+
+    //starts test with name and dataprovider data if applicable
+    private void startTest(Method method, Object[] testData) {
+        if(testData.length > 0) {
+            am.reporter.startTest(method.getName() + "[" + testData[0] + "]");
+        } else {
+            am.reporter.startTest(method.getName());
+        }
     }
 }
