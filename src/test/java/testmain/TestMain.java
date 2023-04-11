@@ -75,52 +75,33 @@ public class TestMain {
         }
     }
 
-    /**
-     * Run before each class
-     **/
-    @BeforeClass
-    public void setUpMain() throws Exception {
-    }
-
     @AfterMethod(alwaysRun = true)
     public void afterTest(ITestResult testResult) throws InterruptedException {
-        IRetryAnalyzer retryAnalyzer = testResult.getMethod().getRetryAnalyzer(testResult);
+        SauceExecutor executor = new SauceExecutor(am.config.remote);
+        IRetryAnalyzer retryAnalyzer = testResult.getMethod().getRetryAnalyzer();
         int retryCount = ((RetryAnalyzer) retryAnalyzer).getRetryCount();
 
-        if (testResult.getStatus() == ITestResult.FAILURE || testResult.getStatus() == ITestResult.SKIP) {
-            if (retryCount < ((RetryAnalyzer) retryAnalyzer).getMaxRetryCount()) {
+        if(testResult.getStatus() != ITestResult.SUCCESS) {
+            if(retryCount < ((RetryAnalyzer) retryAnalyzer).getMaxRetryCount()) {
                 am.reporter.getTest().skip(testResult.getMethod().getMethodName());
                 am.reporter.logTest(Status.SKIP, testResult.getThrowable());
-            } else {
+            }
+            else {
+                executor.testFailed(am.driverWrapper);
                 am.reporter.getTest().fail(testResult.getMethod().getMethodName());
                 am.reporter.logTest(Status.FAIL, testResult.getThrowable());
             }
-        } else {
+        }
+        else {
             am.reporter.getTest().pass(testResult.getMethod().getMethodName());
+            executor.testPassed(am.driverWrapper);
         }
 
-        //If driverWrapper is never initialized Appium most likely never started so we don't want to keep records
-        if (am.driverWrapper == null) {
-            Logger.log("something really went wrong, the driverWrapper is not set");
-            return;
-        } else {
-            if (am.config.screenRecord) {
-                try {
-                    flickVideoRunner.stopVideo(am.config);
-                }catch (IOException e) {
-                    ErrorHandler.printErr("error occurred when attempted to stop video ", e);
-                }
-//                am.driverWrapper.stopScreenRecording(testResult.getMethod().getMethodName());
-
-            }
-        }
-
-        String screenshotName = "After Method_" + System.currentTimeMillis();
-        am.userOp.takeScreenshot(screenshotName);
-
-        am.reporter.writeTestCoverageList(new File("testCoverageListOut.txt"));
         am.reporter.write();
 
+        String screenshotName =  "After Method_" + System.currentTimeMillis();
+        am.userOp.takeScreenshot(screenshotName);
+
         if (am.driverWrapper.notNull()) {
             Logger.log("Shutting down driver wrapper.");
             am.driverWrapper.quit();
@@ -128,19 +109,27 @@ public class TestMain {
 
     }
 
-    @AfterClass
-    public void after() {
-        if (am.driverWrapper.notNull()) {
-            Logger.log("Shutting down driver wrapper.");
-            am.driverWrapper.quit();
-        }
-        if (am.appiumService != null && am.appiumService.isRunning()) {
-            am.appiumService.stop();
-        }
-    }
+//    @AfterClass
+//    public void after() {
+//        if (am.driverWrapper.notNull()) {
+//            Logger.log("Shutting down driver wrapper.");
+//            am.driverWrapper.quit();
+//        }
+//        if (am.appiumService != null && am.appiumService.isRunning()) {
+//            am.appiumService.stop();
+//        }
+//    }
 
     @AfterSuite
-    public void tearDownFinal(){
+    public void tearDownFinal() throws InterruptedException {
+        if (am.config.screenRecord) {
+            try {
+                flickVideoRunner.stopVideo(am.config);
+            } catch (IOException e) {
+                ErrorHandler.printErr("error occurred when attempted to stop video ", e);
+            }
+        }
+        am.reporter.writeTestCoverageList(new File("testCoverageOut/testCoverageListOut_" + System.currentTimeMillis() + ".txt"));
         am.reporter.close();
     }
 

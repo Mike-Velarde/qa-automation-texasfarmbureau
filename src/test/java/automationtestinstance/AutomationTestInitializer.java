@@ -45,7 +45,7 @@ public class AutomationTestInitializer {
 
 
         setupFirst(am);
-        UIElementLocator.setTestPlatformForCurrentTestRun(config.platformName);
+//        UIElementLocator.setTestPlatformForCurrentTestRun(config.platformName);
         //Example to set a capability based on parameters used to start the test
         //testDataManager.setEnvCapabilities(capabilities, testDataManager.getCurrentEnvType(), testDataManager.getCurrentLocale());
 
@@ -95,6 +95,7 @@ public class AutomationTestInitializer {
 
     private void initializeSeleniumSystem(AutomationTestManager am) throws Exception {
         am.driverWrapper = new WebDriverWrapperGeneric(am.config, am.config.globalWait, am.config.browserName);
+        UIElementLocator.setTestPlatformForCurrentTestRun(config.platformName);
     }
 
     public AutomationTestManager initializeAPITestingSuite() {

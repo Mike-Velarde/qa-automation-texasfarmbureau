@@ -20,13 +20,13 @@ public class UiTest extends TestMain {
     @Test()
     public void quickUiTest() throws MalformedURLException {
 
-        URL url = new URL("https://www.google.com/");
-//        By input_google_search = INPUT_TEXT_BOX_GOOGLE_SEARCH.getBy();
-//        By input_button_google_search = INPUT_BUTTON_GOOGLE_SEARCH.getLocator(LocatorStrategy.XPATH);
-//        By input_button_google_search_1 = INPUT_BUTTON_GOOGLE_SEARCH.getLocator("button");
-//
+        URL url = new URL(URL_GOOGLE);
+        By input_google_search = INPUT_TEXT_BOX_GOOGLE_SEARCH.getBy();
+        By input_button_google_search = INPUT_BUTTON_GOOGLE_SEARCH.getLocator(LocatorStrategy.XPATH);
+        By input_button_google_search_1 = INPUT_BUTTON_GOOGLE_SEARCH.getLocator("button");
+
         am.driverWrapper.navigateTo(url);
-//        am.driverWrapper.getElementBy(input_google_search, 5).sendKeys("what do people google?");
-//        am.driverWrapper.getElementBy(input_button_google_search, 5).click();
+        am.driverWrapper.getElementBy(input_google_search, 5).sendKeys("what do people google?");
+        am.driverWrapper.getElementBy(input_button_google_search, 5).click();
     }
 }

@@ -24,7 +24,7 @@ repositories {
 }
 
 ext{
-    projectName = "DEFINE_PROJECT_NAME_HERE"
+    projectName = "Texas Farm Bureau"
 }
 
 test {
